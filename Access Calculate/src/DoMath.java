@@ -9,6 +9,8 @@ public class DoMath {
 		System.out.println(Calculate.toDegrees(6.28));
 		System.out.println(Calculate.toRadians(90));
 		System.out.println(Calculate.toRadians(90));
-		
+		System.out.println(Calculate.discriminant(7, 2, -3));
+		System.out.println(Calculate.toImproperFrac(4,7,8));
+		System.out.println();
 	}
 }
