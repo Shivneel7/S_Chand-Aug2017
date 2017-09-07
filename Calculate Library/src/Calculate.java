@@ -38,7 +38,47 @@ public class Calculate {
 	}
 	//converts improper fraction to mixed number
 	public static String toMixedNum(int numerator, int denominator) {
-		return ();
+		int wholeNumbah = numerator/denominator;
+		int newNumerator = numerator%denominator;
+		return (wholeNumbah + "_" + newNumerator + "/" + denominator);
 	}
-	
+	//converts two binomials into a quadratic equation
+	public static String foil(int a, int b, int c, int d, String variable) {
+		int middleNumber = b*c + a* d;
+		return (a*c + variable + "^2 + " + middleNumber + variable + " + " + b*d);
+	}
+	// accepts two integers, and returns true if the first number is evenly divisible and false if there
+	//a remainder.
+	public static boolean isDivisibleBy(int numerator, int denominator) {
+		if(numerator % denominator == 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	//returns the absolute value of a number.
+	public static double absValue(double numbah) {
+		if(numbah < 0) {
+			return -1*numbah;
+		}else{
+			return numbah;
+		}
+	}
+	//takes two numbers and returns the largest value
+	public static double max(double numbah1, double numbah2) {
+		if(numbah1<numbah2) {
+			return numbah2;
+		}else {
+			return numbah1;
+		}
+	}
+	//takes three numbers, and returns the largest value
+	public static double max(double numbah1, double numbah2) {
+		if(numbah1<numbah2) {
+		
+		
+		}else if(numbah){
+				
+		}
+	}
 }
