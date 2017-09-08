@@ -73,12 +73,15 @@ public class Calculate {
 		}
 	}
 	//takes three numbers, and returns the largest value
-	public static double max(double numbah1, double numbah2) {
-		if(numbah1<numbah2) {
-		
-		
-		}else if(numbah){
-				
+	public static double max(double numbah1, double numbah2, double numbah3) {
+		if(numbah1>numbah2 && numbah1>numbah3) {
+			return numbah1;
+		}
+		if(numbah2>numbah1 && numbah2>3){
+			return numbah2;
+		}
+		if(numbah3>numbah1 && numbah3>numbah2) {
+			
 		}
 	}
 }
