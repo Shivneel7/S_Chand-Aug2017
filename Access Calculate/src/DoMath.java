@@ -14,5 +14,9 @@ public class DoMath {
 		System.out.println(Calculate.toMixedNum(39,8));
 		System.out.println(Calculate.foil(2,3,6,-7, "n"));
 		System.out.println(Calculate.isDivisibleBy(4,5));
+		System.out.println(Calculate.absValue(-7));
+		System.out.println(Calculate.max(2,-44, 1));
+		System.out.println(Calculate.min(-14,-12));
+		System.out.println(Calculate.round2(21234.7673));
 	}
 }

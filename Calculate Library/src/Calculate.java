@@ -79,9 +79,30 @@ public class Calculate {
 		}
 		if(numbah2>numbah1 && numbah2>3){
 			return numbah2;
-		}
-		if(numbah3>numbah1 && numbah3>numbah2) {
-			
+		}else {
+			return numbah3;
 		}
 	}
+	//takes two integers and returns the lower integer
+	public static int min(int numbah1, int numbah2) {
+		if(numbah1 < numbah2) {
+			return numbah1;
+		}else {
+			return numbah2;
+		}
+	}
+	//Takes a double and returns the double rounded correctly to two decimal places
+	public static double round2(double numbah) {
+		double roundedVal = 0;
+		int digits = 0;
+		while(numbah > 1) {
+			numbah /= 10;
+			digits++;
+		}
+		for(int i = 0; i < digits; i++) {
+			roundedVal = (int) numbah * 10 *i % 100;
+		}
+		return roundedVal;
+	}
+	
 }
