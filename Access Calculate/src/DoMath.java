@@ -17,7 +17,7 @@ public class DoMath {
 		System.out.println(Calculate.absValue(-7));
 		System.out.println(Calculate.max(11,7, 11));
 		System.out.println(Calculate.min(-14,-12));
-		System.out.println(Calculate.round2(1031.622343));
+		System.out.println(Calculate.round2(1031.6249343));
 		System.out.println(Calculate.exponent(3, 4));
 		System.out.println(Calculate.factorial(7));
 		System.out.println(Calculate.isPrime(9));
