@@ -1,6 +1,6 @@
 //Shivneel Chand
 //September 6th 2017
-//My self written math Library 
+//My self written math library 
 //It contains a series of methods to do basic math functions.
 public class Calculate {	
 	//square the input
@@ -93,9 +93,11 @@ public class Calculate {
 	}
 	//Takes a double and returns the double rounded correctly to two decimal places
 	public static double round2(double numbah) {
-		double digitsAfterDecimal = numbah%1;
-		double digitsBeforeDecimal =  (int)numbah;
-		return digitsAfterDecimal + digitsBeforeDecimal;
+		if(numbah *1000 % 10 <5) {
+			return ((numbah*1000) - ((numbah*1000) % 10))/1000;
+		}else {
+			return ((10 - ((numbah*1000) %10)) + (numbah*1000))/1000;
+		}
 	}
 	
 }
