@@ -76,8 +76,7 @@ public class Calculate {
 	public static double max(double numbah1, double numbah2, double numbah3) {
 		if(numbah1>numbah2 && numbah1>numbah3) {
 			return numbah1;
-		}
-		if(numbah2>numbah1 && numbah2>3){
+		}else if(numbah2>numbah1 && numbah2>numbah3){
 			return numbah2;
 		}else {
 			return numbah3;
@@ -96,7 +95,7 @@ public class Calculate {
 		if(numbah *1000 % 10 <5) {
 			return ((numbah*1000) - ((numbah*1000) % 10))/1000;
 		}else {
-			return ((10 - ((numbah*1000) %10)) + (numbah*1000))/1000;
+			return ((numbah*1000) - ((numbah*1000%10))+10)/1000;
 		}
 	}
 	//Takes one double and one positive integer, and raises the double to the power of 
@@ -134,9 +133,9 @@ public class Calculate {
 		}
 	}
 	//This method takes two integers and returns the greatest common factor.
-	public static int gcf(int numbah1, int numbah2) {
-		
-	}
+//	public static int gcf(int numbah1, int numbah2) {
+//		
+//	}
 	
 	
 	
