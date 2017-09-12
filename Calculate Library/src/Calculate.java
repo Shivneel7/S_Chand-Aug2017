@@ -99,5 +99,45 @@ public class Calculate {
 			return ((10 - ((numbah*1000) %10)) + (numbah*1000))/1000;
 		}
 	}
+	//Takes one double and one positive integer, and raises the double to the power of 
+	//the integer.
+	public static double exponent(double base, int exponent) {
+		double result = base;
+		for(int i = 1; i < exponent; i++) {
+			result *= base;
+		}
+		return result;
+	}
+	//Returns the factorial of the value passed
+	public static int factorial(int numbah) {
+		int result = 1;
+		for(int i = 1; i <= numbah; i++) {
+			result*= i;
+		}
+		return result;
+	}
+	//returns a true or false based on whether the number given is prime or not.
+	public static boolean isPrime(int numbah) {
+		//this variable is used to count how many factors "numbah" has in order to see
+		//if numbah is prime.
+		int test = 0;
+		for(int i = 2; i <= numbah; i++) {
+			boolean result = isDivisibleBy(numbah,i);
+			if(result == true) {
+				test++;
+			}
+		}
+		if(test>1) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	//This method takes two integers and returns the greatest common factor.
+	public static int gcf(int numbah1, int numbah2) {
+		
+	}
+	
+	
 	
 }
