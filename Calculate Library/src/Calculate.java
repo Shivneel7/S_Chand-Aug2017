@@ -118,33 +118,32 @@ public class Calculate {
 	}
 	//returns a true or false based on whether the number given is prime or not.
 	public static boolean isPrime(int numbah) {
-		//this variable is used to count how many factors "numbah" has in order to see
-		//if numbah is prime.
-		int test = 0;
+		int numOfFactors = 0;
 		for(int i = 2; i <= numbah; i++) {
 			boolean result = isDivisibleBy(numbah,i);
 			if(result == true) {
-				test++;
+				numOfFactors++;
 			}
 		}
-		if(test>1) {
+		if(numOfFactors>1) {
 			return false;
 		}else {
 			return true;
 		}
 	}
-	/*//This method takes two integers and returns the greatest common factor.
+	//This method takes two integers and returns the greatest common factor.
 	public static int gcf(int numbah1, int numbah2) {
-		for(int i = 1; i < numbah1; i++) {
-			if(isDivisibleBy(numbah1,i) == true) {
-				
-			}
-				
+		int factor;
+		for(factor = numbah1;! (isDivisibleBy(numbah1,factor)&&(isDivisibleBy(numbah2,factor))) ; factor--) {
 		}
+		return factor;
 	}
 	//This method returns an approximation of the square root of a given double.
 	public static double sqrt(double numbah) {
-		
-	}*/
+		double A = numbah/2;
+		double root;
+		while() {
+		}
+	}
 	
 }
