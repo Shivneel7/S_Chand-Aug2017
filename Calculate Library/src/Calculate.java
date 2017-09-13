@@ -133,11 +133,18 @@ public class Calculate {
 			return true;
 		}
 	}
-	//This method takes two integers and returns the greatest common factor.
-//	public static int gcf(int numbah1, int numbah2) {
-//		
-//	}
-	
-	
+	/*//This method takes two integers and returns the greatest common factor.
+	public static int gcf(int numbah1, int numbah2) {
+		for(int i = 1; i < numbah1; i++) {
+			if(isDivisibleBy(numbah1,i) == true) {
+				
+			}
+				
+		}
+	}
+	//This method returns an approximation of the square root of a given double.
+	public static double sqrt(double numbah) {
+		
+	}*/
 	
 }
