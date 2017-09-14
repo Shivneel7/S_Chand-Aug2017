@@ -141,9 +141,12 @@ public class Calculate {
 	//This method returns an approximation of the square root of a given double.
 	public static double sqrt(double numbah) {
 		double A = numbah/2;
-		double root;
-		while() {
+		double root = 0;
+		while(root != (numbah / A + A)/2) {
+			root = (numbah / A + A)/2;
+			A= root;
 		}
+		return round2(root);
 	}
 	
 }
