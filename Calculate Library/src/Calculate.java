@@ -118,6 +118,9 @@ public class Calculate {
 	}
 	//returns a true or false based on whether the number given is prime or not.
 	public static boolean isPrime(int numbah) {
+		if(numbah <2) {
+			return false;
+		}
 		int numOfFactors = 0;
 		for(int i = 2; i <= numbah; i++) {
 			boolean result = isDivisibleBy(numbah,i);
@@ -134,7 +137,7 @@ public class Calculate {
 	//This method takes two integers and returns the greatest common factor.
 	public static int gcf(int numbah1, int numbah2) {
 		int factor;
-		for(factor = numbah1;! (isDivisibleBy(numbah1,factor)&&(isDivisibleBy(numbah2,factor))) ; factor--) {
+		for(factor = numbah1; !(isDivisibleBy(numbah1,factor)&&(isDivisibleBy(numbah2,factor))) ; factor--) {
 		}
 		return factor;
 	}
