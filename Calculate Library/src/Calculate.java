@@ -92,12 +92,15 @@ public class Calculate {
 	}
 	//Takes a double and returns the double rounded correctly to two decimal places
 	public static double round2(double numbah) {
-		double lastDigit = numbah*1000%10;
-		if(lastDigit <5) {
-			return ((numbah*1000) - lastDigit)/1000;
-		}else {
-			return ((numbah*1000) - lastDigit +10)/1000;
+		int tempInt = (int) (numbah *1000);
+		int roundNum = tempInt % 10;
+		tempInt = tempInt / 10;
+		if(roundNum >=5) {
+			tempInt++;
+		}else if(roundNum <= -5){
+			tempInt--;
 		}
+		return tempInt/100.0;
 	}
 	//Takes one double and one positive integer, and raises the double to the power of 
 	//the integer.
