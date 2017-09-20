@@ -50,6 +50,9 @@ public class Calculate {
 	// accepts two integers, and returns true if the first number is evenly divisible and false if there
 	//a remainder.
 	public static boolean isDivisibleBy(int numerator, int denominator) {
+		if(denominator == 0) {
+			throw new IllegalArgumentException("Cannot divide by 0.");
+		}
 		if(numerator % denominator == 0) {
 			return true;
 		}else {
@@ -90,6 +93,14 @@ public class Calculate {
 			return numbah2;
 		}
 	}
+	//Takes two doubles and returns the lower double.
+	public static double min(double numbah1, double numbah2) {
+		if(numbah1 < numbah2) {
+			return numbah1;
+		}else {
+			return numbah2;
+		}
+	}
 	//Takes a double and returns the double rounded correctly to two decimal places
 	public static double round2(double numbah) {
 		int tempInt = (int) (numbah *1000);
@@ -105,14 +116,23 @@ public class Calculate {
 	//Takes one double and one positive integer, and raises the double to the power of 
 	//the integer.
 	public static double exponent(double base, int exponent) {
+		if(exponent < 0) {
+			throw new IllegalArgumentException("Cannot find a number raised to a negative value.");
+		}
 		double result = base;
-		for(int i = 1; i < exponent; i++) {
+		if(exponent == 0) {
+			return 1;
+		}
+		for(int i = 0; i < exponent; i++) {
 			result *= base;
 		}
 		return result;
 	}
 	//Returns the factorial of the value passed
 	public static int factorial(int numbah) {
+		if(numbah<0) {
+			throw new IllegalArgumentException("Cannot calculate factorial of negative number!");
+		}
 		int result = 1;
 		for(int i = 1; i <= numbah; i++) {
 			result*= i;
