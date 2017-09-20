@@ -102,7 +102,6 @@ public class Calculate {
 		}
 		return tempInt/100.0;
 	}
-	
 	//Takes one double and one positive integer, and raises the double to the power of 
 	//the integer.
 	public static double exponent(double base, int exponent) {
