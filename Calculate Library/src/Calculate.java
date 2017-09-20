@@ -166,6 +166,9 @@ public class Calculate {
 	}
 	//This method returns an approximation of the square root of a given double.
 	public static double sqrt(double numbah) {
+		if(numbah < 0 ) {
+			throw new IllegalArgumentException("Cannot find squareroot of negative number.");
+		}
 		double A = numbah/2;
 		double root = 0;
 		while(root != (numbah / A + A)/2) {
@@ -174,5 +177,13 @@ public class Calculate {
 		}
 		return round2(root);
 	}
-	
+	public static String quadForm(int a, int b, int c) {
+		double discriminant = discriminant(a,b,c);
+		if(discriminant<0) {
+			return "no real roots";
+		}
+		if(discriminant == 1) {
+			
+		}
+	}
 }
