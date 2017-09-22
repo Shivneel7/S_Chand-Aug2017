@@ -182,8 +182,11 @@ public class Calculate {
 		if(discriminant<0) {
 			return "no real roots";
 		}
-		if(discriminant == 1) {
-			
+		if(discriminant == 0) {
+			double root = (-1*b + sqrt(discriminant))/2*a;
+			return round2(root) + "";
+		}else {
+			return "asdf";
 		}
 	}
 }
