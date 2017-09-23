@@ -169,24 +169,33 @@ public class Calculate {
 		if(numbah < 0 ) {
 			throw new IllegalArgumentException("Cannot find squareroot of negative number.");
 		}
+		if(numbah == 0) {//So that the program does not break from dividing by 0.
+			return 0;
+		}
 		double A = numbah/2;
 		double root = 0;
-		while(root != (numbah / A + A)/2) {
-			root = (numbah / A + A)/2;
+		while(root != (numbah / A + A)/2) {//This while loop will stop when the computer is not able to tell the difference 
+			root = (numbah / A + A)/2;		//between this approximate root, and the previous approximation.
 			A= root;
 		}
 		return round2(root);
 	}
 	public static String quadForm(int a, int b, int c) {
-		double discriminant = discriminant(a,b,c);
-		if(discriminant<0) {
+		double disc = discriminant(a,b,c);
+		if(disc<0) {
 			return "no real roots";
 		}
-		if(discriminant == 0) {
-			double root = (-1*b + sqrt(discriminant))/2*a;
-			return round2(root) + "";
+		if(disc == 0) {
+			double root = (-1*b + sqrt(disc))/2*a;
+			return round2(root) + "";//Converts root to from a String to a double.
 		}else {
-			return "asdf";
+			double root1 = round2((-1*b + sqrt(disc))/2*a);
+			double root2 = round2((-1*b - sqrt(disc))/2*a);
+			if(min(root1,root2) == root1) {
+				return root1 + " and " + root2;
+			}else {
+				return root2 + " and " + root1;
+			}
 		}
 	}
 }
