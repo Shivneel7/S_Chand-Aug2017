@@ -8,9 +8,17 @@ public class QuadraticClient {
 		Scanner userInput = new Scanner(System.in);
 		System.out.println("Welcome to the Quadratic Describer");
 		System.out.println("Provide values for coefficients a, b, and c");
+		do {
 		System.out.println();
 		System.out.print("a: ");
 		double a = userInput.nextDouble();
+		System.out.print("b: ");
+		double b = userInput.nextDouble();
+		System.out.print("c: ");
+		double c = userInput.nextDouble();
+		Quadratic.quadrDescriber(a, b, c);
+		System.out.println("Do you want to keep going? (Type \"quit\" to end)");
+		}while(!(userInput.next().equals("quit")));
 	}
 
 }
