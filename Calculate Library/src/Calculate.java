@@ -180,6 +180,7 @@ public class Calculate {
 		}
 		return round2(root);
 	}
+	//This method returns the roots of a quadratic equation given the coefficients of the equation.
 	public static String quadForm(int a, int b, int c) {
 		double disc = discriminant(a,b,c);
 		if(disc<0) {
@@ -187,7 +188,7 @@ public class Calculate {
 		}
 		if(disc == 0) {
 			double root = (-1*b + sqrt(disc))/2*a;
-			return round2(root) + "";//Converts root to from a String to a double.
+			return round2(root) + ""; //Converts root from a double to a String.
 		}else {
 			double root1 = round2((-1*b + sqrt(disc))/2*a);
 			double root2 = round2((-1*b - sqrt(disc))/2*a);
