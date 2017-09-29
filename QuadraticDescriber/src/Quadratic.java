@@ -11,7 +11,7 @@ public class Quadratic {
 		}else
 			result += "Up \n";
 		
-		double aOS = -1*b/(2*a);
+		double aOS = round2(-1*b/(2*a));
 		result +=  "Axis of Symmetry: " + aOS + "\n";
 		result += "Vertex: (" + aOS + ", " + round2((a* aOS * aOS + b * aOS + c)) + ") \n";
 		result += "x-intercept(s): " + quadForm(a,b,c) + "\n";
@@ -48,7 +48,7 @@ public class Quadratic {
 	public static String quadForm(double a, double b, double c) {
 		double disc = discriminant(a,b,c);
 		if(disc<0) {
-			return "no real roots";
+			return "None";
 		}
 		if(disc == 0) {
 			double root = (-1*b + sqrt(disc))/2*a;
