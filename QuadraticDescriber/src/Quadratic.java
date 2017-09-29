@@ -63,7 +63,7 @@ public class Quadratic {
 			}
 		}
 	}
-	
+	//Returns the square root of a given double
 	public static double sqrt(double numbah) {
 		if(numbah < 0 ) {
 			throw new IllegalArgumentException("Cannot find squareroot of negative number.");
