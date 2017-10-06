@@ -1,6 +1,7 @@
 //Shivneel Chand
 //9-25-17
-//This program will receive a quadratic formula from the user and will send the values to Quadratic class.
+//This program will receive a quadratic formula from the user and will send the values to Quadratic class, then print
+//the result that is returned from the quadrDescriber method.s
 import java.util.*;
 public class QuadraticClient {
 
@@ -19,7 +20,7 @@ public class QuadraticClient {
 		String result = Quadratic.quadrDescriber(a, b, c);
 		System.out.println(result);
 		System.out.println("Do you want to keep going? (Type \"quit\" to end)");
-		}while(!(userInput.next().equals("quit")));
+		}while(!(userInput.next().charAt(0) == 'q'));
 	}
 
 }

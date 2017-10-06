@@ -3,9 +3,9 @@
 //This describes the quadratic graph to the user.
 public class Quadratic {
 	public static String quadrDescriber(double a, double b, double c) {
-		String result = "Description of the graph of: \ny = " + a + " x^2 + " + b + " x " + c + " \n";
+		String result = "Description of the graph of: \ny = " + a + " x^2 + " + b + " x + " + c + " \n";
 		
-		result += "Opens: ";
+		result += "\nOpens: ";
 		if(a<0) {
 			result += "Down \n";
 		}else
@@ -51,11 +51,11 @@ public class Quadratic {
 			return "None";
 		}
 		if(disc == 0) {
-			double root = (-1*b + sqrt(disc))/2*a;
+			double root = (-1*b + sqrt(disc))/(2*a);
 			return round2(root) + ""; //Converts root from a double to a String.
 		}else {
-			double root1 = round2((-1*b + sqrt(disc))/2*a);
-			double root2 = round2((-1*b - sqrt(disc))/2*a);
+			double root1 = round2((-1*b + sqrt(disc))/(2*a));
+			double root2 = round2((-1*b - sqrt(disc))/(2*a));
 			if(min(root1,root2) == root1) {
 				return root1 + " and " + root2;
 			}else {
