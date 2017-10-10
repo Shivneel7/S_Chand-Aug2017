@@ -15,7 +15,7 @@ public class Quadratic {
 		result +=  "Axis of Symmetry: " + aOS + "\n";
 		result += "Vertex: (" + aOS + ", " + round2((a* aOS * aOS + b * aOS + c)) + ") \n";
 		result += "x-intercept(s): " + quadForm(a,b,c) + "\n";
-		result += "y-intercept: " + c + "\n";
+		result += "y-intercept: " + round2(c) + "\n";
 		return result;
 	}
 	
