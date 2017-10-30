@@ -36,6 +36,8 @@ public class Split {
 		System.out.println(getFillingPart2("cheese toothpuck bread lettus tomato bacon mayo ham bread cheese bread kajsdf bread"));
 		System.out.println(getFillingPart2("teeth bread lettus tomato bacon mayo ham bread cheese bread kajsd bunch of stuff outside"));
 		System.out.println(getFillingPart2("crab bread lettus tomato bbreadacon mayo ham bread cheese bread still inside the sandwich bread"));
+		System.out.println(getFillingPart2("bread"));
+		System.out.println(getFillingPart2("bread bread"));
 	}
 	//part 1
 	public static String getFilling(String sandwich) {
