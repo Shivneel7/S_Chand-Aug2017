@@ -4,7 +4,8 @@
 public class ArraysLab3 {
 
 	public static void main(String[] args) {
-		
+		int[] a1 = {1,1,1,1};
+		int[] a2 = {6,6,6,6};
 	}
 	
 	public static int[] sum(int[] arr1, int[] arr2) {
@@ -15,7 +16,14 @@ public class ArraysLab3 {
 		return sum;
 	}
 	
-	public static int
+	public static int[] append(int[] arr,int num) {
+		int[] newArr = new int[arr.length+1];
+		for(int i = 0; i < arr.length; i++) {
+			newArr[i] = arr[i];
+		}
+		newArr[arr.length] = num;
+		return newArr;
+	}
 
 
 }
