@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 //Shivneel Chand
 //11-1-17
 //Arrays Lab 3
@@ -6,6 +8,8 @@ public class ArraysLab3 {
 	public static void main(String[] args) {
 		int[] a1 = {1,1,1,1};
 		int[] a2 = {6,6,6,6};
+		System.out.println(Arrays.toString(sum(a1,a2)));
+		
 	}
 	
 	public static int[] sum(int[] arr1, int[] arr2) {
