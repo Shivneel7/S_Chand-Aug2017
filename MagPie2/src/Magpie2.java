@@ -1,4 +1,5 @@
-
+//Shivneel Chand's Magpie2.java
+//11-8-17
 public class Magpie2 {
 
 	//Get a default greeting and return a greeting	
