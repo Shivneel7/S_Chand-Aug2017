@@ -9,8 +9,10 @@ import java.util.*;
 public class FracCalc {
 
     public static void main(String[] args) {
-    	Scanner input = new Scanner(System.in);
-    	
+    	Scanner userInput = new Scanner(System.in);
+    	String input = userInput.nextLine();
+    	produceAnswer(input);
+    	System.out.println(produceAnswer(input));
     	
         // TODO: Read the input from the user and call produceAnswer with an equation
     	
