@@ -34,7 +34,6 @@ public class FracCalc {
         String numerator2 = (parsedInput[2].split("_")[1].split("/")[0]);
         String denominator1 = (parsedInput[0].split("/")[1]);
         String denominator2 = (parsedInput[2].split("/")[1]);
-        System.out.println(Arrays.toString(parsedInput));
-        return denominator2;
+        return "whole:" + wholeNumber2 + " numerator:" + numerator2 + " denominator:" + denominator2;
     }
 }
