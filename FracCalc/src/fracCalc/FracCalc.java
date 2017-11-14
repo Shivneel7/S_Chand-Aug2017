@@ -14,7 +14,6 @@ public class FracCalc {
     		String input = userInput.nextLine();
     		System.out.println(produceAnswer(input));
     	}while(!(userInput.nextLine().equals("quit")));
-        // TODO: Read the input from the user and call produceAnswer with an equation
     	
     }
     
@@ -28,14 +27,14 @@ public class FracCalc {
     //      e.g. return ==> "1_1/4"
     public static String produceAnswer(String input){
         String[] parsedInput = input.split(" ");
-        
+        //Fraction I could use to test: 7_3/4 + 6_2/9
         String wholeNumber1 = (parsedInput[0].split("_")[0]);
         String wholeNumber2 = (parsedInput[2].split("_")[0]);
-        //String numerator1 = (parsedInput[].split("_")[0]);
+        String numerator1 = (parsedInput[0].split("_")[1].split("/")[0]);
+        String numerator2 = (parsedInput[2].split("_")[1].split("/")[0]);
+        String denominator1 = (parsedInput[0].split("/")[1]);
+        String denominator2 = (parsedInput[2].split("/")[1]);
         System.out.println(Arrays.toString(parsedInput));
-        return wholeNumber2;
+        return denominator2;
     }
-
-    // TODO: Fill in the space below with any helper methods that you think you will need
-    
 }
