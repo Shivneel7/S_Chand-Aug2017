@@ -10,11 +10,13 @@ public class FracCalc {
 
     public static void main(String[] args) {
     	Scanner userInput = new Scanner(System.in);
-    	do {
+    	while(true) {
     		String input = userInput.nextLine();
+    		if(input.equals("quit")) {
+    			break;
+    		}
     		System.out.println(produceAnswer(input));
-    	}while(!(userInput.nextLine().equals("quit")));
-    	
+    	}
     }
     
     // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
@@ -28,12 +30,32 @@ public class FracCalc {
     public static String produceAnswer(String input){
         String[] parsedInput = input.split(" ");
         //Fraction I could use to test: 7_3/4 + 6_2/9
-        String wholeNumber1 = (parsedInput[0].split("_")[0]);
-        String wholeNumber2 = (parsedInput[2].split("_")[0]);
-        String numerator1 = (parsedInput[0].split("_")[1].split("/")[0]);
-        String numerator2 = (parsedInput[2].split("_")[1].split("/")[0]);
-        String denominator1 = (parsedInput[0].split("/")[1]);
-        String denominator2 = (parsedInput[2].split("/")[1]);
+        String numerator1 = "0";
+        String denominator1 = "1";
+   	 	String wholeNumber1 = "0";
+        if(parsedInput[0].contains("/") && parsedInput[0].contains("_")) {
+        	numerator1 = (parsedInput[0].split("_")[1].split("/")[0]);
+        	denominator1 = (parsedInput[0].split("/")[1]);
+        	wholeNumber1 = (parsedInput[0].split("_")[0]);
+        }else if(parsedInput[0].contains("/") && !(parsedInput[0].contains("_"))){
+        	numerator1 = (parsedInput[0].split("/")[0]);
+        	denominator1 = (parsedInput[0].split("/")[1]);
+        }else{
+        	wholeNumber1 = parsedInput[0];
+        }
+        String numerator2 = "0";
+        String denominator2 = "1";
+   	 	String wholeNumber2 = "0";
+        if(parsedInput[2].contains("/") && parsedInput[2].contains("_")) {
+        	numerator2 = (parsedInput[2].split("_")[1].split("/")[0]);
+        	denominator2 = (parsedInput[2].split("/")[1]);
+        	wholeNumber2 = (parsedInput[2].split("_")[0]);
+        }else if(parsedInput[2].contains("/") && !(parsedInput[2].contains("_"))){
+        	numerator2 = (parsedInput[2].split("/")[0]);
+        	denominator2 = (parsedInput[2].split("/")[1]);
+        }else{
+        	wholeNumber2 = parsedInput[2];
+        }
         return "whole:" + wholeNumber2 + " numerator:" + numerator2 + " denominator:" + denominator2;
     }
 }
