@@ -29,33 +29,40 @@ public class FracCalc {
     //      e.g. return ==> "1_1/4"
     public static String produceAnswer(String input){
         String[] parsedInput = input.split(" ");
-        //Fraction I could use to test: 7_3/4 + 6_2/9
-        String numerator1 = "0";
-        String denominator1 = "1";
-   	 	String wholeNumber1 = "0";
-        if(parsedInput[0].contains("/") && parsedInput[0].contains("_")) {
-        	numerator1 = (parsedInput[0].split("_")[1].split("/")[0]);
-        	denominator1 = (parsedInput[0].split("/")[1]);
-        	wholeNumber1 = (parsedInput[0].split("_")[0]);
-        }else if(parsedInput[0].contains("/") && !(parsedInput[0].contains("_"))){
-        	numerator1 = (parsedInput[0].split("/")[0]);
-        	denominator1 = (parsedInput[0].split("/")[1]);
-        }else{
-        	wholeNumber1 = parsedInput[0];
+        int[] operand1 = splitOperand(parsedInput[0]);
+        int[] operand2 = splitOperand(parsedInput[2]);
+        
+        String operator = parsedInput[1];
+        String result;
+        if(operator.equals("+")) {
+        	result = add(operand1, operand2);
         }
-        String numerator2 = "0";
-        String denominator2 = "1";
-   	 	String wholeNumber2 = "0";
-        if(parsedInput[2].contains("/") && parsedInput[2].contains("_")) {
-        	numerator2 = (parsedInput[2].split("_")[1].split("/")[0]);
-        	denominator2 = (parsedInput[2].split("/")[1]);
-        	wholeNumber2 = (parsedInput[2].split("_")[0]);
-        }else if(parsedInput[2].contains("/") && !(parsedInput[2].contains("_"))){
-        	numerator2 = (parsedInput[2].split("/")[0]);
-        	denominator2 = (parsedInput[2].split("/")[1]);
-        }else{
-        	wholeNumber2 = parsedInput[2];
-        }
-        return "whole:" + wholeNumber2 + " numerator:" + numerator2 + " denominator:" + denominator2;
+        return ;
     }
+    
+    public static int[] splitOperand(String operand) {
+        int numerator = 0;
+        int denominator = 1;
+   	 	int wholeNumber = 0;
+        if(operand.contains("/") && operand.contains("_")) {
+        	numerator = Integer.parseInt(operand.split("_")[1].split("/")[0]);
+        	denominator = Integer.parseInt(operand.split("/")[1]);
+        	wholeNumber = Integer.parseInt(operand.split("_")[0]);
+        }else if(operand.contains("/") && !(operand.contains("_"))){
+        	numerator = Integer.parseInt(operand.split("/")[0]);
+        	denominator = Integer.parseInt(operand.split("/")[1]);
+        }else{
+        	wholeNumber = Integer.parseInt(operand);
+        }
+        int[] operandParts = {wholeNumber, numerator, denominator};
+        return operandParts;
+    }
+    
+    public static String add(int[] operand1, int[] operand2) {
+    	int newDenominator = operand1[2] * operand2[2];
+    	int numerator1 = operand1[1] * operand2[2];
+    	int numerator2 = operand2[1] * operand1[];
+    	return result;
+    }
+    
 }
