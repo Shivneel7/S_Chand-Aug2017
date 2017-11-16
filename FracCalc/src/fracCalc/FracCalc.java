@@ -36,13 +36,11 @@ public class FracCalc {
         String result = "";
         if(operator.equals("+") || operator.equals("-")) {
         	result = addSubtract(operand1, operand2, operator);
-        }else if(operator.equals("*")) {
-        	result = multiply(operand1, operand2);
+        }else if(operator.equals("*") || operator.equals("/")) {
+        	result = multiplyDivide(operand1, operand2, operator);
         }else {
-        	int temp = operand2[1];
-        	operand2[1] = operand2[2];
-        	operand2[2] = temp;
-        	result = multiply(operand1, operand2);
+        	//MOVE THIS TO THE MULTIPLYDIVIDE METHOD
+
         }
         return result;
     }
@@ -61,6 +59,9 @@ public class FracCalc {
         }else{
         	wholeNumber = Integer.parseInt(operand);
         }
+        if(wholeNumber<0) {
+        	numerator *= -1;
+        }
         int[] operandParts = {wholeNumber, numerator, denominator};
         return operandParts;
     }
@@ -78,10 +79,18 @@ public class FracCalc {
     	return newWholeNumber + "_" + newNumerator + "/" + newDenominator;
     }
     
-    public static String multiply(int[] operand1, int[] operand2) {
+    public static String multiplyDivide(int[] operand1, int[] operand2, String operator) {
     	int numerator1 = operand1[0] * operand1[2] + operand1[1];
     	int numerator2 = operand2[0] * operand2[2] + operand2[1];
+	    if(operator.equals("/")){
+    		int temp = operand2[1];
+	    	operand2[1] = operand2[2];
+	    	operand2[2] = temp;
+	    }
     	int newNumerator = numerator1 * numerator2;
+    	if(operand2[2] == 0) {
+    		return newNumerator + "/" + operand2[0];
+    	}
     	int newDenominator = operand1[2] * operand2[2];
     	return newNumerator + "/" + newDenominator;
     }
