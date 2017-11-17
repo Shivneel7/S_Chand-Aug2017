@@ -32,7 +32,7 @@ public class FracCalc {
     // The function should return the result of the fraction after it has been calculated
     //      e.g. return ==> "1_1/4"
     public static String produceAnswer(String input){
-        String[] parsedInput = input.split(" ");
+    	String[] parsedInput = input.split(" ");
         if(parsedInput.length != 3) {
         	return "Your input is not acceptable, please try again.";
         }
@@ -45,7 +45,12 @@ public class FracCalc {
         if(operator.equals("+") || operator.equals("-")) {
         	result = addSubtract(operand1, operand2, operator);
         	
-        }else if(operator.equals("*") || operator.equals("/")) {
+        }else if(operator.equals("*")) {
+        	result = multiplyDivide(operand1, operand2, operator);
+        }else if(operator.equals("/")){
+        	if(operand2[0] == 0 || operand2[1] == 0) {//Makes sure we do not divide by 0
+        		return "Cannot divide by zero";
+        	}
         	result = multiplyDivide(operand1, operand2, operator);
         }else {
         	return "I can't do that. Please try a different operator.";
@@ -83,9 +88,10 @@ public class FracCalc {
     	int newDenominator = operand1[1] * operand2[1];
     	int numerator1 = operand1[0] * operand2[1];
     	int numerator2 = operand2[0] * operand1[1];
+    	//Addition
     	int newNumerator = numerator1 + numerator2;
 
-    	if(operator.equals("-")) {
+    	if(operator.equals("-")) { // subtraction
     		newNumerator = numerator1 - numerator2;
     	}
 
@@ -94,7 +100,7 @@ public class FracCalc {
 //this method returns the product or quotient of the two operands depending on the operator passed to the method
     public static String multiplyDivide(int[] operand1, int[] operand2, String operator) {
 	    if(operator.equals("/")) {
-    		if(operand2[0] < 0) {//this is too make sure any negative signs stay with the numerator
+	    	if(operand2[0] < 0) {//this is too make sure any negative signs stay with the numerator
     			operand2[1] *= -1;
     			operand2[0] *= -1;
     		}
