@@ -11,6 +11,7 @@ public class FracCalc {
     public static void main(String[] args) {
     	Scanner userInput = new Scanner(System.in);
     	while(true) {//Accepts strings from the user until the user types "quit"
+    		System.out.println("Type a fractional expression to evaluate it or type \"quit\" to terminate the program.");
     		String input = userInput.nextLine();
     		if(input.equals("quit")) {
     			break;
@@ -32,6 +33,9 @@ public class FracCalc {
     //      e.g. return ==> "1_1/4"
     public static String produceAnswer(String input){
         String[] parsedInput = input.split(" ");
+        if(parsedInput.length != 3) {
+        	return "Your input is not acceptable, please try again.";
+        }
         int[] operand1 = splitOperand(parsedInput[0]);
         int[] operand2 = splitOperand(parsedInput[2]);
         
@@ -43,6 +47,8 @@ public class FracCalc {
         	
         }else if(operator.equals("*") || operator.equals("/")) {
         	result = multiplyDivide(operand1, operand2, operator);
+        }else {
+        	return "I can't do that. Please try a different operator.";
         }
 
         result = simplify(splitOperand(result));
