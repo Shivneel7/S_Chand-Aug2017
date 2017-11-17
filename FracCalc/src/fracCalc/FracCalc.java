@@ -10,12 +10,15 @@ public class FracCalc {
 
     public static void main(String[] args) {
     	Scanner userInput = new Scanner(System.in);
-    	while(true) {
+    	while(true) {//Accepts strings from the user until the user types "quit"
     		String input = userInput.nextLine();
     		if(input.equals("quit")) {
     			break;
     		}
     		System.out.println(produceAnswer(input));
+    		
+    		//The line underneath tests my findGCF method
+    		//System.out.println(findGCF(Integer.parseInt(input.split(" ")[0]), Integer.parseInt(input.split(" ")[1])));
     	}
     }
     
@@ -37,12 +40,13 @@ public class FracCalc {
         
         if(operator.equals("+") || operator.equals("-")) {
         	result = addSubtract(operand1, operand2, operator);
+        	
         }else if(operator.equals("*") || operator.equals("/")) {
         	result = multiplyDivide(operand1, operand2, operator);
         }
-        
-        //result = simplify(splitOperand(result));
-        
+
+        result = simplify(splitOperand(result));
+
         return result;
     }
     
@@ -64,59 +68,74 @@ public class FracCalc {
         if(wholeNumber<0) {
         	numerator *= -1;
         }
-        //numerator = wholeNumber * denominator + numerator;
-        int[] operandParts = {wholeNumber, numerator, denominator};
+        numerator = wholeNumber * denominator + numerator;
+        int[] operandParts = {numerator, denominator};
         return operandParts;
     }
-    //2_1/2 - 5/2
+//This method returns the sum or the difference of the two operands depending on the operator passed to the method
     public static String addSubtract(int[] operand1, int[] operand2, String operator) {
-    	int newDenominator = operand1[2] * operand2[2];
-    	int numerator1 = operand1[1] * operand2[2];
-    	int numerator2 = operand2[1] * operand1[2];
+    	int newDenominator = operand1[1] * operand2[1];
+    	int numerator1 = operand1[0] * operand2[1];
+    	int numerator2 = operand2[0] * operand1[1];
     	int newNumerator = numerator1 + numerator2;
-    	int newWholeNumber = operand1[0] + operand2[0];
 
     	if(operator.equals("-")) {
     		newNumerator = numerator1 - numerator2;
-    		newWholeNumber = operand1[0] - operand2[0];
     	}
-    	if(newWholeNumber != 0 && newNumerator < 0) {
-    		newNumerator *= -1;
-    	}
-    	//System.out.println("newWholeNumber " + newWholeNumber + " newNumerator " + newNumerator);
-    	return newWholeNumber + "_" + newNumerator + "/" + newDenominator;
-    }
 
+    	return newNumerator + "/" + newDenominator;
+    }
+//this method returns the product or quotient of the two operands depending on the operator passed to the method
     public static String multiplyDivide(int[] operand1, int[] operand2, String operator) {
-    	int numerator1 = operand1[0] * operand1[2] + operand1[1];
-    	int numerator2 = operand2[0] * operand2[2] + operand2[1];
 	    if(operator.equals("/")) {
-    		int temp = numerator2;
-	    	numerator2 = operand2[2];
-	    	operand2[2] = temp;
+    		if(operand2[0] < 0) {//this is too make sure any negative signs stay with the numerator
+    			operand2[1] *= -1;
+    			operand2[0] *= -1;
+    		}
+	    	int temp = operand2[0]; //reciprocates the second operand
+	    	operand2[0] = operand2[1];
+	    	operand2[1] = temp;
 	    }
-    	int newNumerator = numerator1 * numerator2;
-    	if(operand2[2] == 0) {
+    	int newNumerator = operand1[0] * operand2[0];
+    	if(operand2[1] == 0) {
     		return newNumerator + "/" + operand2[0];
     	}
-    	int newDenominator = operand1[2] * operand2[2];
+    	int newDenominator = operand1[1] * operand2[1];
     	return newNumerator + "/" + newDenominator;
     }
     
+//Simplifies the result.
     public static String simplify(int[] frac) {
-    	int numerator = frac[0] * frac[2] + frac[1];
-    	int denominator = frac[2];
-		System.out.println(numerator);
-    	if(numerator == 0) {
-			return "0";
-		}
-    	
-    	int wholeNumber = numerator/denominator;
-		numerator = numerator%denominator;
+    	int wholeNumber = frac[0]/frac[1];
+    	int numerator = frac[0] % frac[1];
+    	int denominator = frac[1];
+    	if(wholeNumber != 0) { // if the number is a fraction with no whole number, then make the numerator...
+    		numerator = Math.abs(numerator);//positive since the whole number contains the negative sign.
+    	}
+		//find the gcf then divide numerator and denominator by it to reduce the fraction to its simplest form.
+    	int gcf = findGCF(numerator, denominator);
+    	numerator /= gcf;
+		denominator /= gcf;
 		if(wholeNumber == 0) {
+			if(numerator == 0) {
+				return "0";
+			}
 			return numerator + "/" + denominator;
 		}
+		if(numerator == 0) {
+			return ""+wholeNumber;
+		}
 		return wholeNumber + "_" + numerator + "/" + denominator;
-
+    }
+//takes two integers and returns the greatest commong factor of the integers.
+    public static int findGCF(int num1, int num2) {
+    	num1 = Math.abs(num1);
+    	num2 = Math.abs(num2);
+    	for(int i = num1; i > 1; i--) {
+    		if(num1 % i == 0 && num2 % i == 0) {
+    			return i;
+    		}
+    	}
+    	return 1;
     }
 }
