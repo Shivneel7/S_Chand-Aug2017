@@ -25,7 +25,6 @@ public class FracCalc {
     
     // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
     // This function takes a String 'input' and produces the result
-    //
     // input is a fraction string that needs to be evaluated.  For your program, this will be the user input.
     //      e.g. input ==> "1/2 + 3/4"
     //        
@@ -44,7 +43,6 @@ public class FracCalc {
         
         if(operator.equals("+") || operator.equals("-")) {
         	result = addSubtract(operand1, operand2, operator);
-        	
         }else if(operator.equals("*")) {
         	result = multiplyDivide(operand1, operand2, operator);
         }else if(operator.equals("/")){
@@ -135,11 +133,11 @@ public class FracCalc {
 			return numerator + "/" + denominator;
 		}
 		if(numerator == 0) {
-			return ""+wholeNumber;
+			return "" + wholeNumber;
 		}
 		return wholeNumber + "_" + numerator + "/" + denominator;
     }
-//takes two integers and returns the greatest commong factor of the integers.
+//takes two integers and returns the greatest common factor of the integers.
     public static int findGCF(int num1, int num2) {
     	num1 = Math.abs(num1);
     	num2 = Math.abs(num2);
