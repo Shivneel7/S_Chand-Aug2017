@@ -84,7 +84,7 @@ public class FracCalc {
         if(wholeNumber<0) {
         	numerator *= -1;
         }
-        numerator = wholeNumber * denominator + numerator;
+        numerator = wholeNumber * denominator + numerator; //This turns all mixed fractions into improper fractions.
         int[] operandParts = {numerator, denominator};
         return operandParts;
     }
