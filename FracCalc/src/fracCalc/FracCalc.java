@@ -32,16 +32,21 @@ public class FracCalc {
     //      e.g. return ==> "1_1/4"
     public static String produceAnswer(String input){
     	String[] parsedInput = input.split(" ");
+    	//if the input has an even number of parts, then the input was not in the proper format.
+    	if(parsedInput.length % 2 == 0 || parsedInput.length == 1) {
+    		return "ERROR: Please check you expression and try again.";
+    	}
     	String resultString = "";
-    	for(int i = 2; i < parsedInput.length; i += 2) {
-	        int[] operand1 = splitOperand(parsedInput[0]);
+    	
+    	for(int i = 2; i < parsedInput.length; i += 2) { 		
+    		int[] operand1 = splitOperand(parsedInput[0]);
 	        int[] operand2 = splitOperand(parsedInput[i]);
 
 	        String operator = parsedInput[i-1];
 	        
 	        int[] unsimplifiedResultArray = new int[2];
-	        if(operand1[1] == 0) {//checks is denominator of any operands is 0, so we don't try and divide by 0.
-	        	return "Please stop trying to divide by 0.";
+	        if(operand1[1] == 0) {//checks if denominator of any operands is 0, so we don't try and divide by 0.
+	        	return "ERROR: Please stop trying to divide by 0.";
 	        }
 	        if(operator.equals("+") || operator.equals("-")) {
 	        	unsimplifiedResultArray = addSubtract(operand1, operand2, operator);
@@ -51,11 +56,11 @@ public class FracCalc {
 	        
 	        }else if(operator.equals("/")){
 	        	if(operand2[1] == 0 || operand2[0] == 0) {//Makes sure we do not divide by 0.
-	        		return "Please stop trying to divide by 0.";
+	        		return "ERROR: Please stop trying to divide by 0.";
 	        	}
 	        	unsimplifiedResultArray = multiplyDivide(operand1, operand2, operator);
 	        }else {
-	        	return "I can't do that. Please try a different operator.";
+	        	return "ERROR: Please try a different operator.";
 	        }
 
 	        resultString = simplify(unsimplifiedResultArray);
