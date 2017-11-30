@@ -15,6 +15,7 @@ public class HangMan {
 		for(int i = 0; i<WORD.length; i++) {
 			word[i] = '_';
 		}
+		
 		if(con != null) {
 			WORD = con.readPassword("Enter the word");
 		}
@@ -22,7 +23,7 @@ public class HangMan {
 		do {
 			System.out.println(getMan());
 			System.out.println(incorrectGuesses);
-			System.out.print("Guess a letter");
+			System.out.println("Guess a letter");
 			
 			char guess = input.next().toCharArray()[0];
 			
