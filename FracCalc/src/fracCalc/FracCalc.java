@@ -71,7 +71,7 @@ public class FracCalc {
         return resultString;
     }
 
-    //Takes an operand and returns the whole number, numerator, and denominator of the operand in an array of length 3.
+    //Takes an operand and returns the whole number, numerator, and denominator of the operand in an array of length 2.
     public static int[] splitOperand(String operand) {
     	int numerator = 0;
         int denominator = 1;
@@ -139,7 +139,7 @@ public class FracCalc {
 		//finds the gcf then divide numerator and denominator by it to reduce the fraction to its simplest form.
     	int gcf = findGCF(numerator, denominator);
     	numerator /= gcf;
-		denominator /= gcf;
+    	denominator /= gcf;
 		if(wholeNumber == 0) {
 			if(numerator == 0) {
 				return "0";
