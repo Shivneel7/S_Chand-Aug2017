@@ -76,6 +76,7 @@ public class FracCalc {
     	int numerator = 0;
         int denominator = 1;
    	 	int wholeNumber = 0;
+   	 	
         if(operand.contains("/") && operand.contains("_")) {
         	numerator = Integer.parseInt(operand.split("_")[1].split("/")[0]);
         	denominator = Integer.parseInt(operand.split("/")[1]);
