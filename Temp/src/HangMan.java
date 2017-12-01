@@ -23,7 +23,7 @@ public class HangMan {
 		do {
 			System.out.println(getMan());
 			System.out.println(incorrectGuesses);
-			System.out.println("Guess a letter");
+			System.out.println("Player one, guess a letter");
 			
 			char guess = input.next().toCharArray()[0];
 			
@@ -31,7 +31,7 @@ public class HangMan {
 				numberOfErrors++;
 			}
 			if(checkEquality(word)) {
-				System.out.println("GOOD JOB!\nYOU WON!\nEZ GAME.\nPLAYER TWO GET REKT.");
+				System.out.println("GOOD JOB!\nYOU WON!\nEZ GAME.\nPLAYER ONE GET REKT.");
 				break;
 			}
 
