@@ -11,8 +11,6 @@ public class Player extends GameObject{
 	public Player(int x, int y, ID id) {
 		super(x, y, id);
 		
-		dx = r.nextInt(6);
-		dy = r.nextInt(6);
 	}
 
 	@Override

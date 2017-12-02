@@ -4,11 +4,12 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.*;
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 7364682855700581664L;
 	
-	private static final int WIDTH = 1000, HEIGHT = WIDTH/12 * 9;
+	private static final int WIDTH = 800, HEIGHT = 300;
 	
 	private Thread thread;
 	private boolean running = false;
@@ -18,9 +19,13 @@ public class Game extends Canvas implements Runnable{
 	public Game() {
 		handler = new Handler();
 		new Window(WIDTH, HEIGHT, "Game", this);
-		for(int i = 0; i < 37; i++) {
-			handler.addObject(new Player(0,0, ID.Player));
-		}
+		
+		this.addMouseMotionListener(new MouseInput(handler));
+		this.addMouseListener(new MouseInput(handler));
+		this.addMouseWheelListener(new MouseInput(handler));
+
+		handler.addObject(new Player(WIDTH/2 , HEIGHT/2, ID.Player));
+
 		
 	}
 	

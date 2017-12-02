@@ -9,15 +9,13 @@ public class Handler {
 	
 	public void tick() {
 		for(int i = 0; i < object.size(); i++) {
-			GameObject tempObject = object.get(i);
-			tempObject.tick();
+			object.get(i).tick();
 		}
 	}
 	
 	public void render(Graphics g) {
 		for(int i = 0; i < object.size(); i++) {
-			GameObject tempObject = object.get(i);
-			tempObject.render(g);
+			object.get(i).render(g);
 		}
 	}
 	

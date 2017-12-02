@@ -32,11 +32,11 @@ public abstract class GameObject {
 		return y;
 	}
 	
-	public void setId(ID id) {
+	public void setID(ID id) {
 		this.id = id;
 	}
 
-	public ID getId() {
+	public ID getID() {
 		return id;
 	}
 	
