@@ -14,7 +14,7 @@ public class MouseInput extends MouseInputAdapter{
 	}
 
 	public void mouseMoved(MouseEvent e){
-		//System.out.println(e.getX() + " " + e.getY());
+		System.out.println(e.getX() + " " + e.getY());
 		
 		for(int i = 0; i < handler.object.size(); i++) {
 			if(handler.object.get(i).getID() == ID.Player) {
