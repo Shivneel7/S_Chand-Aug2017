@@ -26,8 +26,5 @@ public class Player extends GameObject{
 		g.fillRect(x+22, y+6, 4, 4);
 	}
 	
-	public void jump() {
-
-	}
 
 }

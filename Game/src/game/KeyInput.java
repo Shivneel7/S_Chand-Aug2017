@@ -22,16 +22,11 @@ public class KeyInput implements KeyListener {
 					temp.setdx(5);
 				}
 				if(e.getKeyCode() == e.VK_UP) {
-					while(true) {
-						if(temp.getY() > 350) {
-							temp.setdy(-1);
-						}
-						temp.setY(400);
-					}
+					temp.setdy(-5);
 				}
-//				if(e.getKeyCode() == e.VK_DOWN) {
-//					temp.setdy(5);
-//				}
+				if(e.getKeyCode() == e.VK_DOWN) {
+					temp.setdy(5);
+				}
 			}
 		}
 	}
@@ -49,9 +44,9 @@ public class KeyInput implements KeyListener {
 				if(e.getKeyCode() == e.VK_UP) {
 					temp.setdy(0);
 				}
-//				if(e.getKeyCode() == e.VK_DOWN) {
-//					temp.setdy(0);
-//				}
+				if(e.getKeyCode() == e.VK_DOWN) {
+					temp.setdy(0);
+				}
 			}
 		}
 	}

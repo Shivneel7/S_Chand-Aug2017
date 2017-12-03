@@ -1,55 +1,37 @@
-package game;
+package flappyBird;
 
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferStrategy;
-import java.awt.*;
+
+import javax.swing.ImageIcon;
 
 public class Game extends Canvas implements Runnable{
-	private static final long serialVersionUID = 7364682855700581664L;
+
+	private static final long serialVersionUID = -3060582566322707434L;
+
+	public static int backgroundX = 0;
 	
-	private static final int WIDTH = 600, HEIGHT = WIDTH/12*9;
+	private int WIDTH = 600, HEIGHT = 400;
 	
 	private Thread thread;
 	private boolean running = false;
 	
-	private Handler handler;
+	private Background background1;
+	private Background background2;
 	
 	public Game() {
-		handler = new Handler();
-		new Window(WIDTH, HEIGHT, "Game", this);
+		new Window(WIDTH, HEIGHT, "Flappy Bird" , this);
 		
-//		this.addMouseMotionListener(new MouseInput(handler));
-//		this.addMouseListener(new MouseInput(handler));
-//		this.addMouseWheelListener(new MouseInput(handler));
-		
-		this.addKeyListener(new KeyInput(handler));
-		
-		handler.addObject(new Player(20 , HEIGHT - 72, ID.Player));
-
-		
+		this.addKeyListener(new KeyInput());
 	}
 	
 	public static void main(String[] args) {
 		new Game();
 	}
 
-	public synchronized void start() {
-		thread = new Thread(this);
-		thread.start();
-		running = true;
-	}
-	
-	public synchronized void stop() {
-		try {
-			thread.join();
-			running = false;
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public void run() {
 		long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
@@ -63,12 +45,10 @@ public class Game extends Canvas implements Runnable{
         	lastTime = now;
         	while(delta >=1) {
         		tick();
-        		//System.out.println("tick");
         		delta--;
         	}
         	if(running) {
         		render();
-        		//System.out.println("render");
         	}
         	frames++;
         	if(System.currentTimeMillis() - timer > 1000){
@@ -78,32 +58,43 @@ public class Game extends Canvas implements Runnable{
         	}
         }
         stop();
-        
-//alternate loop  
-//		while(true) {
-//			tick();
-//			render();
-//		}
-        
 	}
 	
-	public void tick() {
-		handler.tick();
+	private void tick() {
+		backgroundX--;
 	}
 	
-	public void render() {
+	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null) {
 			this.createBufferStrategy(3);
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
-		g.setColor(Color.pink);
-		g.fillRect(0, 0, WIDTH - 16, HEIGHT - 39);
 		
-		handler.render(g);
+		background1 = new Background(g, backgroundX);
+		background2 = new Background(g, backgroundX+600);
+		if(backgroundX % 600 == 0) {
+			backgroundX = 0;
+		}
 		
 		g.dispose();
 		bs.show();
 	}
+
+	public void start() {
+		thread = new Thread(this);
+		thread.start();
+		running  = true;
+	}
+	
+	public void stop() {
+		try {
+			thread.join();
+			running = false;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
