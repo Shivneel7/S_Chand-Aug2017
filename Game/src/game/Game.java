@@ -9,7 +9,7 @@ import java.awt.*;
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 7364682855700581664L;
 	
-	private static final int WIDTH = 800, HEIGHT = 300;
+	private static final int WIDTH = 600, HEIGHT = WIDTH/12*9;
 	
 	private Thread thread;
 	private boolean running = false;
@@ -26,7 +26,7 @@ public class Game extends Canvas implements Runnable{
 		
 		this.addKeyListener(new KeyInput(handler));
 		
-		handler.addObject(new Player(WIDTH/2 , HEIGHT/2, ID.Player));
+		handler.addObject(new Player(20 , HEIGHT - 72, ID.Player));
 
 		
 	}
@@ -97,7 +97,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		Graphics g = bs.getDrawGraphics();
 		g.setColor(Color.pink);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.fillRect(0, 0, WIDTH - 16, HEIGHT - 39);
 		
 		handler.render(g);
 		

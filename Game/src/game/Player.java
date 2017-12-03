@@ -10,28 +10,24 @@ public class Player extends GameObject{
 	
 	public Player(int x, int y, ID id) {
 		super(x, y, id);
-		
 	}
 
-	@Override
 	public void tick() {
 		x += dx;
 		y += dy;
 		
 	}
 
-	@Override
 	public void render(Graphics g) {
-		drawPlayer(g);
-		
+		g.setColor(Color.blue);
+		g.fillRect(x, y, 32, 32);
+		g.setColor(Color.white);
+		g.fillRect(x+6, y+6, 4, 4);
+		g.fillRect(x+22, y+6, 4, 4);
 	}
 	
-	public void drawPlayer(Graphics g) {
-		g.setColor(Color.black);
-		g.fillRect(x, y, 100, 100);
-		g.setColor(Color.white);
-		g.fillOval(x+20, y+20, 10, 10);
-		g.fillOval(x+70, y+20, 10, 10);
+	public void jump() {
+
 	}
 
 }
