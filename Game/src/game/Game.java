@@ -20,10 +20,12 @@ public class Game extends Canvas implements Runnable{
 		handler = new Handler();
 		new Window(WIDTH, HEIGHT, "Game", this);
 		
-		this.addMouseMotionListener(new MouseInput(handler));
-		this.addMouseListener(new MouseInput(handler));
-		this.addMouseWheelListener(new MouseInput(handler));
-
+//		this.addMouseMotionListener(new MouseInput(handler));
+//		this.addMouseListener(new MouseInput(handler));
+//		this.addMouseWheelListener(new MouseInput(handler));
+		
+		this.addKeyListener(new KeyInput(handler));
+		
 		handler.addObject(new Player(WIDTH/2 , HEIGHT/2, ID.Player));
 
 		
