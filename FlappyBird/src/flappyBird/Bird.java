@@ -10,6 +10,7 @@ public class Bird {
 	private int y;
 	private int dy;
 	public int counter = 0;
+	public int tickSlower = 0;
 	
 	public Bird(int x, int y) {
 		this.x = x;
@@ -37,11 +38,11 @@ public class Bird {
 		if(dy != 0 ) {
 			counter ++;
 		}
-		if(counter > 20) {
-			dy = 3;
+		if(counter > 15) {
+				dy = 2;
 		}
 		if(this.y > 280) {
-			dy =0;
+				dy =0;
 		}
 	}
 	

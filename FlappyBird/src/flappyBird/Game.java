@@ -12,15 +12,19 @@ public class Game extends Canvas implements Runnable{
 
 	private static final long serialVersionUID = -3060582566322707434L;
 
-	private int WIDTH = 600, HEIGHT = 400, SPEED = 1;
+	public static final int WIDTH = 600, HEIGHT = 400;
+
+	private static int SPEED = 3;
 	
 	private Thread thread;
 	private boolean running = false;
 	
-	Background background1= new Background(0, SPEED);
-	Background background2 = new Background(WIDTH, SPEED);
+	static Background background1= new Background(0, SPEED);
+	static Background background2 = new Background(WIDTH, SPEED);
 
 	static Bird bird = new Bird(40, 280);
+	
+	Pipe obstacle = new Pipe();
 	
 	public Game() {
 		new Window(WIDTH, HEIGHT, "Flappy Bird" , this);
@@ -84,6 +88,7 @@ public class Game extends Canvas implements Runnable{
 		Graphics g = bs.getDrawGraphics();
 
 		updateBackground(g);
+		bird.render(g);
 		
 		g.dispose();
 		bs.show();
@@ -92,19 +97,23 @@ public class Game extends Canvas implements Runnable{
 	public void updateBackground(Graphics g) {
 		background1.render(g);
 		background2.render(g);
-		bird.render(g);
+		obstacle.render(g);
 	}
 
 	public void tick() {
 		background1.tick();
 		background2.tick();
 		bird.tick();
+		obstacle.tick();
+		if(obstacle.getX() == -40) {
+			obstacle = new Pipe();
+		}
 	}
 	
 	public static int clamp(int var, int min, int max) {
 		if(var > max) {
 			return max;
-		}else if(var < min) {
+		}else if(var < min) { 
 			return min;
 		}else {
 			return var;

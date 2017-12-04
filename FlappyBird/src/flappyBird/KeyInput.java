@@ -7,7 +7,7 @@ public class KeyInput implements KeyListener {
 
 
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == e.VK_UP) {
+		if(e.getKeyCode() == e.VK_SPACE) {
 			Game.bird.jump();
 		}
 	}
