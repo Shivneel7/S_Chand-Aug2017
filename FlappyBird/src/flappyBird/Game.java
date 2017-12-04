@@ -12,19 +12,19 @@ public class Game extends Canvas implements Runnable{
 
 	private static final long serialVersionUID = -3060582566322707434L;
 
-	public static int backgroundX = 0;
-	
-	private int WIDTH = 600, HEIGHT = 400;
+	private int WIDTH = 600, HEIGHT = 400, SPEED = 1;
 	
 	private Thread thread;
 	private boolean running = false;
 	
-	private Background background1;
-	private Background background2;
+	Background background1= new Background(0, SPEED);
+	Background background2 = new Background(WIDTH, SPEED);
+
+	static Bird bird = new Bird(40, 280);
 	
 	public Game() {
 		new Window(WIDTH, HEIGHT, "Flappy Bird" , this);
-		
+
 		this.addKeyListener(new KeyInput());
 	}
 	
@@ -32,6 +32,21 @@ public class Game extends Canvas implements Runnable{
 		new Game();
 	}
 
+	public synchronized void start() {
+		thread = new Thread(this);
+		thread.start();
+		running  = true;
+	}
+	
+	public synchronized void stop() {
+		try {
+			thread.join();
+			running = false;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void run() {
 		long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
@@ -60,41 +75,39 @@ public class Game extends Canvas implements Runnable{
         stop();
 	}
 	
-	private void tick() {
-		backgroundX--;
-	}
-	
-	private void render() {
+	public void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null) {
 			this.createBufferStrategy(3);
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
-		
-		background1 = new Background(g, backgroundX);
-		background2 = new Background(g, backgroundX+600);
-		if(backgroundX % 600 == 0) {
-			backgroundX = 0;
-		}
+
+		updateBackground(g);
 		
 		g.dispose();
 		bs.show();
 	}
+	
+	public void updateBackground(Graphics g) {
+		background1.render(g);
+		background2.render(g);
+		bird.render(g);
+	}
 
-	public void start() {
-		thread = new Thread(this);
-		thread.start();
-		running  = true;
+	public void tick() {
+		background1.tick();
+		background2.tick();
+		bird.tick();
 	}
 	
-	public void stop() {
-		try {
-			thread.join();
-			running = false;
-		}catch(Exception e) {
-			e.printStackTrace();
+	public static int clamp(int var, int min, int max) {
+		if(var > max) {
+			return max;
+		}else if(var < min) {
+			return min;
+		}else {
+			return var;
 		}
 	}
-	
 }
