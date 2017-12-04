@@ -11,7 +11,7 @@ public class Pipe {
 	
 	public Pipe() {
 		this.x = Game.background2.getX() - 60;
-		this.y = Game.clamp(r.nextInt(Game.HEIGHT-10) , 200, Game.HEIGHT-10);
+		this.y = r.nextInt(195) + 200;
 	}
 	
 	public int getX() {
@@ -21,7 +21,7 @@ public class Pipe {
 	public void render(Graphics g) {
 		g.setColor(Color.green);
 		g.fillRect(x, 0, 40, Game.HEIGHT - y);
-		g.fillRect(x, Game.HEIGHT - y + 90, 40, Game.HEIGHT);
+		g.fillRect(x, Game.HEIGHT - y + 100, 40, Game.HEIGHT);
 	}
 	
 	public void tick() {

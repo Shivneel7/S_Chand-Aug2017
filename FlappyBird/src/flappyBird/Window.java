@@ -12,10 +12,10 @@ public class Window extends Canvas{
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		
 		frame.setVisible(true);
 		frame.add(game);
 		game.start();
+		game.requestFocus();
 	}
 	
 	
