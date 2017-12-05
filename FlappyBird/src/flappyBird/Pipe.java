@@ -38,9 +38,7 @@ public class Pipe {
 	public void tick() {
 		this.x = b.getX() - 40;
 		if(x == -36) {
-			System.out.println("x: " + x);
 			y =r.nextInt(195) + 200;
-			System.out.println("y: " + y);
 		}
 	}
 	
