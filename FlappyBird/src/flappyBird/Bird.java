@@ -2,19 +2,20 @@ package flappyBird;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 
 public class Bird {
 	
 	private int x;
 	private int y;
 	private int dy;
-	public int counter = 0;
-	public int tickSlower = 0;
+	private int jumpCounter = 0;
+	private Pipe p;
+	private int lCounter = 0;
 	
-	public Bird(int x, int y) {
+	public Bird(int x, int y, Pipe p) {
 		this.x = x;
 		this.y = y;
+		this.p =p;
 	}
 	
 	public void setdy(int dy) {
@@ -36,13 +37,20 @@ public class Bird {
 	public void tick() {
 		this.y += dy;
 		if(dy != 0 ) {
-			counter ++;
+			jumpCounter ++;
 		}
-		if(counter > 15) {
+		if(jumpCounter > 15 || this.y < -20) {
 				dy = 2;
 		}
 		if(this.y > 280) {
 				dy =0;
+		}
+		
+		if(p.getBounds1().intersects(x,y,32,32) || p.getBounds2().intersects(x,y,32,32)) {
+			lCounter++;
+			if(lCounter > 5) {
+				Game.lost = true;
+			}
 		}
 	}
 	
@@ -59,6 +67,6 @@ public class Bird {
 	
 	public void jump() {
 		dy = -3;
-		counter = 0;
+		jumpCounter = 0;
 	}
 }

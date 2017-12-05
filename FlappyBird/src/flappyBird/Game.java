@@ -2,34 +2,33 @@ package flappyBird;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferStrategy;
-
-import javax.swing.ImageIcon;
 
 public class Game extends Canvas implements Runnable{
 
 	private static final long serialVersionUID = -3060582566322707434L;
 
 	public static final int WIDTH = 600, HEIGHT = 400;
-
-	private static int SPEED = 3;
+	public static boolean lost = false;
+	
+	private static int SPEED = 4;
 	
 	private Thread thread;
 	private boolean running = false;
 	
-	static Background background1= new Background(0, SPEED);
-	static Background background2 = new Background(WIDTH, SPEED);
+	private Background background1 = new Background(0, SPEED);
+	private static Background background2 = new Background(WIDTH, SPEED);
+	
+	private static Pipe obstacle = new Pipe(background2);
+	
+	private static Bird bird = new Bird(40, 280, obstacle);
 
-	static Bird bird = new Bird(40, 280);
-	
-	Pipe obstacle = new Pipe();
-	
 	public Game() {
-		new Window(WIDTH, HEIGHT, "Flappy Bird" , this);
-
-		this.addKeyListener(new KeyInput());
+		new Window(WIDTH, HEIGHT, "Totally not Flappy Bird" , this);
+		
+		this.addKeyListener(new KeyInput(bird));
 	}
 	
 	public static void main(String[] args) {
@@ -86,10 +85,17 @@ public class Game extends Canvas implements Runnable{
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
-
+		
 		updateBackground(g);
+		
 		bird.render(g);
 		
+		if(lost == true) {
+			g.setColor(Color.black);
+			g.setFont(new Font(null, Font.BOLD ,20));
+			g.drawString("YOU LOST", Game.WIDTH /2-30, Game.HEIGHT /2);
+		}
+
 		g.dispose();
 		bs.show();
 	}
@@ -105,8 +111,9 @@ public class Game extends Canvas implements Runnable{
 		background2.tick();
 		bird.tick();
 		obstacle.tick();
-		if(obstacle.getX() == -40) {
-			obstacle = new Pipe();
+		if(lost) {
+			background1.stop();
+			background2.stop();
 		}
 	}
 	

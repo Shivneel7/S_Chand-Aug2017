@@ -6,7 +6,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class Background {
-	public Image img;
+	public static Image img;
 	private int x;
 	private int originalX;
 	private int speed;
@@ -32,8 +32,12 @@ public class Background {
 		x -= speed;
 	}
 	
+	public void stop(){
+		speed = 0;
+	}
+	
 	public void render(Graphics g) {
-		if(x % 600 == 0) {
+		if(x % Game.WIDTH == 0) {
 			x = originalX;
 		}
 		g.drawImage(img, x, 0, null);
