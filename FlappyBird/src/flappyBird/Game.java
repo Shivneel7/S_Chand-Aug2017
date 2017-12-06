@@ -11,7 +11,6 @@ public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = -3060582566322707434L;
 
 	public static final int WIDTH = 600, HEIGHT = 400;
-	public static boolean lost = false;
 	
 	private static int SPEED = 4;
 	
@@ -23,23 +22,24 @@ public class Game extends Canvas implements Runnable{
 	private Background background1 = new Background(0, SPEED);
 	private static Background background2 = new Background(WIDTH, SPEED);
 	
-	private static Pipe obstacle = new Pipe(background2);
+	private static Pipe obstacle;// = new Pipe(background2);
 	
-	private static Bird bird = new Bird(40, 280, obstacle);
+	private static Bird bird; // = new Bird(40, 280, obstacle, this);
 	
-	public enum STATE{Menu, Game};
+	public static int score = 0;
+	
+	public enum STATE{Menu, Game, Loss};
 	
 	public STATE gameState = STATE.Menu;
 	
 	public Game() {
 		menu = new Menu(this);
+		obstacle = new Pipe(background2);
+		bird = new Bird(40, 280, obstacle, this);
+		
 		this.addMouseListener(menu);
 		
-		if(gameState == STATE.Game) {
-			
-		}
 		new Window(WIDTH, HEIGHT, "Totally not Flappy Bird" , this);
-		
 		
 		this.addKeyListener(new KeyInput(bird));
 	}
@@ -84,7 +84,7 @@ public class Game extends Canvas implements Runnable{
         	frames++;
         	if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
-			//	System.out.println("FPS: "+ frames);
+				//System.out.println("FPS: "+ frames);
 				frames = 0;
         	}
         }
@@ -99,17 +99,13 @@ public class Game extends Canvas implements Runnable{
 		}
 		Graphics g = bs.getDrawGraphics();
 		updateBackground(g);
-		if(gameState == STATE.Menu) {
+		if(gameState == STATE.Menu || gameState == STATE.Loss) {
 			menu.render(g);
 		}else{
 			obstacle.render(g);
 			bird.render(g);
-		}
-
-		if(lost == true) {
-			g.setColor(Color.black);
-			g.setFont(new Font(null, Font.BOLD ,20));
-			g.drawString("YOU LOST", Game.WIDTH /2-30, Game.HEIGHT /2);
+			g.setColor(Color.white);
+			g.drawString("Score: " + score, 10, HEIGHT - 45);
 		}
 
 		g.dispose();
@@ -126,12 +122,10 @@ public class Game extends Canvas implements Runnable{
 		background2.tick();
 		if(gameState == STATE.Menu){
 			menu.tick();
-		}else {
+		}else if(gameState == STATE.Game){
+			score++;
 			bird.tick();
 			obstacle.tick();
-			if(lost) {
-				gameState = STATE.Menu;
-			}
 		}
 	}
 	

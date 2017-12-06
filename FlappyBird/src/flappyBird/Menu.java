@@ -18,11 +18,19 @@ public class Menu extends MouseAdapter{
 	public void mousePressed(MouseEvent e) {
 		int mx = e.getX();
 		int my = e.getY();
+	
 		if(game.gameState == STATE.Menu) {
 			if(getClick(mx, my, game.WIDTH/2 - 100, 100, 200, 100)) {
 				game.gameState = STATE.Game;
 				game.resetBackground();
-				game.lost = false;
+			}
+		}
+		
+		if(game.gameState == STATE.Loss) {
+			if(getClick(mx, my,game.WIDTH/2 - 110, 195, 220, 100)) {
+				game.gameState = STATE.Game;
+				game.resetBackground();
+				game.score = 0;
 			}
 		}
 	}
@@ -38,13 +46,23 @@ public class Menu extends MouseAdapter{
 	}
 	
 	public void tick() {
+	
 	}
 	
 	public void render(Graphics g) {
 		g.setFont(new Font("Arial", 1, 70));
 		g.setColor(Color.black);
-		g.fillRect(game.WIDTH/2 - 100, 100, 200, 100);
-		g.setColor(Color.cyan);
-		g.drawString("Play", game.WIDTH/2 - 70, 170);
+		if(game.gameState == STATE.Menu) {
+			g.fillRect(game.WIDTH/2 - 100, 100, 200, 100);
+			g.setColor(Color.cyan);
+			g.drawString("Play", game.WIDTH/2 - 70, 170);
+		}
+		if(game.gameState == STATE.Loss) {
+			g.setFont(new Font("Arial", 1, 35));
+			g.drawString("You lost with a score of: " + game.score, 30, Game.HEIGHT /2 - 40);
+			g.fillRect(game.WIDTH/2 - 110, 195, 220, 100);
+			g.setColor(Color.cyan);
+			g.drawString("Play Again?", 204, 257);
+		}
 	}
 }
