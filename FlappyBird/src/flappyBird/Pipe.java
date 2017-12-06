@@ -21,6 +21,10 @@ public class Pipe {
 		return this.x;
 	}
 	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
 	public int getY() {
 		return this.y;
 	}
@@ -37,6 +41,10 @@ public class Pipe {
 		g.setColor(Color.green);
 		g.fillRect(x, 0, 40, Game.HEIGHT - y);
 		g.fillRect(x, Game.HEIGHT - y + 90, 40, y - 90);
+	}
+	
+	public void getRandomY() {
+		y = r.nextInt(195) + 200;
 	}
 	
 	public void tick() {

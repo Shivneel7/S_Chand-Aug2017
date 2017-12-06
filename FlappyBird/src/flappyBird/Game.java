@@ -142,5 +142,6 @@ public class Game extends Canvas implements Runnable{
 	public void resetBackground() {
 		background1.setX(0);
 		background2.setX(WIDTH);
+		obstacle.setX(HEIGHT + 100);
 	}
 }

@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import flappyBird.Game.STATE;
 
 public class Menu extends MouseAdapter{
-	private Game game;	
+	private Game game;
 	
 	public Menu(Game game) {
 		this.game = game;
