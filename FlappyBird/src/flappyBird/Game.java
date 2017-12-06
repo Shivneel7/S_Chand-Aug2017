@@ -36,7 +36,7 @@ public class Game extends Canvas implements Runnable{
 		menu = new Menu(this);
 		obstacle = new Pipe(background2);
 		bird = new Bird(40, 280, obstacle, this);
-		
+
 		this.addMouseListener(menu);
 		
 		new Window(WIDTH, HEIGHT, "Totally not Flappy Bird" , this);
@@ -84,7 +84,7 @@ public class Game extends Canvas implements Runnable{
         	frames++;
         	if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
-				//System.out.println("FPS: "+ frames);
+				System.out.println("FPS: "+ frames);
 				frames = 0;
         	}
         }
