@@ -18,15 +18,28 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private boolean running = false;
 	
+	private Menu menu;
+	
 	private Background background1 = new Background(0, SPEED);
 	private static Background background2 = new Background(WIDTH, SPEED);
 	
 	private static Pipe obstacle = new Pipe(background2);
 	
 	private static Bird bird = new Bird(40, 280, obstacle);
-
+	
+	public enum STATE{Menu, Game};
+	
+	public STATE gameState = STATE.Menu;
+	
 	public Game() {
+		menu = new Menu(this);
+		this.addMouseListener(menu);
+		
+		if(gameState == STATE.Game) {
+			
+		}
 		new Window(WIDTH, HEIGHT, "Totally not Flappy Bird" , this);
+		
 		
 		this.addKeyListener(new KeyInput(bird));
 	}
@@ -71,7 +84,7 @@ public class Game extends Canvas implements Runnable{
         	frames++;
         	if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
-				System.out.println("FPS: "+ frames);
+			//	System.out.println("FPS: "+ frames);
 				frames = 0;
         	}
         }
@@ -85,11 +98,14 @@ public class Game extends Canvas implements Runnable{
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
-		
 		updateBackground(g);
-		
-		bird.render(g);
-		
+		if(gameState == STATE.Menu) {
+			menu.render(g);
+		}else{
+			obstacle.render(g);
+			bird.render(g);
+		}
+
 		if(lost == true) {
 			g.setColor(Color.black);
 			g.setFont(new Font(null, Font.BOLD ,20));
@@ -103,17 +119,19 @@ public class Game extends Canvas implements Runnable{
 	public void updateBackground(Graphics g) {
 		background1.render(g);
 		background2.render(g);
-		obstacle.render(g);
 	}
 
 	public void tick() {
 		background1.tick();
 		background2.tick();
-		bird.tick();
-		obstacle.tick();
-		if(lost) {
-			background1.stop();
-			background2.stop();
+		if(gameState == STATE.Menu){
+			menu.tick();
+		}else {
+			bird.tick();
+			obstacle.tick();
+			if(lost) {
+				gameState = STATE.Menu;
+			}
 		}
 	}
 	
@@ -125,5 +143,10 @@ public class Game extends Canvas implements Runnable{
 		}else {
 			return var;
 		}
+	}
+
+	public void resetBackground() {
+		background1.setX(0);
+		background2.setX(WIDTH);
 	}
 }

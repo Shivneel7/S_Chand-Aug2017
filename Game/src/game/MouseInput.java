@@ -1,11 +1,10 @@
 package game;
 
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import javax.swing.event.MouseInputAdapter;
-
-public class MouseInput extends MouseInputAdapter{
+public class MouseInput extends MouseAdapter{
 	
 	private Handler handler;
 	

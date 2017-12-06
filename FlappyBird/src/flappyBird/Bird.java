@@ -48,9 +48,13 @@ public class Bird {
 		
 		if(p.getBounds1().intersects(x,y,32,32) || p.getBounds2().intersects(x,y,32,32)) {
 			lCounter++;
-			if(lCounter > 5) {
+			System.out.println(lCounter);
+			if(lCounter > 2) {
 				Game.lost = true;
 			}
+		}
+		if(p.getX() == this.x) {
+			lCounter = 0;
 		}
 	}
 	
