@@ -9,6 +9,8 @@ public class Pipe {
 	
 	private int x, y;
 	private Background b;
+	private int pipeWidth = 40;
+	
 	Random r = new Random();
 	
 	public Pipe(Background b) {
@@ -30,17 +32,17 @@ public class Pipe {
 	}
 	
 	public Rectangle getBounds1() {
-		return new Rectangle(x , 0, 40, Game.HEIGHT - y);
+		return new Rectangle(x , 0, pipeWidth, Game.HEIGHT - y);
 	}
 	
 	public Rectangle getBounds2() {
-		return new Rectangle(x, Game.HEIGHT - y + 90, 40, y - 90);
+		return new Rectangle(x, Game.HEIGHT - y + 90, pipeWidth, y - 90);
 	}
 	
 	public void render(Graphics g) {
 		g.setColor(Color.green);
-		g.fillRect(x, 0, 40, Game.HEIGHT - y);
-		g.fillRect(x, Game.HEIGHT - y + 90, 40, y - 90);
+		g.fillRect(x, 0, pipeWidth, Game.HEIGHT - y);
+		g.fillRect(x, Game.HEIGHT - y + 90, pipeWidth, y - 90);
 	}
 	
 	public void getRandomY() {
@@ -48,7 +50,7 @@ public class Pipe {
 	}
 	
 	public void tick() {
-		this.x = b.getX() - 40;
+		this.x = b.getX() - pipeWidth;
 		if(x == -36) {
 			y = r.nextInt(195) + 200;
 		}
