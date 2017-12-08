@@ -12,7 +12,7 @@ public class Background {
 	private int speed;
 	
 	public Background(int x, int speed) {
-		ImageIcon i = new ImageIcon("resources\\Background.png");
+		ImageIcon i = new ImageIcon("resources/Background.png");
 		img = i.getImage();
 		Image img = i.getImage();
 		this.x = x;
