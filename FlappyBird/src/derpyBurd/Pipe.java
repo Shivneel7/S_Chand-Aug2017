@@ -1,4 +1,4 @@
-package flappyBird;
+package derpyBurd;
 
 import java.awt.Color;
 import java.awt.Graphics;

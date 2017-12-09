@@ -1,4 +1,4 @@
-package flappyBird;
+package derpyBurd;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import flappyBird.Game.STATE;
+import derpyBurd.Game.STATE;
 
 public class Menu extends MouseAdapter{
 	private Game game;

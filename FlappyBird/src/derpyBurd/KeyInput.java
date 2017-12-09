@@ -1,9 +1,9 @@
-package flappyBird;
+package derpyBurd;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import flappyBird.Game.STATE;
+import derpyBurd.Game.STATE;
 
 public class KeyInput implements KeyListener {
 

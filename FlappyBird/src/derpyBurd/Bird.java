@@ -1,9 +1,9 @@
-package flappyBird;
+package derpyBurd;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
-import flappyBird.Game.STATE;
+import derpyBurd.Game.STATE;
 
 public class Bird {
 	
