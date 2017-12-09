@@ -51,7 +51,7 @@ public class Pipe {
 	
 	public void tick() {
 		this.x = b.getX() - pipeWidth;
-		if(x == -36) {
+		if(x == (Game.WIDTH % Game.SPEED) - pipeWidth) {
 			y = r.nextInt(195) + 200;
 		}
 	}

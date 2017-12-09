@@ -31,13 +31,13 @@ public class Background {
 	public void tick() {
 		x -= speed;
 	}
-	
-	public void stop(){
-		speed = 0;
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
 	
 	public void render(Graphics g) {
-		if(x % Game.WIDTH == 0) {
+		if(Math.abs(x) % Game.WIDTH < 3) {
 			x = originalX;
 		}
 		g.drawImage(img, x, 0, null);

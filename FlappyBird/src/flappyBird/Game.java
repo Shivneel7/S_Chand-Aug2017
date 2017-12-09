@@ -12,14 +12,14 @@ public class Game extends Canvas implements Runnable{
 
 	public static final int WIDTH = 600, HEIGHT = 400;
 	
-	private static int SPEED = 4;
+	public static int SPEED = 3;
 	
 	private Thread thread;
 	private boolean running = false;
 	
 	private Menu menu;
 	
-	private Background background1 = new Background(0, SPEED);
+	private static Background background1 = new Background(0, SPEED);
 	private static Background background2 = new Background(WIDTH, SPEED);
 	
 	private static Pipe obstacle;// = new Pipe(background2);
@@ -28,9 +28,9 @@ public class Game extends Canvas implements Runnable{
 	
 	public static int score = 0;
 	
-	public enum STATE{Menu, Game, Loss};
+	public enum STATE{Menu, Game, Loss, Paused};
 	
-	public STATE gameState = STATE.Menu;
+	public static STATE gameState = STATE.Menu;
 	
 	public Game() {
 		menu = new Menu(this);
@@ -41,7 +41,7 @@ public class Game extends Canvas implements Runnable{
 		
 		new Window(WIDTH, HEIGHT, "Totally not Flappy Bird" , this);
 		
-		this.addKeyListener(new KeyInput(bird));
+		this.addKeyListener(new KeyInput(bird, this));
 	}
 	
 	public static void main(String[] args) {
@@ -84,7 +84,7 @@ public class Game extends Canvas implements Runnable{
         	frames++;
         	if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
-				System.out.println("FPS: "+ frames);
+				//System.out.println("FPS: "+ frames);
 				frames = 0;
         	}
         }
@@ -99,6 +99,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		Graphics g = bs.getDrawGraphics();
 		updateBackground(g);
+		//////////////////////////////
 		if(gameState == STATE.Menu || gameState == STATE.Loss) {
 			menu.render(g);
 		}else{
@@ -106,8 +107,12 @@ public class Game extends Canvas implements Runnable{
 			bird.render(g);
 			g.setColor(Color.white);
 			g.drawString("Score: " + score, 10, HEIGHT - 45);
+			if(gameState == STATE.Paused) {
+				g.setColor(Color.black);
+				g.drawString("Paused" , 10, 200);
+			}
 		}
-
+		/////////////////////////////////
 		g.dispose();
 		bs.show();
 	}
@@ -142,6 +147,16 @@ public class Game extends Canvas implements Runnable{
 	public void resetBackground() {
 		background1.setX(0);
 		background2.setX(WIDTH);
-		obstacle.setX(HEIGHT + 100);
+		obstacle.setX(WIDTH + 100);
+	}
+	
+	public void stopBackground() {
+		background1.setSpeed(0);
+		background2.setSpeed(0);
+	}
+
+	public void restartBackground() {
+		background1.setSpeed(SPEED);
+		background2.setSpeed(SPEED);
 	}
 }
