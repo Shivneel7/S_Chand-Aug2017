@@ -39,7 +39,7 @@ public class Game extends Canvas implements Runnable{
 
 		this.addMouseListener(menu);
 		
-		new Window(WIDTH, HEIGHT, "Totally not Flappy Bird" , this);
+		new Window(WIDTH, HEIGHT, "Derpy Burd" , this);
 		
 		this.addKeyListener(new KeyInput(bird, this));
 	}
