@@ -1,20 +1,25 @@
 package derpyBurd;
 
 import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
-import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
 
 public class Background {
-	public static Image img;
+	
+	public static BufferedImage img;
 	private int x;
 	private int originalX;
 	private int speed;
 	
 	public Background(int x, int speed) {
-		ImageIcon i = new ImageIcon("resources/Background.png");
-		img = i.getImage();
-		Image img = i.getImage();
+		try {
+			img = ImageIO.read(getClass().getResource("/Background.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		this.x = x;
 		originalX =x;
 		this.speed = speed;
