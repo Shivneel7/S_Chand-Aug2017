@@ -3,7 +3,7 @@ import java.io.*;
 
 public class HangMan {
 	
-	static char[] WORD = "why".toCharArray();
+	static char[] WORD = "zebra".toCharArray();
 	static String incorrectGuesses = "";
 	static int numberOfErrors = 0;
 	
@@ -14,12 +14,12 @@ public class HangMan {
 		if(con != null) {
 			WORD = con.readPassword("Player one: Enter a word");
 		}
-
+		
 		char[] word = new char[WORD.length];
 		for(int i = 0; i<WORD.length; i++) {
 			word[i] = '_';
 		}
-
+		
 		do {
 			System.out.println(getMan());
 			System.out.println(incorrectGuesses);
