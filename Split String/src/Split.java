@@ -11,7 +11,7 @@ public class Split {
 //		System.out.println(Arrays.toString("I reallyreally likeapples".split("really")));
 //		System.out.println(Arrays.toString("I reallyreally likeapples".split("really")));
 //		System.out.println(Arrays.toString("bread fish bread a bread".split("bread")));
-		
+
 		
 		//Your task Part 1:
 		/*Write a method that take in a string like "applespineapplesbreadlettustomatobaconmayohambreadcheese" describing a sandwich
