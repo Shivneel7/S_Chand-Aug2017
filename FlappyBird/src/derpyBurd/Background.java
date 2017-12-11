@@ -15,7 +15,7 @@ public class Background {
 	
 	public Background(int x, int speed) {
 		try {
-			img = ImageIO.read(getClass().getResource("/Background.png"));
+			img = ImageIO.read(getClass().getResource("/background.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
