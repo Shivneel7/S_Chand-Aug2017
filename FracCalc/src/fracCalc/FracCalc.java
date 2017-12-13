@@ -31,12 +31,36 @@ public class FracCalc {
     		return "ERROR: Please check you expression and try again.";
     	}
     	String resultString = "";
+        
+    	Fraction operand1;
+    	Fraction operand2;
+    	Fraction result;
     	
     	for(int i = 2; i < parsedInput.length; i += 2) { 		
-    		Fraction operand1 = new Fraction(parsedInput[0]);
-	        Fraction operand2 = new Fraction(parsedInput[i]);
+    		operand1 = new Fraction(parsedInput[0]);
+	        operand2 = new Fraction(parsedInput[i]);
 	        String operator = parsedInput[i-1];
-	        resultString = operand2.toString();
+	        
+	        if(operand1.isDivideByZero() || operand2.isDivideByZero()) {//checks if denominator of any operands is 0, so we don't try and divide by 0.
+	        	return "ERROR: Please stop trying to divide by 0.";
+	        }
+	        if(operator.equals("+")){
+	        	
+	        }else if(operator.equals("-")) {
+	        	
+	        }else if(operator.equals("*")) {
+	        	result = operand1.multiply(operand2);
+	        	resultString = result.toString();
+	        }else if(operator.equals("/")){
+	        	if(operand2.getNumerator() == 0) {
+	        		return "ERROR: Please stop trying to divide by 0.";
+	        	}
+	        	operand2.reciprocate();
+	        	result = operand1.multiply(operand2);
+	        	resultString = result.toString();
+	        }else {
+	        	return "ERROR: Please try a different operator.";
+	        }
     	}
 		return resultString;
     }

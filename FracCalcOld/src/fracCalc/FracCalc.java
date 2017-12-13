@@ -62,7 +62,7 @@ public class FracCalc {
 	        }else {
 	        	return "ERROR: Please try a different operator.";
 	        }
-
+	        
 	        resultString = simplify(unsimplifiedResultArray);
 	        parsedInput[0] = resultString;	//by saving this in the 0th index of the original array,
 	        								//we can always make parsedInput[0] the first operand 
