@@ -9,7 +9,6 @@ public class Player extends GameObject{
 	Random r = new Random();
 	
 	private BufferedImageLoader loader;
-	
 	private SpriteSheet ss;
 	
 	public Player(int x, int y, ID id) {

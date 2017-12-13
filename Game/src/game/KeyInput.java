@@ -7,6 +7,7 @@ public class KeyInput implements KeyListener {
 
 	private Handler handler;
 	private boolean[] keyDown = new boolean[4];
+	private Audio test = new Audio("/test.wav");
 	
 	public KeyInput(Handler handler) {
 		this.handler = handler;
@@ -17,6 +18,11 @@ public class KeyInput implements KeyListener {
 		
 	}
 	public void keyPressed(KeyEvent e) {
+		
+		if(e.getKeyCode() == e.VK_SPACE) {
+			test.play();
+		}
+		
 		for(int i = 0; i < handler.object.size(); i++) {
 			GameObject temp = handler.object.get(i);
 			
@@ -43,6 +49,11 @@ public class KeyInput implements KeyListener {
 	}
 	
 	public void keyReleased(KeyEvent e) {
+		
+		if(e.getKeyCode() == e.VK_SPACE) {
+			test.stop();
+		}
+		
 		for(int i = 0; i < handler.object.size(); i++) {
 			GameObject temp = handler.object.get(i);
 			if(temp.getID() == ID.Player) {

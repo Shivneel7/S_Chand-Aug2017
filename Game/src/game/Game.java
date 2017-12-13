@@ -28,7 +28,6 @@ public class Game extends Canvas implements Runnable{
 		
 		handler.addObject(new Player(20 , HEIGHT - 72, ID.Player));
 
-		
 	}
 	
 	public static void main(String[] args) {
