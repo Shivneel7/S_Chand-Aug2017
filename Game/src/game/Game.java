@@ -79,12 +79,6 @@ public class Game extends Canvas implements Runnable{
         }
         stop();
         
-//alternate loop  
-//		while(true) {
-//			tick();
-//			render();
-//		}
-        
 	}
 	
 	public void tick() {
