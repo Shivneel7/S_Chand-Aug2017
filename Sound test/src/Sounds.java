@@ -3,6 +3,7 @@ import javax.sound.sampled.AudioInputStream;//Only needed for Mixer
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;	//Only needed for Mixer
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.Mixer;
 
 public class Sounds {
@@ -23,6 +24,9 @@ public class Sounds {
 //			AudioInputStream audio = AudioSystem.getAudioInputStream(Sounds.class.getResource("/test.wav"));
 //			c = (Clip) mixer.getLine(new DataLine.Info(Clip.class, null));
 //			c.open(audio);
+//			//Unnecessary unless u want volume to be lower
+//			FloatControl gainControl = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
+//			gainControl.setValue(-10f);//lowers volume by ten
 //////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		//without Mixer
@@ -30,11 +34,15 @@ public class Sounds {
 			c = AudioSystem.getClip();
 			c.open(AudioSystem.getAudioInputStream(Sounds.class.getResource("/test.wav")));
 			
+			FloatControl gainControl = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-10f); //lowers volume by ten
+			
 		} catch (Exception e) {
 			System.err.println("Cannot find Audio File");
 		}
 		
 //////////////////////////////////////////////////////////////////////////////////////////////////
+		
 		c.start();
 		//to keep thread running after the audio starts
 		do {

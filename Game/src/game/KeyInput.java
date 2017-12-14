@@ -49,11 +49,6 @@ public class KeyInput implements KeyListener {
 	}
 	
 	public void keyReleased(KeyEvent e) {
-		
-		if(e.getKeyCode() == e.VK_SPACE) {
-			test.stop();
-		}
-		
 		for(int i = 0; i < handler.object.size(); i++) {
 			GameObject temp = handler.object.get(i);
 			if(temp.getID() == ID.Player) {
