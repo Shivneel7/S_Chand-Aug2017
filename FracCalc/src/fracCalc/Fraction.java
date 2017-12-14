@@ -1,3 +1,8 @@
+//Shivneel Chand
+//12-13-2017
+//Fraction object. used by FracCalc.java
+
+
 package fracCalc;
 
 public class Fraction {

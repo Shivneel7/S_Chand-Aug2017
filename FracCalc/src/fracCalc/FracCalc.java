@@ -1,3 +1,8 @@
+//Shivneel Chand
+//12-13-2017
+//This class takes continuous user input from the console of a fractional equation 
+//and prints the simplified fractional form of the equation (w/objects)
+
 package fracCalc;
 
 import java.util.Scanner;
