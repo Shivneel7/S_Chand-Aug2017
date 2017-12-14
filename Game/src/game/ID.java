@@ -2,6 +2,6 @@ package game;
 
 public enum ID {
 	Player(),
-	Background(),
+	Block,
 	Enemy();
 }

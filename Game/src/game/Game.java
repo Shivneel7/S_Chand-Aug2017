@@ -1,24 +1,24 @@
 package game;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 7364682855700581664L;
 	
-	private static final int WIDTH = 600, HEIGHT = WIDTH/12*9;
+	public static final int WIDTH = 800, HEIGHT = WIDTH/12*9;
 	
 	private Thread thread;
 	private boolean running = false;
 	
+	private Camera cam;
+	
 	private Handler handler;
 	
-	public Game() {
+	private void init() {
 		handler = new Handler();
-		new Window(WIDTH, HEIGHT, "Game", this);
+		
+		cam = new Camera(0,0);
 		
 //		this.addMouseMotionListener(new MouseInput(handler));
 //		this.addMouseListener(new MouseInput(handler));
@@ -27,14 +27,19 @@ public class Game extends Canvas implements Runnable{
 		this.addKeyListener(new KeyInput(handler));
 		
 		handler.addObject(new Player(20 , HEIGHT - 72, ID.Player));
+		handler.createLevel();
 
 	}
 	
 	public static void main(String[] args) {
-		new Game();
+		new Window(WIDTH, HEIGHT, "Game", new Game());
 	}
 
 	public synchronized void start() {
+		if(running) {
+			return;
+		}
+		
 		thread = new Thread(this);
 		thread.start();
 		running = true;
@@ -50,6 +55,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void run() {
+		init();
 		long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
@@ -62,12 +68,10 @@ public class Game extends Canvas implements Runnable{
         	lastTime = now;
         	while(delta >=1) {
         		tick();
-        		//System.out.println("tick");
         		delta--;
         	}
         	if(running) {
         		render();
-        		//System.out.println("render");
         	}
         	frames++;
         	if(System.currentTimeMillis() - timer > 1000){
@@ -82,6 +86,11 @@ public class Game extends Canvas implements Runnable{
 	
 	public void tick() {
 		handler.tick();
+		for(int i = 0; i < handler.object.size(); i++) {
+			if(handler.object.get(i).getID() == ID.Player) {
+				cam.tick(handler.object.get(i));
+			}
+		}	
 	}
 	
 	public void render() {
@@ -91,11 +100,18 @@ public class Game extends Canvas implements Runnable{
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
-		g.setColor(Color.pink);
-		g.fillRect(0, 0, WIDTH - 16, HEIGHT - 39);
+		Graphics2D g2d = (Graphics2D) g;
+		
+		/////////////////////////////////////////////////////
+		g.setColor(Color.black);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+
+		g2d.translate(cam.getX(), cam.getY());
 		
 		handler.render(g);
 		
+		g2d.translate(-cam.getX(), -cam.getY());
+		/////////////////////////////////////////////////////
 		g.dispose();
 		bs.show();
 	}
