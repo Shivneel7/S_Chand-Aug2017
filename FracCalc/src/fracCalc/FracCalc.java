@@ -32,35 +32,41 @@ public class FracCalc {
     	}
     	String resultString = "";
         
-    	Fraction operand1;
+    	Fraction operand1 = new Fraction(parsedInput[0]);
     	Fraction operand2;
+    	
     	Fraction result;
     	
     	for(int i = 2; i < parsedInput.length; i += 2) { 		
-    		operand1 = new Fraction(parsedInput[0]);
-	        operand2 = new Fraction(parsedInput[i]);
+    		operand2 = new Fraction(parsedInput[i]);
 	        String operator = parsedInput[i-1];
 	        
-	        if(operand1.isDivideByZero() || operand2.isDivideByZero()) {//checks if denominator of any operands is 0, so we don't try and divide by 0.
+	        if(operand1.isDenominatorZero() || operand2.isDenominatorZero()) {//checks if denominator of any operands is 0, so we don't try and divide by 0.
 	        	return "ERROR: Please stop trying to divide by 0.";
 	        }
 	        if(operator.equals("+")){
+	        	result = operand1.add(operand2);
 	        	
 	        }else if(operator.equals("-")) {
+	        	operand2.changeSign();
+	        	result = operand1.add(operand2);
 	        	
 	        }else if(operator.equals("*")) {
 	        	result = operand1.multiply(operand2);
-	        	resultString = result.toString();
-	        }else if(operator.equals("/")){
-	        	if(operand2.getNumerator() == 0) {
+
+	        }else if(operator.equals("/")){  	
+	        	operand2.reciprocate();
+	        	if(operand2.isDenominatorZero()) {
 	        		return "ERROR: Please stop trying to divide by 0.";
 	        	}
-	        	operand2.reciprocate();
 	        	result = operand1.multiply(operand2);
-	        	resultString = result.toString();
+
 	        }else {
 	        	return "ERROR: Please try a different operator.";
 	        }
+	        operand1 = new Fraction(result);//can't operand1 = result b/c then operand1 is the same as result instead of a copy of result.
+	        result.simplify();
+	        resultString = result.toString();
     	}
 		return resultString;
     }

@@ -17,6 +17,10 @@ public class Fraction {
         }else{
         	wholeNumber = Integer.parseInt(frac);
         }
+		if(wholeNumber < 0) {
+			numerator *= -1;
+		}
+		toImproper();//makes all math easier. I will only simplify after the math.
 	}
 	
 	public Fraction() {
@@ -24,36 +28,44 @@ public class Fraction {
 	}
 	
 	public Fraction(int numerator, int denominator) {
-		this.numerator = numerator;
-		this.denominator = denominator;
+		this(numerator, denominator, 0);
 	}
 	
 	public Fraction(int numerator,  int denominator, int wholeNumber) {
 		this.numerator = numerator;
 		this.wholeNumber = wholeNumber;
 		this.denominator = denominator;
+		if(wholeNumber < 0)
+			numerator *= -1;
+		toImproper();
+	}
+	
+	public Fraction(Fraction frac) {
+		this(frac.getNumerator(), frac.getDenominator(), frac.getWholeNumber());
 	}
 	
 	public Fraction add(Fraction operand2) {//also subtracts by changing sign in client code
 		Fraction result = new Fraction();
-		
+		result.setNumerator(this.numerator * operand2.getDenominator() + operand2.getNumerator() * this.denominator);
+		result.setDenominator(this.denominator * operand2.getDenominator());
 		return result;
 	}
 	
 	public Fraction multiply(Fraction operand2) {//also divides by reciprocating in the client code
-		this.toImproper();
-		operand2.toImproper();
 		Fraction result = new Fraction(this.numerator * operand2.getNumerator(), this.denominator * operand2.getDenominator());
 		return result;
 	}
 	
 	public void toImproper() {
 		numerator = wholeNumber * denominator + numerator;
-		wholeNumber = 0; 
+		wholeNumber = 0;
 	}
 	
 	public void toMixedNumber() {
-		wholeNumber = numerator/denominator;
+		wholeNumber = numerator/denominator + wholeNumber;
+    	if(wholeNumber != 0) { // if the number is a fraction with no whole number, then make the numerator...
+    		numerator = Math.abs(numerator);//positive since the whole number contains the negative sign.
+    	}
     	numerator = numerator % denominator;
 	}
 		
@@ -67,11 +79,44 @@ public class Fraction {
 		denominator = temp;
 	}
 	
-	public boolean isDivideByZero() {
+	public void simplify() {
+		toMixedNumber();
+		int gcf = findGCF(numerator, denominator);
+    	numerator /= gcf;
+    	denominator /= gcf;
+	}
+	
+	//takes two integers and returns the greatest common factor of the integers.
+    public static int findGCF(int num1, int num2) {
+    	num1 = Math.abs(num1);
+    	num2 = Math.abs(num2);
+    	for(int i = num1; i > 1; i--) {
+    		if(num1 % i == 0 && num2 % i == 0) {
+    			return i;
+    		}
+    	}
+    	return 1;
+    }
+    
+	public boolean isDenominatorZero() {
 		if(denominator == 0) 
 			return true;
 		else 
 			return false;
+	}
+	
+	public String toString() {
+		toMixedNumber();
+		if(wholeNumber == 0) {
+			if(numerator == 0) {
+				return "0";
+			}
+			return numerator + "/" + denominator;
+		}
+		if(numerator == 0) {
+			return "" + wholeNumber;
+		}
+		return wholeNumber + "_" + numerator + "/" + denominator;
 	}
 	
 	public int getNumerator() {
@@ -97,18 +142,8 @@ public class Fraction {
 	public void setDenominator(int denominator) {
 		this.denominator = denominator;
 	}
-	
-	public String toString() {
-		toMixedNumber();
-		if(wholeNumber == 0) {
-			if(numerator == 0) {
-				return "0";
-			}
-			return numerator + "/" + denominator;
-		}
-		if(numerator == 0) {
-			return "" + wholeNumber;
-		}
-		return wholeNumber + "_" + numerator + "/" + denominator;
+
+	public void changeSign() {
+		numerator *= -1;
 	}
 }

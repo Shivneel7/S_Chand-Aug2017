@@ -34,7 +34,7 @@ public class FracCalc {
     	String[] parsedInput = input.split(" ");
     	//if the input has an even number of parts, then the input was not in the proper format.
     	if(parsedInput.length % 2 == 0 || parsedInput.length == 1) {
-    		return "ERROR: Please check you expression and try again.";
+    		return "ERROR: Please check your expression and try again.";
     	}
     	String resultString = "";
     	
@@ -45,7 +45,7 @@ public class FracCalc {
 	        String operator = parsedInput[i-1];
 	        
 	        int[] unsimplifiedResultArray = new int[2];
-	        if(operand1[1] == 0) {//checks if denominator of any operands is 0, so we don't try and divide by 0.
+	        if(operand1[1] == 0 || operand2[1] == 0 ) {//checks if denominator of any operands is 0, so we don't try and divide by 0.
 	        	return "ERROR: Please stop trying to divide by 0.";
 	        }
 	        if(operator.equals("+") || operator.equals("-")) {
@@ -55,7 +55,7 @@ public class FracCalc {
 	        	unsimplifiedResultArray = multiplyDivide(operand1, operand2, operator);
 	        
 	        }else if(operator.equals("/")){
-	        	if(operand2[1] == 0 || operand2[0] == 0) {//Makes sure we do not divide by 0.
+	        	if(operand2[0] == 0) {//Makes sure we do not divide by 0.
 	        		return "ERROR: Please stop trying to divide by 0.";
 	        	}
 	        	unsimplifiedResultArray = multiplyDivide(operand1, operand2, operator);
