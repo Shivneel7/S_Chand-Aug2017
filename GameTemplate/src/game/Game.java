@@ -1,12 +1,13 @@
 package game;
 
 import java.awt.image.BufferStrategy;
+import java.util.LinkedList;
 import java.awt.*;
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 7364682855700581664L;
 	
-	public static final int WIDTH = 800, HEIGHT = WIDTH/12*9;
+	public static final int WIDTH = 640, HEIGHT = WIDTH/12*9;
 	
 	private Thread thread;
 	private boolean running = false;
@@ -17,16 +18,15 @@ public class Game extends Canvas implements Runnable{
 	
 	private void init() {
 		handler = new Handler();
-		
-		cam = new Camera(0,0);
+		cam = new Camera(-1000, 0);
 		
 //		this.addMouseMotionListener(new MouseInput(handler));
 //		this.addMouseListener(new MouseInput(handler));
 //		this.addMouseWheelListener(new MouseInput(handler));
 		
 		this.addKeyListener(new KeyInput(handler));
-		
-		handler.addObject(new Player(20 , HEIGHT - 72, ID.Player));
+
+		handler.addObject(new Player(20 , HEIGHT-100, ID.Player));
 		handler.createLevel();
 
 	}
@@ -56,6 +56,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public void run() {
 		init();
+		requestFocus();
 		long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;

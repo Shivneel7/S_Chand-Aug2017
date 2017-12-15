@@ -1,9 +1,10 @@
 package game;
 
 import java.awt.*;
+import java.util.LinkedList;
 
 public abstract class GameObject {
-	protected int x, y, dx, dy;
+	protected float x, y, dx, dy;
 	protected ID id;
 
 	
@@ -13,14 +14,15 @@ public abstract class GameObject {
 		this.id = id;
 	}
 	
-	public abstract void tick();
+	public abstract void tick(LinkedList<GameObject> object);
 	public abstract void render(Graphics g);
+	public abstract Rectangle getBounds();
 	
 	public void setX(int x) {
 		this.x = x;
 	}
 	
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 	
@@ -28,7 +30,7 @@ public abstract class GameObject {
 		this.y = y;
 	}
 
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 	
@@ -44,7 +46,7 @@ public abstract class GameObject {
 		this.dx = dx;
 	}
 	
-	public int getdx() {
+	public float getdx() {
 		return dx;
 	}
 	
@@ -52,7 +54,7 @@ public abstract class GameObject {
 		this.dy = dy;
 	}
 	
-	public int getdy() {
+	public float getdy() {
 		return dy;
 	}
 	

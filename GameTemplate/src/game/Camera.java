@@ -1,8 +1,8 @@
 package game;
 
 public class Camera {
-	private int x;
-	private int y;
+	private float x;
+	private float y;
 	
 	public Camera(int x, int y) {
 		this.x = x;
@@ -11,10 +11,10 @@ public class Camera {
 	
 	public void tick (GameObject player) {
 		//x = -player.getX() + Game.WIDTH/2;
-		x += ((-player.getX()-(x/2)) - x) * .5;
+		x -= ((player.getX()-(Game.WIDTH/2)) + x) * .1f;
 	}
 
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 
@@ -22,7 +22,7 @@ public class Camera {
 		this.x = x;
 	}
 
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 
