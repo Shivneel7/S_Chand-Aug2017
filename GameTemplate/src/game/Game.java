@@ -20,10 +20,6 @@ public class Game extends Canvas implements Runnable{
 		handler = new Handler();
 		cam = new Camera(-1000, 0);
 		
-//		this.addMouseMotionListener(new MouseInput(handler));
-//		this.addMouseListener(new MouseInput(handler));
-//		this.addMouseWheelListener(new MouseInput(handler));
-		
 		this.addKeyListener(new KeyInput(handler));
 
 		handler.addObject(new Player(20 , HEIGHT-100, ID.Player));
@@ -91,7 +87,7 @@ public class Game extends Canvas implements Runnable{
 			if(handler.object.get(i).getID() == ID.Player) {
 				cam.tick(handler.object.get(i));
 			}
-		}	
+		}
 	}
 	
 	public void render() {
