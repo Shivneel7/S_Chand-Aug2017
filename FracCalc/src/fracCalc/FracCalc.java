@@ -61,7 +61,7 @@ public class FracCalc {
 
 	        }else if(operator.equals("/")){  	
 	        	operand2.reciprocate();
-	        	if(operand2.isDenominatorZero()) {
+	        	if(operand2.isDenominatorZero()) {//once we reciprocate, we have to recheck in case the number is 0.
 	        		return "ERROR: Please stop trying to divide by 0.";
 	        	}
 	        	result = operand1.multiply(operand2);
@@ -69,7 +69,7 @@ public class FracCalc {
 	        }else {
 	        	return "ERROR: Please try a different operator.";
 	        }
-	        operand1 = new Fraction(result);//can't operand1 = result b/c then operand1 is the same as result instead of a copy of result.
+	        operand1 = new Fraction(result);//can't "operand1 = result" b/c then operand1 is the same as result instead of a copy of result.
 	        result.simplify();
 	        resultString = result.toString();
     	}
