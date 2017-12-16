@@ -30,7 +30,7 @@ public class Fraction {
 	}
 	//Constructor that makes numerator, denominator, and wholeNumber all default values.
 	public Fraction() {
-		this(0,0,1);
+		this(0,1,0);
 	}
 	//Constructor that takes numerator, denominator, but no wholeNumber.
 	public Fraction(int numerator, int denominator) {

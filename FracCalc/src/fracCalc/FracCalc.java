@@ -42,7 +42,7 @@ public class FracCalc {
     	
     	Fraction result;
     	
-    	for(int i = 2; i < parsedInput.length; i += 2) { 		
+    	for(int i = 2; i < parsedInput.length; i += 2) {
     		operand2 = new Fraction(parsedInput[i]);
 	        String operator = parsedInput[i-1];
 	        
