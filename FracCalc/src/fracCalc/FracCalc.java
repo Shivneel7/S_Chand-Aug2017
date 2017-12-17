@@ -37,7 +37,8 @@ public class FracCalc {
     	}
     	String resultString = "";
         
-    	Fraction operand1 = new Fraction(parsedInput[0]);
+    	Fraction operand1 = new Fraction(parsedInput[0]); 
+    	//for multiple operands, I save a copy of result in operand1, so operand 1 is created outside the loop
     	Fraction operand2;
     	
     	Fraction result;

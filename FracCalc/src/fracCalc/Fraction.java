@@ -23,9 +23,6 @@ public class Fraction {
 		}else{
 			wholeNumber = Integer.parseInt(frac);
 		}
-		if(wholeNumber < 0) {
-			numerator *= -1;
-		}
 		toImproper();//makes all math easier. I will only simplify after the math.
 	}
 	//Constructor that makes numerator, denominator, and wholeNumber all default values.
@@ -41,9 +38,7 @@ public class Fraction {
 		this.numerator = numerator;
 		this.wholeNumber = wholeNumber;
 		this.denominator = denominator;
-		if(wholeNumber < 0)
-			numerator *= -1;
-		toImproper();
+		toImproper();//makes all math easier.
 	}
 	//Constructor that takes a Fraction as a parameter.
 	public Fraction(Fraction frac) {
@@ -59,7 +54,11 @@ public class Fraction {
 	
 	//used for subtraction
 	public void changeSign() {
-		numerator *= -1;
+		if(wholeNumber == 0) {
+			numerator *= -1;
+		}else {
+			wholeNumber *= -1;
+		}
 	}
 
 	public Fraction multiply(Fraction operand2) {//also divides by reciprocating in the client code
@@ -78,6 +77,9 @@ public class Fraction {
 	}
 	
 	public void toImproper() {
+		if(wholeNumber < 0 && numerator > 0) {//makes sure the numerator is negative if the whole number was negative
+			numerator *= -1;
+		}
 		numerator = wholeNumber * denominator + numerator;
 		wholeNumber = 0;
 	}
