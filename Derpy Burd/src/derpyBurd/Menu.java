@@ -10,9 +10,14 @@ import derpyBurd.Game.STATE;
 
 public class Menu extends MouseAdapter{
 	private Game game;
+	private Audio[] sounds = new Audio[4];
 	
 	public Menu(Game game) {
 		this.game = game;
+		sounds[0] = new Audio("/ez.wav", -10);
+		sounds[1] = new Audio("/meh.wav", -10);
+		sounds[2] = new Audio("/hard.wav", -10);
+		sounds[3] = new Audio("/insane.wav", -10);
 	}
 	
 	public void mousePressed(MouseEvent e) {
@@ -21,15 +26,19 @@ public class Menu extends MouseAdapter{
 		//Play Button
 		if(game.gameState == STATE.Menu) {
 			if(getClick(mx, my,game.WIDTH/3-75, 150, 150, 75)) {//EZPZ
+				sounds[0].play();
 				game.SPEED = 4;
 				startGame();
 			}else if(getClick(mx, my, game.WIDTH/3 * 2 - 75, 150, 150, 75)) {//meh.
+				sounds[1].play();
 				game.SPEED = 5;
 				startGame();
 			}else if(getClick(mx, my, game.WIDTH/3 - 75, 250, 150, 75)) {//HARD
+				sounds[2].play();
 				game.SPEED = 6;
 				startGame();
 			}else if(getClick(mx, my, game.WIDTH/3 * 2 - 75, 250, 150, 75)) {//INSANE
+				sounds[3].play();
 				game.SPEED = 7;
 				startGame();
 			}
