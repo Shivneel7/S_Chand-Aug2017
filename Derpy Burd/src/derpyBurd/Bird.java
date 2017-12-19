@@ -13,13 +13,11 @@ public class Bird {
 	private int jumpCounter = 0;
 	private Pipe p;
 	private int lCounter = 0;
-	private Game game;
 	
-	public Bird(int x, int y, Pipe p, Game game) {
+	public Bird(int x, int y, Pipe p) {
 		this.x = x;
 		this.y = y;
 		this.p =p;
-		this.game = game;
 	}
 	
 	public void setdy(int dy) {
@@ -53,7 +51,7 @@ public class Bird {
 		if(p.getBounds1().intersects(x,y,32,32) || p.getBounds2().intersects(x,y,32,32)) {
 			lCounter++;
 			if(lCounter > 2) {
-				game.gameState = STATE.Loss;
+				Game.gameState = STATE.Loss;
 			}
 		}
 		if(p.getX() == this.x) {

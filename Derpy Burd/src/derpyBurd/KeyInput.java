@@ -16,15 +16,15 @@ public class KeyInput implements KeyListener {
 	}
 	
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == e.VK_SPACE) {
+		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 			bird.jump();
 		}
-		if(e.getKeyCode() == e.VK_ESCAPE) {
-			if(game.gameState == STATE.Game){
-				game.gameState = STATE.Paused;
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			if(Game.gameState == STATE.Game){
+				Game.gameState = STATE.Paused;
 				game.stopBackground();
-			}else if(game.gameState == STATE.Paused) {
-				game.gameState = STATE.Game;
+			}else if(Game.gameState == STATE.Paused) {
+				Game.gameState = STATE.Game;
 				game.restartBackground();
 			}
 		}

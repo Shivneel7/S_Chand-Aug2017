@@ -2,7 +2,6 @@ package derpyBurd;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
@@ -28,14 +27,14 @@ public class Game extends Canvas implements Runnable{
 	
 	public static int score = 0;
 	
-	public enum STATE{Menu, Game, Loss, Paused};
+	public enum STATE{Menu, Game, Loss, Paused, Options};
 	
 	public static STATE gameState = STATE.Menu;
 	
 	public Game() {
 		menu = new Menu(this);
 		obstacle = new Pipe(background2);
-		bird = new Bird(40, 280, obstacle, this);
+		bird = new Bird(40, 280, obstacle);
 
 		this.addMouseListener(menu);
 		
@@ -100,7 +99,7 @@ public class Game extends Canvas implements Runnable{
 		Graphics g = bs.getDrawGraphics();
 		updateBackground(g);
 		//////////////////////////////
-		if(gameState == STATE.Menu || gameState == STATE.Loss) {
+		if(gameState == STATE.Menu || gameState == STATE.Loss || gameState == STATE.Options) {
 			menu.render(g);
 		}else{
 			obstacle.render(g);
