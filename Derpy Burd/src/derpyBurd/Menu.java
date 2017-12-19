@@ -62,7 +62,6 @@ public class Menu extends MouseAdapter{
 		}else if(Game.gameState == STATE.Options) {//options
 			if(getClick(mx, my, Game.WIDTH/2 - 45, Game.HEIGHT - 110, 100, 40)) {//Back
 				Game.gameState = STATE.Menu;
-				Game.score = 0;
 			}
 			if(getClick(mx, my, 210 , 48, 60, 40)) {
 				soundsOn = true;
@@ -74,6 +73,7 @@ public class Menu extends MouseAdapter{
 	}
 	
 	private void startGame() {
+		game.score = 0;
 		Game.gameState = STATE.Game;
 		game.restartBackground();
 		game.resetBackground();
@@ -169,7 +169,7 @@ public class Menu extends MouseAdapter{
 	
 		}else if(Game.gameState == STATE.Loss) {//loss screen
 			g.setFont(new Font("Arial", 1, 35));
-			g.drawString("You lost with a score of: " + Game.score, 30, Game.HEIGHT /2 - 40);
+			g.drawString("You lost with a score of: " + game.score, 30, Game.HEIGHT /2 - 40);
 			g.fillRect(Game.WIDTH/2 - 110, 195, 220, 100);
 			g.setColor(Color.cyan);
 			g.drawString("Play Again?", 204, 257);

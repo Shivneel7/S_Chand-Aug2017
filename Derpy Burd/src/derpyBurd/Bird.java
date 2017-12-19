@@ -8,11 +8,12 @@ import derpyBurd.Game.STATE;
 public class Bird {
 	
 	private int x;
-	private int y;
-	private int dy;
+	private float y;
+	private float dy;
 	private int jumpCounter = 0;
 	private Pipe p;
 	private int lCounter = 0;
+	//private float gravity = .05f;
 	
 	public Bird(int x, int y, Pipe p) {
 		this.x = x;
@@ -28,11 +29,11 @@ public class Bird {
 		this.y = y;
 	}
 	
-	public int getdy() {
+	public float getdy() {
 		return this.dy;
 	}
 	
-	public int getY() {
+	public float getY() {
 		return this.y;
 	}
 	
@@ -45,9 +46,9 @@ public class Bird {
 				dy = 2;
 		}
 		if(this.y > 280) {
-				dy =0;
+				dy = 0;
 		}
-		
+		//dy += gravity;
 		if(p.getBounds1().intersects(x,y,32,32) || p.getBounds2().intersects(x,y,32,32)) {
 			lCounter++;
 			if(lCounter > 2) {
@@ -61,12 +62,12 @@ public class Bird {
 	
 	public void render(Graphics g) {
 		g.setColor(Color.blue);
-		g.fillOval(x, y, 32, 32);
+		g.fillOval(x, (int) y, 32, 32);
 		g.setColor(Color.white);
-		g.fillOval(x +22, y + 6, 4, 4);
+		g.fillOval(x +22, (int) y + 6, 4, 4);
 		g.setColor(Color.yellow);
 		int[] arr = {x + 31, x +32, x + 32 + 6};
-		int[] arr2 = {y + 11, y + 17, y + 14};
+		int[] arr2 = {(int)y + 11, (int)y + 17, (int) y + 14};
 		g.fillPolygon(arr, arr2, 3);
 	}
 	

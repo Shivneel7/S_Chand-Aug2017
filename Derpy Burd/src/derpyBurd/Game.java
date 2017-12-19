@@ -25,7 +25,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private static Bird bird; // = new Bird(40, 280, obstacle, this);
 	
-	public static int score = 0;
+	public int score = 0;
 	
 	public enum STATE{Menu, Game, Loss, Paused, Options};
 	
