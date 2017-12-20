@@ -1,5 +1,5 @@
 package gameObjects;
 
 public enum ID {
-	Player, Block
+	Player, Block, DeathBlock;
 }

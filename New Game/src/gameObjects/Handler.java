@@ -48,6 +48,9 @@ public class Handler {
 				if(red == 0 && green == 0 & blue == 255) {
 					addObject(new Player(xx*32, yy*32, ID.Player));
 				}
+				if(red == 255 && green == 0 & blue == 0) {
+					addObject(new DeathBlock(xx*32, yy*32, ID.DeathBlock));
+				}
 			}
 		}
 	}

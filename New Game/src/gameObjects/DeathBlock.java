@@ -5,9 +5,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
-public class Block extends GameObject{
+public class DeathBlock extends GameObject{
 
-	public Block(float x, float y, ID id) {
+	public DeathBlock(float x, float y, ID id) {
 		super(x, y, id);
 	}
 
@@ -16,7 +16,7 @@ public class Block extends GameObject{
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.white);
+		g.setColor(Color.red);
 		g.drawRect((int) x, (int) y, 32, 32);
 	}
 
