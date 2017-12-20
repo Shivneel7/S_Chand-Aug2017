@@ -1,11 +1,13 @@
-package game;
+package gameObjects;
 
 import java.awt.Graphics;
 import java.util.LinkedList;
 
+import window.Game;
+
 public class Handler {
 	public LinkedList<GameObject> object = new LinkedList<GameObject>();
-
+	
 	public void tick() {
 		for(int i = 0; i < object.size(); i++) {
 			object.get(i).tick(object);
@@ -25,6 +27,7 @@ public class Handler {
 	public void removeObject(GameObject object) {
 		this.object.remove(object);
 	}
+	
 	public void createLevel() {
 		for(int i = 0; i < Game.WIDTH * 7; i+=32) {
 			addObject(new Block(i, Game.HEIGHT-32,ID.Block));

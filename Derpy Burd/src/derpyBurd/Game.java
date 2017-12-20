@@ -31,7 +31,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public static STATE gameState = STATE.Menu;
 	
-	public Game() {
+	private Game() {
 		menu = new Menu(this);
 		obstacle = new Pipe(background2);
 		bird = new Bird(40, 280, obstacle);

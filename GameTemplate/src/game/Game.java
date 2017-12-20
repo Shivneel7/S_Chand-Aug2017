@@ -16,7 +16,9 @@ public class Game extends Canvas implements Runnable{
 	
 	private Handler handler;
 	
-	private void init() {
+	private Game() {
+		new Window(WIDTH, HEIGHT, "Game", this);
+		
 		handler = new Handler();
 		cam = new Camera(-1000, 0);
 		
@@ -28,7 +30,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public static void main(String[] args) {
-		new Window(WIDTH, HEIGHT, "Game", new Game());
+		new Game();
 	}
 
 	public synchronized void start() {
@@ -51,7 +53,6 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void run() {
-		init();
 		requestFocus();
 		long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
