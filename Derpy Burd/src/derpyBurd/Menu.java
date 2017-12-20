@@ -12,7 +12,7 @@ public class Menu extends MouseAdapter{
 	
 	private Game game;
 	private Audio[] sounds = new Audio[4];
-	private boolean soundsOn = false;
+	private boolean soundsOn = true;//default value of the sound.
 	
 	public Menu(Game game) {
 		this.game = game;
