@@ -6,26 +6,26 @@ import java.util.LinkedList;
 import framework.Game;
 
 public class Handler {
-	public LinkedList<GameObject> object = new LinkedList<GameObject>();
+	public LinkedList<GameObject> objects = new LinkedList<GameObject>();
 	
 	public void tick() {
-		for(int i = 0; i < object.size(); i++) {
-			object.get(i).tick(object);
+		for(int i = 0; i < objects.size(); i++) {
+			objects.get(i).tick(objects);
 		}
 	}
 	
 	public void render(Graphics g) {
-		for(int i = 0; i < object.size(); i++) {
-			object.get(i).render(g);
+		for(int i = 0; i < objects.size(); i++) {
+			objects.get(i).render(g);
 		}
 	}
 	
 	public void addObject(GameObject object) {
-		this.object.add(object);
+		this.objects.add(object);
 	}
 	
 	public void removeObject(GameObject object) {
-		this.object.remove(object);
+		this.objects.remove(object);
 	}
 	
 	public void createLevel() {

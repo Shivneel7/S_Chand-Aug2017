@@ -27,7 +27,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private BufferedImage level;
 	
-	private Game() {
+	public Game() {
 		new Window(WIDTH, HEIGHT, "Game", this);
 		
 		handler = new Handler();
@@ -77,9 +77,11 @@ public class Game extends Canvas implements Runnable{
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		g2d.translate(cam.getX(), cam.getY());//camera
+		
 		handler.render(g);
 		
 		g2d.translate(-cam.getX(), -cam.getY());//camera
+		
 		/////////////////////////////////////////////////////
 		g.dispose();
 		bs.show();
@@ -87,11 +89,14 @@ public class Game extends Canvas implements Runnable{
 	
 	public void tick() {
 		handler.tick();
-		for(GameObject object : handler.object)
-			if(object.getID() == ID.Player) {
-				cam.tick(object);
+		for(int i = 0; i < handler.objects.size(); i++) {
+			GameObject temp = handler.objects.get(i);
+			if(temp.getID() == ID.Player) {
+				cam.tick(temp);
 			}
+		}
 	}
+	
 	public void run() {
 		requestFocus();
 		long lastTime = System.nanoTime();
@@ -133,7 +138,7 @@ public class Game extends Canvas implements Runnable{
 				int red = (pixel >> 16 ) & 0xff;
 				int green = (pixel >> 8 ) & 0xff;
 				int blue = (pixel) & 0xff;
-				//if statements determining object:
+				//if statements determining objects:
 				if(red == 255 && green == 255 & blue == 255) {
 					handler.addObject(new Block(xx*32, yy*32, ID.Block));
 				}

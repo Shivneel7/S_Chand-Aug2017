@@ -23,7 +23,7 @@ public class KeyInput implements KeyListener {
 		
 	}
 	public void keyPressed(KeyEvent e) {
-		for(GameObject object : handler.object) {
+		for(GameObject object : handler.objects) {
 			if(object.getID() == ID.Player) {
 				if(e.getKeyCode() == KeyEvent.VK_W && !((Player)object).isJumping()) {
 					object.setDy(-12);
@@ -42,7 +42,7 @@ public class KeyInput implements KeyListener {
 	}
 
 	public void keyReleased(KeyEvent e) {
-		for(GameObject object : handler.object) {
+		for(GameObject object : handler.objects) {
 			if(object.getID() == ID.Player) {
 				if(e.getKeyCode() == KeyEvent.VK_A) {
 					keyDown[0] = false;
