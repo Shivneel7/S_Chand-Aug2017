@@ -1,4 +1,4 @@
-package window;
+package framework;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -77,7 +77,7 @@ public class Game extends Canvas implements Runnable{
 	public void tick() {
 		handler.tick();
 		for(GameObject object : handler.object)
-			if(object.getId() == ID.Player) {
+			if(object.getID() == ID.Player) {
 				cam.tick(object);
 			}
 	}

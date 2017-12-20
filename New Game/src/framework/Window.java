@@ -1,4 +1,4 @@
-package window;
+package framework;
 
 import java.awt.Canvas;
 import java.awt.Dimension;

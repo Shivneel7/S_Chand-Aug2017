@@ -11,7 +11,7 @@ public class Block extends GameObject{
 		super(x, y, id);
 	}
 
-	public void tick(LinkedList<GameObject> object) {
+	public void tick(LinkedList<GameObject> objectList) {
 		
 	}
 

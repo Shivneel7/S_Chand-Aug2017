@@ -13,7 +13,7 @@ public abstract class GameObject {
 		this.y = y;
 		this.id = id;
 	}
-	public abstract void tick(LinkedList<GameObject> object);
+	public abstract void tick(LinkedList<GameObject> objectList);
 	public abstract void render(Graphics g);
 	public abstract Rectangle getBounds();
 	
@@ -49,11 +49,11 @@ public abstract class GameObject {
 		this.dy = dy;
 	}
 
-	public ID getId() {
+	public ID getID() {
 		return id;
 	}
 
-	public void setId(ID id) {
+	public void setID(ID id) {
 		this.id = id;
 	}
 }

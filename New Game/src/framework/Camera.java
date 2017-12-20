@@ -1,4 +1,4 @@
-package window;
+package framework;
 
 import gameObjects.GameObject;
 
