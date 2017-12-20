@@ -13,7 +13,6 @@ public class Bird {
 	private int jumpCounter = 0;
 	private Pipe p;
 	private int lCounter = 0;
-	//private float gravity = .05f;
 	
 	public Bird(int x, int y, Pipe p) {
 		this.x = x;
@@ -48,7 +47,6 @@ public class Bird {
 		if(this.y > 280) {
 				dy = 0;
 		}
-		//dy += gravity;
 		if(p.getBounds1().intersects(x,y,32,32) || p.getBounds2().intersects(x,y,32,32)) {
 			lCounter++;
 			if(lCounter > 2) {
