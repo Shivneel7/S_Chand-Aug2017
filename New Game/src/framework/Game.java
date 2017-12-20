@@ -15,7 +15,7 @@ public class Game extends Canvas implements Runnable{
 	Thread thread;
 	boolean running = false;
 	
-	public static int WIDTH = 720, HEIGHT = WIDTH / 12 * 9;
+	public static int WIDTH = 840, HEIGHT = WIDTH / 12 * 9;
 	
 	private Handler handler;
 
@@ -25,7 +25,9 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH, HEIGHT, "Untitled", this);
 		
 		handler = new Handler();
-		cam = new Camera( 0, 0);
+		cam = new Camera(0, 0);
+		
+		this.addKeyListener(new KeyInput(handler));
 		
 		handler.createLevel();
 		handler.addObject(new Player(10, 10, ID.Player));

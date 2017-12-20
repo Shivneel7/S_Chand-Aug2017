@@ -8,7 +8,7 @@ import java.util.LinkedList;
 public class Player extends GameObject {
 	
 	private int width = 32, height = 64;
-	private float gravity = .3f;
+	private float gravity = .5f;
 	private boolean falling, jumping;
 	
 	public Player(float x, float y, ID id) {
@@ -23,6 +23,7 @@ public class Player extends GameObject {
 		}
 		collision(objectList);
 	}
+
 	private void collision(LinkedList<GameObject> objectList) {
 		for(GameObject object : objectList) {
 			if(object.getID() == ID.Block) {
@@ -30,6 +31,7 @@ public class Player extends GameObject {
 					y = object.getY() - height;
 					dy = 0;
 					falling = false;
+					jumping = false;
 				}else {
 					falling = true;
 				}
@@ -44,5 +46,12 @@ public class Player extends GameObject {
 	public Rectangle getBounds() {
 		return new Rectangle( (int) x, (int)y, width, height);
 	}
+	
+	public boolean isJumping() {
+		return jumping;
+	}
 
+	public void setJumping(boolean jumping) {
+		this.jumping = jumping;
+	}
 }
