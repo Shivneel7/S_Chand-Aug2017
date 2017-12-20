@@ -47,6 +47,18 @@ public class Player extends GameObject {
 		return new Rectangle( (int) x, (int)y, width, height);
 	}
 	
+	public Rectangle getBoundsTop() {
+		return new Rectangle( (int) x, (int)y, width, height);
+	}
+	
+	public Rectangle getBoundsLeft() {
+		return new Rectangle( (int) x, (int)y, width, height);
+	}
+
+	public Rectangle getBoundsRight() {
+		return new Rectangle( (int) x, (int)y, width, height);
+	}
+	
 	public boolean isJumping() {
 		return jumping;
 	}

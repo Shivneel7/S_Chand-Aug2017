@@ -5,8 +5,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
-import gameObjects.*;
+import gameObjects.Block;
+import gameObjects.GameObject;
+import gameObjects.Handler;
+import gameObjects.ID;
+import gameObjects.Player;
 
 public class Game extends Canvas implements Runnable{
 	
@@ -18,19 +23,22 @@ public class Game extends Canvas implements Runnable{
 	public static int WIDTH = 840, HEIGHT = WIDTH / 12 * 9;
 	
 	private Handler handler;
-
 	private Camera cam;
 	
+	private BufferedImage level;
+	
 	private Game() {
-		new Window(WIDTH, HEIGHT, "Untitled", this);
+		new Window(WIDTH, HEIGHT, "Game", this);
 		
 		handler = new Handler();
-		cam = new Camera(0, 0);
+		cam = new Camera(-1000, 0);
+		
+		BufferedImageLoader loader = new BufferedImageLoader();
+		level = loader.loadImage("/level.png");
+		
+		loadLevel(level);
 		
 		this.addKeyListener(new KeyInput(handler));
-		
-		handler.createLevel();
-		handler.addObject(new Player(10, 10, ID.Player));
 	}
 
 	public static void main(String[] args) {
@@ -71,6 +79,7 @@ public class Game extends Canvas implements Runnable{
 		g2d.translate(cam.getX(), cam.getY());//camera
 		handler.render(g);
 		
+		g2d.translate(-cam.getX(), -cam.getY());//camera
 		/////////////////////////////////////////////////////
 		g.dispose();
 		bs.show();
@@ -105,10 +114,33 @@ public class Game extends Canvas implements Runnable{
         	frames++;
         	if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
-				System.out.println("FPS: "+ frames);
+				//System.out.println("FPS: "+ frames);
 				frames = 0;
         	}
         }
         stop();
+	}
+	
+	private void loadLevel(BufferedImage image) {
+		int w = image.getWidth();
+		int h = image.getHeight();
+		
+		//System.out.println(w + ", " + h);
+		
+		for(int xx = 0; xx < h; xx++) {
+			for(int yy = 0; yy < w; yy++) {
+				int pixel = image.getRGB(xx, yy);
+				int red = (pixel >> 16 ) & 0xff;
+				int green = (pixel >> 8 ) & 0xff;
+				int blue = (pixel) & 0xff;
+				//if statements determining object:
+				if(red == 255 && green == 255 & blue == 255) {
+					handler.addObject(new Block(xx*32, yy*32, ID.Block));
+				}
+				if(red == 0 && green == 0 & blue == 255) {
+					handler.addObject(new Player(xx*32, yy*32, ID.Player));
+				}
+			}
+		}
 	}
 }

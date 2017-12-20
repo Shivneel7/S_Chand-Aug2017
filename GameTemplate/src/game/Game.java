@@ -1,8 +1,12 @@
 package game;
 
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
-import java.util.LinkedList;
-import java.awt.*;
+import java.awt.image.BufferedImage;
+
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 7364682855700581664L;
@@ -13,8 +17,9 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	
 	private Camera cam;
-	
 	private Handler handler;
+	
+	private BufferedImage level;
 	
 	private Game() {
 		new Window(WIDTH, HEIGHT, "Game", this);
@@ -22,10 +27,15 @@ public class Game extends Canvas implements Runnable{
 		handler = new Handler();
 		cam = new Camera(-1000, 0);
 		
+		BufferedImageLoader loader = new BufferedImageLoader();
+		level = loader.loadImage("/level.png");
+		
+		loadLevel(level);
+		
 		this.addKeyListener(new KeyInput(handler));
 
-		handler.addObject(new Player(20 , HEIGHT-100, ID.Player));
-		handler.createLevel();
+		//handler.addObject(new Player(20 , HEIGHT-100, ID.Player));
+		//handler.createLevel();
 
 	}
 	
@@ -112,5 +122,28 @@ public class Game extends Canvas implements Runnable{
 		/////////////////////////////////////////////////////
 		g.dispose();
 		bs.show();
+	}
+	
+	private void loadLevel(BufferedImage image) {
+		int w = image.getWidth();
+		int h = image.getHeight();
+		
+		System.out.println(w + ", " + h);
+		
+		for(int xx = 0; xx < h; xx++) {
+			for(int yy = 0; yy < w; yy++) {
+				int pixel = image.getRGB(xx, yy);
+				int red = (pixel >> 16 ) & 0xff;
+				int green = (pixel >> 8 ) & 0xff;
+				int blue = (pixel) & 0xff;
+				//if statements determining object:
+				if(red == 255 && green == 255 & blue == 255) {
+					handler.addObject(new Block(xx*32, yy*32, ID.Block));
+				}
+				if(red == 0 && green == 0 & blue == 255) {
+					handler.addObject(new Player(xx*32, yy*32, ID.Player));
+				}
+			}
+		}
 	}
 }
