@@ -4,7 +4,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
-public abstract class GameObject {
+import framework.Constants;
+
+public abstract class GameObject implements Constants{
 	protected float x, y, dx, dy;
 	protected ID id;
 

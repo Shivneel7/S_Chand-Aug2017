@@ -4,9 +4,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
-public class DeathBlock extends GameObject{
+public class Goal extends GameObject{
 
-	public DeathBlock(float x, float y, ID id) {
+	public Goal(float x, float y, ID id) {
 		super(x, y, id);
 	}
 
@@ -15,7 +15,7 @@ public class DeathBlock extends GameObject{
 	}
 
 	public void render(Graphics g) {
-		g.setColor(DEATH_COLOR);
+		g.setColor(GOAL_COLOR);
 		g.fillRect((int) x, (int) y, BLOCK_WIDTH, BLOCK_HEIGHT);
 	}
 

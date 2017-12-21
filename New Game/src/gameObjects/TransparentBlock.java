@@ -1,12 +1,13 @@
 package gameObjects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
-public class DeathBlock extends GameObject{
+public class TransparentBlock extends GameObject{
 
-	public DeathBlock(float x, float y, ID id) {
+	public TransparentBlock(float x, float y, ID id) {
 		super(x, y, id);
 	}
 
@@ -15,12 +16,12 @@ public class DeathBlock extends GameObject{
 	}
 
 	public void render(Graphics g) {
-		g.setColor(DEATH_COLOR);
-		g.fillRect((int) x, (int) y, BLOCK_WIDTH, BLOCK_HEIGHT);
+		g.setColor(Color.white);
+		g.drawRect((int) x, (int) y, BLOCK_WIDTH, BLOCK_HEIGHT);
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle((int) x, (int)y, BLOCK_WIDTH, BLOCK_HEIGHT);
+		return new Rectangle((int) x, (int)y,BLOCK_WIDTH,BLOCK_HEIGHT);
 	}
 	
 }

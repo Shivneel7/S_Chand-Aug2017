@@ -13,30 +13,22 @@ import gameObjects.Handler;
 import gameObjects.ID;
 import gameObjects.Player;
 
-public class Game extends Canvas implements Runnable{
+public class Game extends Canvas implements Runnable, Constants{
 	
 	private static final long serialVersionUID = -3307397034749894482L;
 
 	Thread thread;
 	boolean running = false;
-	
-	public static int WIDTH = 840, HEIGHT = WIDTH / 12 * 9;
-	
+
 	private Handler handler;
 	private Camera cam;
 	
-	private BufferedImage level;
-	
 	public Game() {
-		new Window(WIDTH, HEIGHT, "Game", this);
-		
 		handler = new Handler();
+		handler.switchLevel();
+		new Window(GAME_WIDTH, GAME_HEIGHT, TITLE , this);
+		
 		cam = new Camera(-1000, 0);
-		
-		BufferedImageLoader loader = new BufferedImageLoader();
-		level = loader.loadImage("/level.png");
-		handler.loadLevel(level);
-		
 		this.addKeyListener(new KeyInput(handler));
 	}
 
@@ -72,8 +64,8 @@ public class Game extends Canvas implements Runnable{
 		Graphics2D g2d = (Graphics2D) g;
 		/////////////////////////////////////////////////////
 		
-		g.setColor(Color.black);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.setColor(BACKGROUND_COLOR);
+		g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 		
 		g2d.translate(cam.getX(), cam.getY());//camera
 		
@@ -118,7 +110,7 @@ public class Game extends Canvas implements Runnable{
         	frames++;
         	if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
-				//System.out.println("FPS: "+ frames);
+				System.out.println("FPS: "+ frames);
 				frames = 0;
         	}
         }

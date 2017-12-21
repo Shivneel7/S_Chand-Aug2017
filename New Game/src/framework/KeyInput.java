@@ -8,7 +8,7 @@ import gameObjects.Handler;
 import gameObjects.ID;
 import gameObjects.Player;
 
-public class KeyInput implements KeyListener {
+public class KeyInput implements KeyListener, Constants {
 	
 	Handler handler;
 	boolean[] keyDown = new boolean[2];
@@ -26,7 +26,7 @@ public class KeyInput implements KeyListener {
 		for(GameObject object : handler.objects) {
 			if(object.getID() == ID.Player) {
 				if(e.getKeyCode() == KeyEvent.VK_W && !((Player)object).isJumping()) {
-					object.setDy(-12);
+					object.setDy(JUMP_HEIGHT);
 					((Player) object).setJumping(true);
 				}
 				if(e.getKeyCode() == KeyEvent.VK_A) {
