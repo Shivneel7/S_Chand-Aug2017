@@ -84,13 +84,13 @@ public class Player extends GameObject{
 	public void render(Graphics g) {
 		g.setColor(PLAYER_COLOR);
 		g.fillRect((int)x, (int) y, width, height);
-		
-		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.red);
-		g2d.draw(getBounds());
-		g2d.draw(getBoundsTop());
-		g2d.draw(getBoundsLeft());
-		g2d.draw(getBoundsRight());
+//		//Bounding Boxes
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.red);
+//		g2d.draw(getBounds());
+//		g2d.draw(getBoundsTop());
+//		g2d.draw(getBoundsLeft());
+//		g2d.draw(getBoundsRight());
 	}
 	
 	//TODO: Remove constants in bounding

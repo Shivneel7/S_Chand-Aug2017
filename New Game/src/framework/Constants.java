@@ -12,7 +12,7 @@ public interface Constants {
 	//player
 	public static final int PLAYER_WIDTH = 32;
 	public static final int PLAYER_HEIGHT  = 64;
-	public static final float JUMP_HEIGHT = -12f;
+	public static final float JUMP_HEIGHT = -11f;
 	public static final Color PLAYER_COLOR = Color.blue;
 	
 	

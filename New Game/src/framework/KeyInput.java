@@ -25,15 +25,25 @@ public class KeyInput implements KeyListener, Constants {
 	public void keyPressed(KeyEvent e) {
 		for(GameObject object : handler.objects) {
 			if(object.getID() == ID.Player) {
+				//System.out.println(e.getModifiers());
 				if(e.getKeyCode() == KeyEvent.VK_W && !((Player)object).isJumping()) {
 					object.setDy(JUMP_HEIGHT);
 					((Player) object).setJumping(true);
 				}
-				if(e.getKeyCode() == KeyEvent.VK_A) {
+				
+				if(e.getModifiers() == 1) { // shift =1, ctrl = 2, alt = 8
+					if(e.getKeyCode() == KeyEvent.VK_A) {
+						object.setDx(-2);
+						keyDown[0] = true;
+					}
+					if(e.getKeyCode() == KeyEvent.VK_D) {
+						object.setDx(2);
+						keyDown[1] = true;
+					}
+				}else if(e.getKeyCode() == KeyEvent.VK_A) {
 					object.setDx(-5);
 					keyDown[0] = true;
-				}
-				if(e.getKeyCode() == KeyEvent.VK_D) {
+				}else if(e.getKeyCode() == KeyEvent.VK_D) {
 					object.setDx(5);
 					keyDown[1] = true;
 				}
