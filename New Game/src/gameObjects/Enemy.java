@@ -11,8 +11,9 @@ public class Enemy extends GameObject{
 	private boolean falling = true;
 	private int triggerCounter = 100;
 	
-	public Enemy(float x, float y, ID id) {
+	public Enemy(float x, float y, ID id, float dx) {
 		super(x, y, id);
+		this.dx= dx;
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
@@ -30,7 +31,7 @@ public class Enemy extends GameObject{
 				if(Math.abs(temp.getX() - x) < 1000) {
 					triggerCounter++;
 					if(triggerCounter > 100 && Math.abs(temp.getX() - x) < 1000) {
-						objects.add(new Bullet(x, y + 10, ID.Bullet, Math.signum((temp.getX() - x)) * 4 , 0));
+						objects.add(new Bullet(x + width/2 , y + height/2 - 16, ID.Bullet, Math.signum((temp.getX() - x)) * 4 , 0));
 						triggerCounter = 0;
 					}
 				}
@@ -46,15 +47,13 @@ public class Enemy extends GameObject{
 		}else {
 			falling = true;
 		}
-		if(this.getBoundsTop().intersects(block.getBounds())) {
-			y = block.getY() + height/2;
-			dy = 0;
-		}
 		if(this.getBoundsLeft().intersects(block.getBounds())) {
 			x = block.getX() + BLOCK_WIDTH;
+			dx*=-1;
 		}
 		if(this.getBoundsRight().intersects(block.getBounds())) {
 			x = block.getX() - width;
+			dx*=-1;
 		}
 
 	}

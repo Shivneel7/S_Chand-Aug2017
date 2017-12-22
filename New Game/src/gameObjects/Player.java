@@ -13,6 +13,7 @@ public class Player extends GameObject{
 	private boolean falling, jumping;
 	private Handler handler;
 	private HUD hud;
+	private boolean hasGun = false; //TODO: GUN, ENEMY KILLING, ENEMY SHOOTS FASTER AS PLAYER Gets nearer
 
 	public Player(float x, float y, ID id, Handler handler, HUD hud) {
 		super(x, y, id);
@@ -27,7 +28,7 @@ public class Player extends GameObject{
 			dy += gravity;
 		}
 
-		if(y > 1400) { // for death by falling
+		if(y > 1400) { // for death by falling through map
 			handler.switchLevel();
 		}
 		
@@ -57,7 +58,7 @@ public class Player extends GameObject{
 					Handler.LEVEL ++;
 					handler.switchLevel();
 				}
-			}else if(temp.getID() == ID.Bullet) {
+			}else if(temp.getID() == ID.Bullet) {// if player touches bullet
 				if(checkAllBounds(temp)) {
 					hud.loseLife();
 					objects.remove(temp);

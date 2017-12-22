@@ -89,7 +89,7 @@ public class Handler {
 					addObject(new TransparentBlock(xx*32, yy*32, ID.TransparentBlock));
 				}
 				if(red == 255 && green == 255 & blue == 0) {
-					addObject(new Enemy(xx*32, yy*32, ID.Enemy));
+					addObject(new Enemy(xx*32, yy*32, ID.Enemy, -2));
 				}
 			}
 		}
