@@ -20,15 +20,18 @@ public class Game extends Canvas implements Runnable, Constants{
 	Thread thread;
 	boolean running = false;
 
-	private Handler handler;
+	public Handler handler;
 	private Camera cam;
+	private HUD hud;
 	
 	public Game() {
-		handler = new Handler();
+		hud = new HUD();
+		handler = new Handler(hud);
 		handler.switchLevel();
+		cam = new Camera(-1000, 0);
 		new Window(GAME_WIDTH, GAME_HEIGHT, TITLE , this);
 		
-		cam = new Camera(-1000, 0);
+
 		this.addKeyListener(new KeyInput(handler));
 	}
 
@@ -73,6 +76,7 @@ public class Game extends Canvas implements Runnable, Constants{
 		
 		g2d.translate(-cam.getX(), -cam.getY());//camera
 		
+		hud.render(g);
 		/////////////////////////////////////////////////////
 		g.dispose();
 		bs.show();
@@ -80,6 +84,7 @@ public class Game extends Canvas implements Runnable, Constants{
 	
 	public void tick() {
 		handler.tick();
+		hud.tick();
 		for(int i = 0; i < handler.objects.size(); i++) {
 			GameObject temp = handler.objects.get(i);
 			if(temp.getID() == ID.Player) {

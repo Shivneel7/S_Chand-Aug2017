@@ -38,7 +38,7 @@ public class KeyInput implements KeyListener, Constants {
 					}
 					if(e.getKeyCode() == KeyEvent.VK_D) {
 						object.setDx(2);
-						keyDown[1] = true;
+						keyDown[1] = true;						
 					}
 				}else if(e.getKeyCode() == KeyEvent.VK_A) {
 					object.setDx(-5);
@@ -46,6 +46,7 @@ public class KeyInput implements KeyListener, Constants {
 				}else if(e.getKeyCode() == KeyEvent.VK_D) {
 					object.setDx(5);
 					keyDown[1] = true;
+
 				}
 			}
 		}

@@ -15,7 +15,7 @@ public abstract class GameObject implements Constants{
 		this.y = y;
 		this.id = id;
 	}
-	public abstract void tick(LinkedList<GameObject> objectList);
+	public abstract void tick(LinkedList<GameObject> objects);
 	public abstract void render(Graphics g);
 	public abstract Rectangle getBounds();
 	

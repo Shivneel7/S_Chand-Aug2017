@@ -15,7 +15,7 @@ public class DeathBlock extends GameObject{
 	}
 
 	public void render(Graphics g) {
-		g.setColor(DEATH_COLOR);
+		g.setColor(DEATH_BLOCK_COLOR);
 		g.fillRect((int) x, (int) y, BLOCK_WIDTH, BLOCK_HEIGHT);
 	}
 

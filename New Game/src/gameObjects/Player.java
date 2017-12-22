@@ -1,21 +1,23 @@
 package gameObjects;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
+
+import framework.HUD;
 
 public class Player extends GameObject{
 	
 	private int width = PLAYER_WIDTH, height = PLAYER_HEIGHT;
-	private float gravity = .5f;
+	private float gravity = GRAVITY;
 	private boolean falling, jumping;
 	private Handler handler;
-	
-	public Player(float x, float y, ID id, Handler handler) {
+	private HUD hud;
+
+	public Player(float x, float y, ID id, Handler handler, HUD hud) {
 		super(x, y, id);
 		this.handler = handler;
+		this.hud = hud;
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
@@ -24,7 +26,7 @@ public class Player extends GameObject{
 		if(falling) {
 			dy += gravity;
 		}
-		
+
 		if(y > 1400) { // for death by falling
 			handler.switchLevel();
 		}
@@ -43,18 +45,22 @@ public class Player extends GameObject{
 					dy=0;
 					falling = false;
 					jumping = false;
-				}else if(this.getBounds().intersects(temp.getBounds())) {
 				}else {
 					falling = true;
 				}
 			}else if(temp.getID() == ID.DeathBlock) {//if player touches a deathblock
-				if(getBoundsAll(temp)) {
+				if(checkAllBounds(temp)) {
 					handler.switchLevel();
 				}
 			}else if(temp.getID() == ID.Goal) {
-				if(getBoundsAll(temp)) {
+				if(checkAllBounds(temp)) {
 					Handler.LEVEL ++;
 					handler.switchLevel();
+				}
+			}else if(temp.getID() == ID.Bullet) {
+				if(checkAllBounds(temp)) {
+					hud.loseLife();
+					objects.remove(temp);
 				}
 			}
 		}
@@ -84,7 +90,7 @@ public class Player extends GameObject{
 	public void render(Graphics g) {
 		g.setColor(PLAYER_COLOR);
 		g.fillRect((int)x, (int) y, width, height);
-//		//Bounding Boxes
+		//Bounding Boxes
 //		Graphics2D g2d = (Graphics2D) g;
 //		g.setColor(Color.red);
 //		g2d.draw(getBounds());
@@ -111,7 +117,7 @@ public class Player extends GameObject{
 	}
 	
 	//returns true if the player is touching the given object on any side.
-	public boolean getBoundsAll(GameObject temp) {
+	public boolean checkAllBounds(GameObject temp) {
 		if(this.getBounds().intersects(temp.getBounds()) ||
 				this.getBoundsTop().intersects(temp.getBounds()) ||
 				this.getBoundsRight().intersects(temp.getBounds()) ||
@@ -128,4 +134,5 @@ public class Player extends GameObject{
 	public void setJumping(boolean jumping) {
 		this.jumping = jumping;
 	}
+	
 }
