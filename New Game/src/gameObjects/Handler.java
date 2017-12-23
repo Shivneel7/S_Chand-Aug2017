@@ -98,6 +98,9 @@ public class Handler {
 				if(red == 0 && green == 100 & blue == 100) {
 					addObject(new Knife(xx*32, yy*32, ID.Knife));
 				}
+				if(red == 100 && green == 0 & blue == 100) {
+					addObject(new Enemy(xx*32, yy*32, ID.Enemy, -2));
+				}
 			}
 		}
 	}

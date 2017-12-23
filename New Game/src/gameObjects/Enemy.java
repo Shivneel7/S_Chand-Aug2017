@@ -5,16 +5,15 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
-public class Enemy2 extends GameObject{
+public class Enemy extends GameObject{
 	
 	private int width = ENEMY_WIDTH, height = ENEMY_HEIGHT;
 	private float gravity = GRAVITY;
 	private boolean falling = true;
-	private int triggerCounter = 100;
 	
-	public Enemy2(float x, float y, ID id, float dx) {
+	public Enemy(float x, float y, ID id, float dx) {
 		super(x, y, id);
-		this.dx= dx;
+		this.dx = dx;
 
 	}
 
@@ -30,24 +29,7 @@ public class Enemy2 extends GameObject{
 				normalBlockCollision(temp);
 			}
 			if(temp.getID() == ID.Player) {
-				int distance = (int) Math.abs(temp.getX() - x);
-				if(distance < 600) {
-					triggerCounter++;
-					if(triggerCounter > 15 && distance < 150) {
-						objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
-								Math.signum((temp.getX() - x)) * BULLET_SPEED, 0));
-						triggerCounter = 0;
-					}else if(triggerCounter > 50 && distance < 300) {
-						objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
-								Math.signum((temp.getX() - x)) * BULLET_SPEED, 0));
-						triggerCounter = 0;
-					}else if(triggerCounter > 75){
-						objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
-								Math.signum((temp.getX() - x)) * BULLET_SPEED, 0));
-						triggerCounter = 0;
-					}
-					
-				}
+				
 			}
 			if(temp.getID() == ID.PlayerBullet) {
 				if(checkAllBounds(temp)) {

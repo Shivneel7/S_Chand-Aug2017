@@ -24,6 +24,7 @@ public class Player extends GameObject{
 		super(x, y, id);
 		this.handler = handler;
 		this.hud = hud;
+
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
@@ -78,6 +79,14 @@ public class Player extends GameObject{
 					hud.increaseScore(100);
 					objects.remove(temp);
 				}
+			}else if(temp.getID() == ID.Knife || temp.getID() == ID.PlayerKnife) {
+				if(checkAllBounds(temp)) {
+					hasKnife = true;
+					temp.setID(ID.PlayerKnife);
+					temp.setX(x + 8);
+					temp.setY(y + 8);
+				}
+				
 			}
 		}
 	}

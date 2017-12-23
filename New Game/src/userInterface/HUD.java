@@ -3,21 +3,20 @@ package userInterface;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.util.LinkedList;
+import java.awt.image.BufferedImage;
 
+import framework.Animation;
 import framework.BufferedImageLoader;
 import framework.Constants;
 import framework.SpriteSheet;
-import gameObjects.GameObject;
 
 public class HUD implements Constants{
 	private int lives = NUMBER_OF_LIVES;
 	private int score = 0;
 	private boolean playerHasGun = false;
+	private int hotKey = 1;
 	
 	private SpriteSheet ss;
-	
-	
 	
 	public HUD() {
 		BufferedImageLoader loader = new BufferedImageLoader();
@@ -25,7 +24,7 @@ public class HUD implements Constants{
 	}
 	
 	public void tick() {
-
+		
 	}
 	
 	public void render(Graphics g) {
@@ -46,10 +45,6 @@ public class HUD implements Constants{
 		//gun
 		if(playerHasGun) {
 			g.drawImage(ss.grabImage(1, 1, 16, 16), 10, 50, 48,48, null);
-		}
-		//Knife
-		if(true) {
-			g.drawImage(ss.grabImage(2, 1, 16, 16), 10, 50, 48,48, null);
 		}
 	}
 	

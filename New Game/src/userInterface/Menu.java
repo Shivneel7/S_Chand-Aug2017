@@ -13,6 +13,7 @@ import gameObjects.Bullet;
 import gameObjects.GameObject;
 import gameObjects.Handler;
 import gameObjects.ID;
+import gameObjects.Knife;
 import gameObjects.Player;
 
 public class Menu extends MouseAdapter implements Constants{
@@ -51,17 +52,15 @@ public class Menu extends MouseAdapter implements Constants{
 		int mx = e.getX();
 		int my = e.getY();
 		if(Game.gameState == STATE.Game) {
-			if(e.getButton() == MouseEvent.BUTTON1) {
-				for(int i = 0; i < handler.objects.size(); i++) {
-					GameObject temp = handler.objects.get(i);
-					if(temp.getID() == ID.Player && ((Player)temp).hasKnife()) {
-						
-					}
-					if(temp.getID() == ID.Player && ((Player)temp).hasGun()) {
-						handler.addObject(new Bullet(temp.getX() + PLAYER_WIDTH/2, 
-								temp.getY() + PLAYER_HEIGHT/5 * 2, ID.PlayerBullet,
-								BULLET_SPEED * ((Player)temp).getDirection(), 0));
-					}
+			for(int i = 0; i < handler.objects.size(); i++) {
+				GameObject temp = handler.objects.get(i);
+				if(temp.getID() == ID.PlayerKnife &&  e.getButton() == MouseEvent.BUTTON1){
+					((Knife)temp).setClick(true);
+				}
+				if(temp.getID() == ID.Player && ((Player)temp).hasGun() &&  e.getButton() == MouseEvent.BUTTON2) {
+					handler.addObject(new Bullet(temp.getX() + PLAYER_WIDTH/2, 
+							temp.getY() + PLAYER_HEIGHT/5 * 2, ID.PlayerBullet,
+							BULLET_SPEED * ((Player)temp).getDirection(), 0));
 				}
 			}
 		}else if(Game.gameState == STATE.Menu) {
