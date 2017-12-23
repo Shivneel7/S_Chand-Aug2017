@@ -12,6 +12,7 @@ import gameObjects.GameObject;
 import gameObjects.Handler;
 import gameObjects.ID;
 import gameObjects.Player;
+import userInterface.HUD;
 
 public class Game extends Canvas implements Runnable, Constants{
 	

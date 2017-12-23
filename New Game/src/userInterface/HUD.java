@@ -1,8 +1,10 @@
-package framework;
+package userInterface;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+
+import framework.Constants;
 
 public class HUD implements Constants{
 	private int lives = NUMBER_OF_LIVES;

@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
-import framework.HUD;
+import userInterface.HUD;
 
 public class Player extends GameObject{
 	

@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import framework.BufferedImageLoader;
-import framework.HUD;
+import userInterface.HUD;
 /**
  * Handles all GameObjects and creates and keeps track of levels.
  * 
