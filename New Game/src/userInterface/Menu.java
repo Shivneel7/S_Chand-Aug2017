@@ -9,14 +9,15 @@ import java.awt.event.MouseEvent;
 import framework.Constants;
 import framework.Game;
 import framework.Game.STATE;
+import gameObjects.GameObject;
 import gameObjects.Handler;
+import gameObjects.ID;
+import gameObjects.Player;
 
 public class Menu extends MouseAdapter implements Constants{
 	
 	private Handler handler;
 	private HUD hud;
-	
-	public int lCounter = 0;
 	
 	public Menu(Handler handler, HUD hud) {
 		this.handler = handler;
@@ -28,11 +29,6 @@ public class Menu extends MouseAdapter implements Constants{
 			handler.switchLevel();
 			hud.setScore(0);
 			Game.gameState = STATE.Game;
-//			lCounter ++;
-//			if(lCounter > 100) {
-//				Game.gameState = STATE.Game;
-//				lCounter =0;
-//			}
 		}
 	}
 
@@ -53,8 +49,16 @@ public class Menu extends MouseAdapter implements Constants{
 	public void mousePressed(MouseEvent e) {
 		int mx = e.getX();
 		int my = e.getY();
-		
-		if(Game.gameState == STATE.Menu) {
+		if(Game.gameState == STATE.Game) {
+			if(e.getButton() == MouseEvent.BUTTON1) {
+				for(int i = 0; i < handler.objects.size(); i++) {
+					GameObject temp = handler.objects.get(i);
+					if(temp.getID() == ID.Player && ((Player)temp).hasKnife()) {
+						//TODO
+					}
+				}
+			}
+		}else if(Game.gameState == STATE.Menu) {
 			if(getClick(mx, my, 200, 200, 200, 200)) {
 				Game.gameState = STATE.Game;
 			}

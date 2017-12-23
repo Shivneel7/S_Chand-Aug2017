@@ -6,6 +6,7 @@ public enum ID {
 	TransparentBlock,
 	DeathBlock,
 	Goal,
+	Shooter,
 	Enemy,
 	EnemyBullet,
 	PlayerBullet,

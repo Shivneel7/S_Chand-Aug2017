@@ -5,14 +5,14 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
-public class Enemy extends GameObject{
+public class Enemy2 extends GameObject{
 	
 	private int width = ENEMY_WIDTH, height = ENEMY_HEIGHT;
 	private float gravity = GRAVITY;
 	private boolean falling = true;
 	private int triggerCounter = 100;
 	
-	public Enemy(float x, float y, ID id, float dx) {
+	public Enemy2(float x, float y, ID id, float dx) {
 		super(x, y, id);
 		this.dx= dx;
 
@@ -79,19 +79,16 @@ public class Enemy extends GameObject{
 	}
 
 	public void render(Graphics g) {
-		g.setColor(ENEMY_COLOR);
+		g.setColor(SHOOTER_COLOR);
 		g.fillRect((int)x, (int) y, width, height);
 		g.setColor(Color.white);
-		//if(direction == -1) {
-			g.fillRect((int)x + 6, (int) y + 8, 4, 4);
-			g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
-			g.drawLine((int) x, (int) y + 20, (int)x + width - 1, (int) y + 20);
-//		}else {
-//			g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
-//			g.drawLine((int) x + width, (int) y + 20, (int)x + width - 10, (int) y + 20);
-		//}
+		//face
+		g.fillRect((int)x + 6, (int) y + 8, 4, 4);
+		g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
+		g.drawLine((int) x, (int) y + 20, (int)x + width - 1, (int) y + 20);
+
 	}
-	
+
 	//returns true if the object is touching the given object on any side.
 	public boolean checkAllBounds(GameObject temp) {
 		if(this.getBounds().intersects(temp.getBounds()) ||

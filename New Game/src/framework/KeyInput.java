@@ -53,7 +53,7 @@ public class KeyInput implements KeyListener, Constants {
 					keyDown[1] = true;
 
 				}
-				if(((Player)object).hasGun() && e.getKeyCode() == KeyEvent.VK_SPACE) {
+				if(((Player)object).hasKnife() && e.getKeyCode() == KeyEvent.VK_SPACE) {
 					handler.addObject(new Bullet(object.getX() + PLAYER_WIDTH/2, 
 							object.getY() + PLAYER_HEIGHT/5 * 2, ID.PlayerBullet,
 							BULLET_SPEED * ((Player)object).getDirection(), 0));

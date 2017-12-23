@@ -62,7 +62,7 @@ public class Player extends GameObject{
 					Handler.LEVEL ++;
 					handler.switchLevel();
 				}
-			}else if(temp.getID() == ID.Enemy){
+			}else if(temp.getID() == ID.Shooter){
 				if(checkAllBounds(temp)&&hasKnife ) {
 					objects.remove(temp);
 					hasGun = true;
@@ -173,6 +173,14 @@ public class Player extends GameObject{
 
 	public void setHasGun(boolean hasGun) {
 		this.hasGun = hasGun;
+	}
+	
+	public boolean hasKnife() {
+		return hasKnife;
+	}
+	
+	public void setHasKnife(boolean hasKnife) {
+		this.hasKnife = hasKnife;
 	}
 	
 }

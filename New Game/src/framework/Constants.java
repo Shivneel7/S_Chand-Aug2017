@@ -19,16 +19,22 @@ public interface Constants {
 	public static final float JUMP_HEIGHT = -11f;
 	public static final Color PLAYER_COLOR = Color.blue;
 	
-	//Enemy
-	public static final int ENEMY_WIDTH = 24;
-	public static final int ENEMY_HEIGHT = 48;
-	public static final Color ENEMY_COLOR = new Color(223,102,13);
+	//Shooter
+	public static final int SHOOTER_WIDTH = 24;
+	public static final int SHOOTER_HEIGHT = 48;
+	public static final Color SHOOTER_COLOR = new Color(223,102,13);
 	
-	//EnemyBullet
+	//Bullet
 	public static final Color BULLET_COLOR = Color.red;
 	public static final int BULLET_WIDTH = 8;
 	public static final int BULLET_HEIGHT = BULLET_WIDTH;
 	public static final int BULLET_SPEED = 8;
+	
+	//Basic Enemy
+	public static final int ENEMY_WIDTH = 32;
+	public static final int ENEMY_HEIGHT = 32;
+	public static final Color ENEMY_COLOR = Color.darkGray;
+	
 	//Block
 	public static final int BLOCK_WIDTH = 32;
 	public static final int BLOCK_HEIGHT = BLOCK_WIDTH;

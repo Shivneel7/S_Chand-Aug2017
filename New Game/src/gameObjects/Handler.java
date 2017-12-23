@@ -90,7 +90,7 @@ public class Handler {
 					addObject(new TransparentBlock(xx*32, yy*32, ID.TransparentBlock));
 				}
 				if(red == 255 && green == 127 & blue == 39) {
-					addObject(new Enemy(xx*32, yy*32, ID.Enemy, -2));
+					addObject(new Shooter(xx*32, yy*32, ID.Shooter, -2));
 				}
 				if(red == 255 && green == 201 & blue == 14) {
 					addObject(new Coin(xx*32, yy*32, ID.Coin));
