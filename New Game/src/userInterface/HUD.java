@@ -14,7 +14,9 @@ public class HUD implements Constants{
 	private int lives = NUMBER_OF_LIVES;
 	private int score = 0;
 	private boolean playerHasGun = false;
+	private boolean playerHasKnife = true;
 	private int hotKey = 1;
+	
 	
 	private SpriteSheet ss;
 	
@@ -90,5 +92,12 @@ public class HUD implements Constants{
 		this.playerHasGun = playerHasGun;
 	}
 	
+	public boolean doesPlayerHasKnife() {
+		return playerHasGun;
+	}
+
+	public void setPlayerHasKnife(boolean playerHasKnife) {
+		this.playerHasKnife = playerHasKnife;
+	}
 	
 }

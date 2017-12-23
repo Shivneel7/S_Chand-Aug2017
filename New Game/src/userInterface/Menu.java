@@ -57,7 +57,7 @@ public class Menu extends MouseAdapter implements Constants{
 				if(temp.getID() == ID.PlayerKnife &&  e.getButton() == MouseEvent.BUTTON1){
 					((Knife)temp).setClick(true);
 				}
-				if(temp.getID() == ID.Player && ((Player)temp).hasGun() &&  e.getButton() == MouseEvent.BUTTON2) {
+				if(temp.getID() == ID.Player && ((Player)temp).hasGun() &&  e.getButton() == MouseEvent.BUTTON3) {
 					handler.addObject(new Bullet(temp.getX() + PLAYER_WIDTH/2, 
 							temp.getY() + PLAYER_HEIGHT/5 * 2, ID.PlayerBullet,
 							BULLET_SPEED * ((Player)temp).getDirection(), 0));

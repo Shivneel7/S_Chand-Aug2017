@@ -2,8 +2,11 @@ package gameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
+
+import userInterface.HUD;
 
 public class Shooter extends GameObject{
 	
@@ -11,11 +14,12 @@ public class Shooter extends GameObject{
 	private float gravity = GRAVITY;
 	private boolean falling = true;
 	private int triggerCounter = 100;
+	private HUD hud;
 	
-	public Shooter(float x, float y, ID id, float dx) {
+	public Shooter(float x, float y, ID id, float dx, HUD hud) {
 		super(x, y, id);
 		this.dx= dx;
-
+		this.hud = hud;
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
@@ -46,14 +50,19 @@ public class Shooter extends GameObject{
 								Math.signum((temp.getX() - x)) * BULLET_SPEED, 0));
 						triggerCounter = 0;
 					}
-					
 				}
 			}
 			if(temp.getID() == ID.PlayerBullet) {
 				if(checkAllBounds(temp)) {
 					objects.remove(temp);
 					objects.remove(this);
-
+				}
+			}
+			if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
+				if(checkAllBounds(temp)) {
+					hud.increaseScore(100);
+					//add Gun Object here
+					//objects.remove(this);
 				}
 			}
 		}
@@ -86,6 +95,14 @@ public class Shooter extends GameObject{
 		g.fillRect((int)x + 6, (int) y + 8, 4, 4);
 		g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
 		g.drawLine((int) x, (int) y + 20, (int)x + width - 1, (int) y + 20);
+		
+		//Bounding Boxes
+		Graphics2D g2d = (Graphics2D) g;
+		g.setColor(Color.red);
+		g2d.draw(getBounds());
+		g2d.draw(getBoundsTop());
+		g2d.draw(getBoundsLeft());
+		g2d.draw(getBoundsRight());
 
 	}
 

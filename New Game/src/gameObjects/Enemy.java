@@ -2,18 +2,23 @@ package gameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
+
+import userInterface.HUD;
 
 public class Enemy extends GameObject{
 	
 	private int width = ENEMY_WIDTH, height = ENEMY_HEIGHT;
 	private float gravity = GRAVITY;
 	private boolean falling = true;
+	private HUD hud;
 	
-	public Enemy(float x, float y, ID id, float dx) {
+	public Enemy(float x, float y, ID id, float dx, HUD hud) {
 		super(x, y, id);
 		this.dx = dx;
+		this.hud = hud;
 
 	}
 
@@ -28,8 +33,11 @@ public class Enemy extends GameObject{
 			if(temp.getID() == ID.Block || temp.getID() == ID.DeathBlock || temp.getID() == ID.TransparentBlock) {
 				normalBlockCollision(temp);
 			}
-			if(temp.getID() == ID.Player) {
-				
+			if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
+				if(checkAllBounds(temp)) {
+					hud.increaseScore(100);
+					objects.remove(this);
+				}
 			}
 			if(temp.getID() == ID.PlayerBullet) {
 				if(checkAllBounds(temp)) {
@@ -68,6 +76,14 @@ public class Enemy extends GameObject{
 		g.fillRect((int)x + 6, (int) y + 8, 4, 4);
 		g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
 		g.drawLine((int) x, (int) y + 20, (int)x + width - 1, (int) y + 20);
+		
+		//Bounding Boxes
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.red);
+//		g2d.draw(getBounds());
+//		g2d.draw(getBoundsTop());
+//		g2d.draw(getBoundsLeft());
+//		g2d.draw(getBoundsRight());
 
 	}
 

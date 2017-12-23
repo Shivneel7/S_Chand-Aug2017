@@ -36,7 +36,6 @@ public class Player extends GameObject{
 		if(y > 1400) { // for death by falling through map
 			handler.switchLevel();
 		}
-		
 		collision(objects);
 	}
 
@@ -63,15 +62,13 @@ public class Player extends GameObject{
 					Handler.LEVEL ++;
 					handler.switchLevel();
 				}
-			}else if(temp.getID() == ID.Shooter){
+			}else if(temp.getID() == ID.Enemy || temp.getID() == ID.Shooter){
 				if(checkAllBounds(temp)) {
-					objects.remove(temp);
-					hasGun = true;
-					hud.setPlayerHasGun(true);
+					Game.gameState = STATE.Loss;
 				}
 			}else if(temp.getID() == ID.EnemyBullet) {// if player touches bullet
 				if(checkAllBounds(temp)) {
-					hud.loseLife();
+					//hud.loseLife();
 					objects.remove(temp);
 				}
 			}else if(temp.getID() == ID.Coin) {
