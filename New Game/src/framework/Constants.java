@@ -11,7 +11,7 @@ public interface Constants {
 	
 	//Other
 	public static final float GRAVITY = .5f;
-	public static final int NUMBER_OF_LIVES = 5;
+	public static final int NUMBER_OF_LIVES = 3;
 	
 	//player
 	public static final int PLAYER_WIDTH = 32;
@@ -22,13 +22,13 @@ public interface Constants {
 	//Enemy
 	public static final int ENEMY_WIDTH = 24;
 	public static final int ENEMY_HEIGHT = 48;
-	public static final Color ENEMY_COLOR = Color.yellow;
+	public static final Color ENEMY_COLOR = new Color(223,102,13);
 	
-	//Bullet
+	//EnemyBullet
 	public static final Color BULLET_COLOR = Color.red;
 	public static final int BULLET_WIDTH = 8;
 	public static final int BULLET_HEIGHT = BULLET_WIDTH;
-	
+	public static final int BULLET_SPEED = 8;
 	//Block
 	public static final int BLOCK_WIDTH = 32;
 	public static final int BLOCK_HEIGHT = BLOCK_WIDTH;
@@ -36,5 +36,9 @@ public interface Constants {
 	
 	public static final Color DEATH_BLOCK_COLOR = Color.red;
 	public static final Color GOAL_COLOR = Color.green;
+	
+	//Coin
+	public static final int COIN_SIZE = 8;
+	public static final Color COIN_COLOR = new Color(231, 188, 20);
 	
 }

@@ -1,38 +1,41 @@
 package framework;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
-import gameObjects.Block;
 import gameObjects.GameObject;
 import gameObjects.Handler;
 import gameObjects.ID;
-import gameObjects.Player;
 import userInterface.HUD;
+import userInterface.Menu;
 
 public class Game extends Canvas implements Runnable, Constants{
 	
 	private static final long serialVersionUID = -3307397034749894482L;
-
+	
 	Thread thread;
 	boolean running = false;
-
+	
+	private HUD hud;
 	public Handler handler;
 	private Camera cam;
-	private HUD hud;
+	private Menu menu;
+	
+	public enum STATE {Game, Menu, Loss}
+	
+	public static STATE gameState = STATE.Game;
 	
 	public Game() {
 		hud = new HUD();
 		handler = new Handler(hud);
 		handler.switchLevel();
+		menu = new Menu(handler, hud);
 		cam = new Camera(-1000, 0);
 		new Window(GAME_WIDTH, GAME_HEIGHT, TITLE , this);
 		
-
+		this.addMouseListener(menu);
 		this.addKeyListener(new KeyInput(handler));
 	}
 
@@ -67,10 +70,11 @@ public class Game extends Canvas implements Runnable, Constants{
 		Graphics g = bs.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
 		/////////////////////////////////////////////////////
-		
 		g.setColor(BACKGROUND_COLOR);
 		g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 		
+		if(gameState == STATE.Game) {
+
 		g2d.translate(cam.getX(), cam.getY());//camera
 		
 		handler.render(g);
@@ -78,12 +82,18 @@ public class Game extends Canvas implements Runnable, Constants{
 		g2d.translate(-cam.getX(), -cam.getY());//camera
 		
 		hud.render(g);
+		
+		}else if(gameState == STATE.Menu || gameState == STATE.Loss) {
+			menu.render(g);
+		}
+		
 		/////////////////////////////////////////////////////
 		g.dispose();
 		bs.show();
 	}
 	
 	public void tick() {
+		if(gameState == STATE.Game) {
 		handler.tick();
 		hud.tick();
 		for(int i = 0; i < handler.objects.size(); i++) {
@@ -91,6 +101,9 @@ public class Game extends Canvas implements Runnable, Constants{
 			if(temp.getID() == ID.Player) {
 				cam.tick(temp);
 			}
+		}
+		}else if(gameState == STATE.Menu || gameState == STATE.Loss) {
+			menu.tick();
 		}
 	}
 	

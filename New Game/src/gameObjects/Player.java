@@ -1,9 +1,12 @@
 package gameObjects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import framework.Game;
+import framework.Game.STATE;
 import userInterface.HUD;
 
 public class Player extends GameObject{
@@ -13,8 +16,10 @@ public class Player extends GameObject{
 	private boolean falling, jumping;
 	private Handler handler;
 	private HUD hud;
-	private boolean hasGun = false; //TODO: GUN, ENEMY KILLING, ENEMY SHOOTS FASTER AS PLAYER Gets nearer
-
+	private boolean hasGun = false;
+	private int direction = 1;//left = -1, right - 1
+	private boolean hasKnife = false;
+	
 	public Player(float x, float y, ID id, Handler handler, HUD hud) {
 		super(x, y, id);
 		this.handler = handler;
@@ -27,7 +32,6 @@ public class Player extends GameObject{
 		if(falling) {
 			dy += gravity;
 		}
-
 		if(y > 1400) { // for death by falling through map
 			handler.switchLevel();
 		}
@@ -51,16 +55,27 @@ public class Player extends GameObject{
 				}
 			}else if(temp.getID() == ID.DeathBlock) {//if player touches a deathblock
 				if(checkAllBounds(temp)) {
-					handler.switchLevel();
+					Game.gameState = STATE.Loss;
 				}
 			}else if(temp.getID() == ID.Goal) {
 				if(checkAllBounds(temp)) {
 					Handler.LEVEL ++;
 					handler.switchLevel();
 				}
-			}else if(temp.getID() == ID.Bullet) {// if player touches bullet
+			}else if(temp.getID() == ID.Enemy){
+				if(checkAllBounds(temp)&&hasKnife ) {
+					objects.remove(temp);
+					hasGun = true;
+					hud.setPlayerHasGun(true);
+				}
+			}else if(temp.getID() == ID.EnemyBullet) {// if player touches bullet
 				if(checkAllBounds(temp)) {
 					hud.loseLife();
+					objects.remove(temp);
+				}
+			}else if(temp.getID() == ID.Coin) {
+				if(checkAllBounds(temp)) {
+					hud.increaseScore(100);
 					objects.remove(temp);
 				}
 			}
@@ -91,6 +106,14 @@ public class Player extends GameObject{
 	public void render(Graphics g) {
 		g.setColor(PLAYER_COLOR);
 		g.fillRect((int)x, (int) y, width, height);
+		g.setColor(Color.white);
+		if(direction == -1) {
+			g.fillRect((int)x + 8, (int) y + 8, 4, 4);
+			g.drawLine((int) x, (int) y + 20, (int)x + 10, (int) y + 20);
+		}else {
+			g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
+			g.drawLine((int) x + width, (int) y + 20, (int)x + width - 10, (int) y + 20);
+		}
 		//Bounding Boxes
 //		Graphics2D g2d = (Graphics2D) g;
 //		g.setColor(Color.red);
@@ -132,8 +155,24 @@ public class Player extends GameObject{
 		return jumping;
 	}
 
+	public int getDirection() {
+		return direction;
+	}
+
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+
 	public void setJumping(boolean jumping) {
 		this.jumping = jumping;
+	}
+
+	public boolean hasGun() {
+		return hasGun;
+	}
+
+	public void setHasGun(boolean hasGun) {
+		this.hasGun = hasGun;
 	}
 	
 }

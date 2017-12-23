@@ -7,7 +7,9 @@ public enum ID {
 	DeathBlock,
 	Goal,
 	Enemy,
-	Bullet,
+	EnemyBullet,
+	PlayerBullet,
+	Coin,
 	
 	
 	;

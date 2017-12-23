@@ -3,6 +3,7 @@ package framework;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import gameObjects.Bullet;
 import gameObjects.GameObject;
 import gameObjects.Handler;
 import gameObjects.ID;
@@ -23,9 +24,9 @@ public class KeyInput implements KeyListener, Constants {
 		
 	}
 	public void keyPressed(KeyEvent e) {
-		for(GameObject object : handler.objects) {
+		for(int i = 0; i < handler.objects.size(); i++) {
+			GameObject object = handler.objects.get(i);
 			if(object.getID() == ID.Player) {
-				//System.out.println(e.getModifiers());
 				if(e.getKeyCode() == KeyEvent.VK_W && !((Player)object).isJumping()) {
 					object.setDy(JUMP_HEIGHT);
 					((Player) object).setJumping(true);
@@ -34,19 +35,28 @@ public class KeyInput implements KeyListener, Constants {
 				if(e.getModifiers() == 1) { // shift =1, ctrl = 2, alt = 8
 					if(e.getKeyCode() == KeyEvent.VK_A) {
 						object.setDx(-2);
+						((Player) object).setDirection(-1);
 						keyDown[0] = true;
 					}
 					if(e.getKeyCode() == KeyEvent.VK_D) {
 						object.setDx(2);
-						keyDown[1] = true;						
+						((Player) object).setDirection(1);
+						keyDown[1] = true;
 					}
 				}else if(e.getKeyCode() == KeyEvent.VK_A) {
 					object.setDx(-5);
+					((Player) object).setDirection(-1);
 					keyDown[0] = true;
 				}else if(e.getKeyCode() == KeyEvent.VK_D) {
 					object.setDx(5);
+					((Player) object).setDirection(1);
 					keyDown[1] = true;
 
+				}
+				if(((Player)object).hasGun() && e.getKeyCode() == KeyEvent.VK_SPACE) {
+					handler.addObject(new Bullet(object.getX() + PLAYER_WIDTH/2, 
+							object.getY() + PLAYER_HEIGHT/5 * 2, ID.PlayerBullet,
+							BULLET_SPEED * ((Player)object).getDirection(), 0));
 				}
 			}
 		}

@@ -1,5 +1,6 @@
 package gameObjects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
@@ -14,6 +15,7 @@ public class Enemy extends GameObject{
 	public Enemy(float x, float y, ID id, float dx) {
 		super(x, y, id);
 		this.dx= dx;
+
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
@@ -28,12 +30,30 @@ public class Enemy extends GameObject{
 				normalBlockCollision(temp);
 			}
 			if(temp.getID() == ID.Player) {
-				if(Math.abs(temp.getX() - x) < 1000) {
+				int distance = (int) Math.abs(temp.getX() - x);
+				if(distance < 600) {
 					triggerCounter++;
-					if(triggerCounter > 100 && Math.abs(temp.getX() - x) < 1000) {
-						objects.add(new Bullet(x + width/2 , y + height/2 - 16, ID.Bullet, Math.signum((temp.getX() - x)) * 4 , 0));
+					if(triggerCounter > 15 && distance < 150) {
+						objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
+								Math.signum((temp.getX() - x)) * BULLET_SPEED, 0));
+						triggerCounter = 0;
+					}else if(triggerCounter > 50 && distance < 300) {
+						objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
+								Math.signum((temp.getX() - x)) * BULLET_SPEED, 0));
+						triggerCounter = 0;
+					}else if(triggerCounter > 75){
+						objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
+								Math.signum((temp.getX() - x)) * BULLET_SPEED, 0));
 						triggerCounter = 0;
 					}
+					
+				}
+			}
+			if(temp.getID() == ID.PlayerBullet) {
+				if(checkAllBounds(temp)) {
+					objects.remove(temp);
+					objects.remove(this);
+
 				}
 			}
 		}
@@ -61,8 +81,27 @@ public class Enemy extends GameObject{
 	public void render(Graphics g) {
 		g.setColor(ENEMY_COLOR);
 		g.fillRect((int)x, (int) y, width, height);
+		g.setColor(Color.white);
+		//if(direction == -1) {
+			g.fillRect((int)x + 6, (int) y + 8, 4, 4);
+			g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
+			g.drawLine((int) x, (int) y + 20, (int)x + width - 1, (int) y + 20);
+//		}else {
+//			g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
+//			g.drawLine((int) x + width, (int) y + 20, (int)x + width - 10, (int) y + 20);
+		//}
 	}
-
+	
+	//returns true if the object is touching the given object on any side.
+	public boolean checkAllBounds(GameObject temp) {
+		if(this.getBounds().intersects(temp.getBounds()) ||
+				this.getBoundsTop().intersects(temp.getBounds()) ||
+				this.getBoundsRight().intersects(temp.getBounds()) ||
+				this.getBoundsLeft().intersects(temp.getBounds())) {
+			return true;
+		}
+		return false;
+	}
 	public Rectangle getBounds() {
 		return new Rectangle((int) x+8, (int)y + height/2, width-16, height/2);
 	}

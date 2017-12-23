@@ -15,6 +15,9 @@ public class Bullet extends GameObject{
 	public void tick(LinkedList<GameObject> objects) {
 		x += dx;
 		y += dy;
+		if(dx == 0) {
+			objects.remove(this);
+		}
 		for(int i = 0; i < objects.size(); i++) {
 			GameObject temp = objects.get(i);
 			if(temp.getID() == ID.Block) {

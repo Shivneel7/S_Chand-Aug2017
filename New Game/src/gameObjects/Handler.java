@@ -5,11 +5,13 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import framework.BufferedImageLoader;
+import framework.Game;
+import framework.Game.STATE;
 import userInterface.HUD;
 /**
  * Handles all GameObjects and creates and keeps track of levels.
  * 
- *
+ *Also where lives are checked.
  */
 public class Handler {
 	public static int LEVEL = 0;
@@ -29,9 +31,8 @@ public class Handler {
 	}
 	
 	public void tick() {
-		if(hud.getLives() == 0) {
-			hud.resetLives();
-			switchLevel();
+		if(hud.getLives() == 0) {//checks lives
+			Game.gameState = STATE.Loss;
 		}
 		for(int i = 0; i < objects.size(); i++) {
 			objects.get(i).tick(objects);
@@ -88,8 +89,11 @@ public class Handler {
 				if(red == 127 && green == 127 & blue == 127) {
 					addObject(new TransparentBlock(xx*32, yy*32, ID.TransparentBlock));
 				}
-				if(red == 255 && green == 255 & blue == 0) {
+				if(red == 255 && green == 127 & blue == 39) {
 					addObject(new Enemy(xx*32, yy*32, ID.Enemy, -2));
+				}
+				if(red == 255 && green == 201 & blue == 14) {
+					addObject(new Coin(xx*32, yy*32, ID.Coin));
 				}
 			}
 		}
