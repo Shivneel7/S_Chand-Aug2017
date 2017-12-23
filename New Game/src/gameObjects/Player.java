@@ -63,7 +63,7 @@ public class Player extends GameObject{
 					handler.switchLevel();
 				}
 			}else if(temp.getID() == ID.Shooter){
-				if(checkAllBounds(temp)&&hasKnife ) {
+				if(checkAllBounds(temp)) {
 					objects.remove(temp);
 					hasGun = true;
 					hud.setPlayerHasGun(true);

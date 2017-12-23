@@ -47,6 +47,10 @@ public class HUD implements Constants{
 		if(playerHasGun) {
 			g.drawImage(ss.grabImage(1, 1, 16, 16), 10, 50, 48,48, null);
 		}
+		//Knife
+		if(true) {
+			g.drawImage(ss.grabImage(2, 1, 16, 16), 10, 50, 48,48, null);
+		}
 	}
 	
 	public void resetLives() {

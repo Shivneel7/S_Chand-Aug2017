@@ -95,6 +95,9 @@ public class Handler {
 				if(red == 255 && green == 201 & blue == 14) {
 					addObject(new Coin(xx*32, yy*32, ID.Coin));
 				}
+				if(red == 0 && green == 100 & blue == 100) {
+					addObject(new Knife(xx*32, yy*32, ID.Knife));
+				}
 			}
 		}
 	}

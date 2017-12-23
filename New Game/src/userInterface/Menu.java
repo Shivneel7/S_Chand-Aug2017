@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import framework.Constants;
 import framework.Game;
 import framework.Game.STATE;
+import gameObjects.Bullet;
 import gameObjects.GameObject;
 import gameObjects.Handler;
 import gameObjects.ID;
@@ -54,7 +55,12 @@ public class Menu extends MouseAdapter implements Constants{
 				for(int i = 0; i < handler.objects.size(); i++) {
 					GameObject temp = handler.objects.get(i);
 					if(temp.getID() == ID.Player && ((Player)temp).hasKnife()) {
-						//TODO
+						
+					}
+					if(temp.getID() == ID.Player && ((Player)temp).hasGun()) {
+						handler.addObject(new Bullet(temp.getX() + PLAYER_WIDTH/2, 
+								temp.getY() + PLAYER_HEIGHT/5 * 2, ID.PlayerBullet,
+								BULLET_SPEED * ((Player)temp).getDirection(), 0));
 					}
 				}
 			}
