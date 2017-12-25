@@ -14,9 +14,7 @@ public class HUD implements Constants{
 	private int lives = NUMBER_OF_LIVES;
 	private int score = 0;
 	private boolean playerHasGun = false;
-	private boolean playerHasKnife = true;
-	private int hotKey = 1;
-	
+	private int ammo = 0;
 	
 	private SpriteSheet ss;
 	
@@ -47,19 +45,24 @@ public class HUD implements Constants{
 		//gun
 		if(playerHasGun) {
 			g.drawImage(ss.grabImage(1, 1, 16, 16), 10, 50, 48,48, null);
+			//ammo
+			for(int i = 0; i < ammo; i ++) {
+				g.fillRect(55 + (12*i), 55, 6, 6);
+			}
 		}
+
 	}
-	
+
 	public void resetLives() {
 		lives = NUMBER_OF_LIVES;
 	}
-	
+
 	public void loseLife() {
 		if(lives > 0) {
 			lives--;
 		}
 	}
-	
+
 	public void gainLife() {
 		lives++;
 	}
@@ -96,8 +99,20 @@ public class HUD implements Constants{
 		return playerHasGun;
 	}
 
-	public void setPlayerHasKnife(boolean playerHasKnife) {
-		this.playerHasKnife = playerHasKnife;
+	public boolean isPlayerHasGun() {
+		return playerHasGun;
+	}
+
+	public int getAmmo() {
+		return ammo;
+	}
+
+	public void setAmmo(int ammo) {
+		this.ammo = ammo;
+	}
+	
+	public void increaseAmmo(int d) {
+		ammo += d;
 	}
 	
 }

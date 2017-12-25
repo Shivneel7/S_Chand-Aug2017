@@ -61,8 +61,10 @@ public class Shooter extends GameObject{
 			if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
 				if(checkAllBounds(temp)) {
 					hud.increaseScore(100);
+					hud.setPlayerHasGun(true);
+					hud.increaseAmmo(6);
 					//add Gun Object here
-					//objects.remove(this);
+					objects.remove(this);
 				}
 			}
 		}

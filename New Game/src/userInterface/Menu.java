@@ -26,14 +26,23 @@ public class Menu extends MouseAdapter implements Constants{
 		this.hud = hud;
 	}
 	public void tick() {
+		//What happens when we lose
 		if(Game.gameState == STATE.Loss) {
-			hud.resetLives();
-			handler.switchLevel();
-			hud.setScore(0);
-			Game.gameState = STATE.Game;
+			loss();
 		}
 	}
-
+	
+	/**
+	 * What happens when player loses.
+	 */
+	private void loss() {
+		hud.resetLives();
+		hud.setPlayerHasGun(false);
+		handler.switchLevel();
+		hud.setScore(0);
+		Game.gameState = STATE.Game;
+	}
+	
 	public void render(Graphics g) {
 		if(Game.gameState == STATE.Menu) {
 			g.setColor(Color.white);
@@ -57,10 +66,11 @@ public class Menu extends MouseAdapter implements Constants{
 				if(temp.getID() == ID.PlayerKnife &&  e.getButton() == MouseEvent.BUTTON1){
 					((Knife)temp).setClick(true);
 				}
-				if(temp.getID() == ID.Player && ((Player)temp).hasGun() &&  e.getButton() == MouseEvent.BUTTON3) {
+				if(temp.getID() == ID.Player && hud.doesPlayerHasGun() && hud.getAmmo() > 0 &&  e.getButton() == MouseEvent.BUTTON3) {
 					handler.addObject(new Bullet(temp.getX() + PLAYER_WIDTH/2, 
 							temp.getY() + PLAYER_HEIGHT/5 * 2, ID.PlayerBullet,
 							BULLET_SPEED * ((Player)temp).getDirection(), 0));
+					hud.increaseAmmo(-1);
 				}
 			}
 		}else if(Game.gameState == STATE.Menu) {

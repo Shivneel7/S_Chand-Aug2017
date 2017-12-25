@@ -68,7 +68,7 @@ public class Player extends GameObject{
 				}
 			}else if(temp.getID() == ID.EnemyBullet) {// if player touches bullet
 				if(checkAllBounds(temp)) {
-					//hud.loseLife();
+					hud.loseLife();
 					objects.remove(temp);
 				}
 			}else if(temp.getID() == ID.Coin) {

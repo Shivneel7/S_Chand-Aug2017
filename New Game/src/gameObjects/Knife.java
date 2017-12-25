@@ -88,7 +88,6 @@ public class Knife extends GameObject {
 		}else {
 			return new Rectangle((int) x, (int) y +  26, 12, 12);
 		}
-
 	}
 	
 }
