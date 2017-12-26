@@ -21,7 +21,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private BufferedImage level;
 	
-	private Game() {
+	public Game() {
 		new Window(WIDTH, HEIGHT, "Game", this);
 		
 		handler = new Handler();
