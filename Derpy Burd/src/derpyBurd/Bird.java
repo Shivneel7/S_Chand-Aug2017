@@ -1,6 +1,7 @@
 package derpyBurd;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import derpyBurd.Game.STATE;
@@ -13,11 +14,16 @@ public class Bird {
 	private int jumpCounter = 0;
 	private Pipe p;
 	private int lCounter = 0;
+	private Audio loss;
+	private Audio pass;
+	public static int score = 0;
 	
 	public Bird(int x, int y, Pipe p) {
 		this.x = x;
 		this.y = y;
 		this.p =p;
+		loss = new Audio("/ur-bad.wav", -8);
+		pass = new Audio("/ez-win.wav", -14);
 	}
 	
 	public void setdy(int dy) {
@@ -50,11 +56,16 @@ public class Bird {
 		if(p.getBounds1().intersects(x,y,32,32) || p.getBounds2().intersects(x,y,32,32)) {
 			lCounter++;
 			if(lCounter > 2) {
+				if(Menu.soundsOn)
+					loss.play();
 				Game.gameState = STATE.Loss;
 			}
 		}
-		if(p.getX() == this.x) {
+		if(p.getX() == 40 || p.getX() == 38 || p.getX() == 35) {
+			if(Menu.soundsOn)
+				pass.play();
 			lCounter = 0;
+			score++;
 		}
 	}
 	
@@ -67,6 +78,10 @@ public class Bird {
 		int[] arr = {x + 31, x +32, x + 32 + 6};
 		int[] arr2 = {(int)y + 11, (int)y + 17, (int) y + 14};
 		g.fillPolygon(arr, arr2, 3);
+		
+		g.setColor(Color.black);
+		g.setFont(new Font(null, 1, 25));
+		g.drawString("Score: " + score, 10, Game.HEIGHT - 50);
 	}
 	
 	public void jump() {

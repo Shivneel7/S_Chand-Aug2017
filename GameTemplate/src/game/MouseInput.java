@@ -22,6 +22,13 @@ public class MouseInput extends MouseAdapter{
 		
 	}
 	
+	//Checks if mouse was in a rectangle
+	public boolean getClick(int mx, int my, int x, int y, int width, int height) {
+		if(mx < width + x && mx > x && my < height+y && my > y) {
+			return true;
+		}else return false;
+	}
+	
 	public void mouseClicked(MouseEvent e) {
 		System.out.println(e.getPoint().toString());
 	}

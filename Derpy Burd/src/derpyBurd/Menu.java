@@ -12,20 +12,22 @@ public class Menu extends MouseAdapter{
 	
 	private Game game;
 	private Audio[] sounds = new Audio[4];
-	private boolean soundsOn = true;//default value of the sound.
+	private boolean[] hovering = new boolean[7];
+	
+	public static boolean soundsOn = true;//default value of the sound.
 	
 	public Menu(Game game) {
 		this.game = game;
-		sounds[0] = new Audio("/ez.wav", -15);
-		sounds[1] = new Audio("/meh.wav", -10);
-		sounds[2] = new Audio("/hard.wav", -10);
-		sounds[3] = new Audio("/insane.wav", -11);
+		sounds[0] = new Audio("/ez.wav", -8);
+		sounds[1] = new Audio("/meh.wav", -8);
+		sounds[2] = new Audio("/hard.wav", -8);
+		sounds[3] = new Audio("/insane.wav", -8);
 	}
 	
 	public void mousePressed(MouseEvent e) {
 		int mx = e.getX();
 		int my = e.getY();
-		//Play Button
+		//Play Buttons
 		if(Game.gameState == STATE.Menu) {
 			if(getClick(mx, my, Game.WIDTH - 102, Game.HEIGHT - 102, 80, 50)) {
 				Game.gameState = STATE.Options;
@@ -56,7 +58,7 @@ public class Menu extends MouseAdapter{
 			}
 		}
 		else if(Game.gameState == STATE.Loss) {
-			if(getClick(mx, my,Game.WIDTH/2 - 110, 195, 220, 100)) {//Play Again
+			if(getClick(mx, my, Game.WIDTH/2 - 150, 195, 300, 100)) {//Return to menu
 				Game.gameState = STATE.Menu;
 			}
 		}else if(Game.gameState == STATE.Options) {//options
@@ -72,8 +74,38 @@ public class Menu extends MouseAdapter{
 		}
 	}
 	
+	public void mouseMoved(MouseEvent e) {
+		int mx = e.getX();
+		int my = e.getY();
+		if(Game.gameState == STATE.Menu) {
+			if(getClick(mx, my, Game.WIDTH/3-75, 150, 150, 75)) //ez
+				hovering[0] = true; else hovering[0] = false;
+			
+			if(getClick(mx, my, Game.WIDTH/3 * 2 - 75, 150, 150, 75)) //meh.
+				hovering[1] = true; else hovering[1] = false;
+			
+			if(getClick(mx, my, Game.WIDTH/3 - 75, 250, 150, 75)) //hard
+				hovering[2] = true; else hovering[2] = false;
+			
+			if(getClick(mx, my, Game.WIDTH/3 * 2 - 75, 250, 150, 75)) //insane
+				hovering[3] = true; else hovering[3] = false;
+			
+			if(getClick(mx, my, Game.WIDTH - 102, Game.HEIGHT - 102, 80, 50)) //options
+				hovering[4] = true; else hovering[4] = false;
+			
+		}else if(Game.gameState == STATE.Loss) {
+			if(getClick(mx, my, Game.WIDTH/2 - 150, 195, 300, 100)) //Return to menu
+				hovering[5] = true; else hovering[5] = false;
+			
+		}else if(Game.gameState == STATE.Options) {
+			if(getClick(mx, my, Game.WIDTH/2 - 45, Game.HEIGHT - 110, 100, 40)) //Back
+				hovering[6] = true; else hovering[6] = false;
+
+		}
+	}
+
 	private void startGame() {
-		game.score = 0;
+		Bird.score = 0;
 		Game.gameState = STATE.Game;
 		game.restartBackground();
 		game.resetBackground();
@@ -83,8 +115,7 @@ public class Menu extends MouseAdapter{
 		
 	}
 	
-	
-	
+	//Checks if mouse was in a rectangle
 	public boolean getClick(int mx, int my, int x, int y, int width, int height) {
 		if(mx < width + x && mx > x && my < height+y && my > y) {
 			return true;
@@ -114,29 +145,34 @@ public class Menu extends MouseAdapter{
 			g.setColor(Color.black);
 			g.fillRect(Game.WIDTH/3-75, 150, 150, 75);
 			g.setColor(Color.cyan);
+			if(hovering[0]) g.setColor(Color.orange);
 			g.drawString("EZ PZ", Game.WIDTH/3 - 55, 200);
 			//Meh.
 			g.setFont(new Font("Arial", 0, 40));
 			g.setColor(Color.black);
 			g.fillRect(Game.WIDTH/3 * 2 - 75, 150, 150, 75);
 			g.setColor(Color.cyan);
+			if(hovering[1]) g.setColor(Color.orange);
 			g.drawString("meh.", Game.WIDTH/3 * 2 - 40, 200);
 			//Hard
 			g.setColor(Color.black);
 			g.fillRect(Game.WIDTH/3 - 75, 250, 150, 75);
 			g.setColor(Color.cyan);
+			if(hovering[2]) g.setColor(Color.orange);
 			g.drawString("Hard", Game.WIDTH/3 - 43, 305);
 			//Insane
 			g.setFont(new Font("Arial", 1, 38));
 			g.setColor(Color.black);
 			g.fillRect(Game.WIDTH/3 * 2 - 75, 250, 150, 75);
 			g.setColor(Color.cyan);
+			if(hovering[3]) g.setColor(Color.orange);
 			g.drawString("INSANE", Game.WIDTH/3 * 2 - 70, 305);
 			//Options
 			g.setFont(new Font("Arial", 1, 20));
 			g.setColor(Color.black);
 			g.fillRect(Game.WIDTH - 102, Game.HEIGHT - 102, 80, 50);
 			g.setColor(Color.cyan);
+			if(hovering[4]) g.setColor(Color.orange);
 			g.drawString("options", Game.WIDTH- 97, Game.HEIGHT - 70);
 		
 		}else if(Game.gameState == STATE.Options) {//options
@@ -144,6 +180,7 @@ public class Menu extends MouseAdapter{
 			g.fillRect(Game.WIDTH/2 - 45, Game.HEIGHT - 110, 100, 40);
 			g.setFont(new Font("Arial", 1, 30));
 			g.setColor(Color.cyan);
+			if(hovering[6]) g.setColor(Color.orange);
 			g.drawString("Back", Game.WIDTH/2 - 30, Game.HEIGHT - 80);
 			//Sounds
 			g.setColor(Color.black);
@@ -166,13 +203,17 @@ public class Menu extends MouseAdapter{
 			g.drawString("Press Space to Flap.", 200, 135);
 			g.drawString("Don't hit the pipe.", 200, 185);
 			g.drawString("Press ESC to Pause.", 200, 235);
-	
-		}else if(Game.gameState == STATE.Loss) {//loss screen
+			
+			//loss screen
+		}else if(Game.gameState == STATE.Loss) {
 			g.setFont(new Font("Arial", 1, 35));
-			g.drawString("You lost with a score of: " + game.score, 30, Game.HEIGHT /2 - 40);
-			g.fillRect(Game.WIDTH/2 - 110, 195, 220, 100);
+			g.drawString("You lost with a score of: " + Bird.score, 35, Game.HEIGHT /2 - 40);
+			
+			g.fillRect(Game.WIDTH/2 - 150, 195, 300, 100);
 			g.setColor(Color.cyan);
-			g.drawString("Play Again?", 204, 257);
+			if(hovering[5]) g.setColor(Color.orange);
+			g.drawString("Return to Menu?", 165, 255);
+
 		}
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Arial", 1, 38));

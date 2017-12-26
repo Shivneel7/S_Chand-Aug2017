@@ -25,10 +25,8 @@ public class Game extends Canvas implements Runnable{
 	
 	private static Bird bird; // = new Bird(40, 280, obstacle, this);
 	
-	public int score = 0;
-	
 	public enum STATE{Menu, Game, Loss, Paused, Options};
-	
+
 	public static STATE gameState = STATE.Menu;
 	
 	public Game() {
@@ -37,6 +35,7 @@ public class Game extends Canvas implements Runnable{
 		bird = new Bird(40, 280, obstacle);
 
 		this.addMouseListener(menu);
+		this.addMouseMotionListener(menu);
 		
 		new Window(WIDTH, HEIGHT, "Derpy Burd" , this);
 		
@@ -83,7 +82,7 @@ public class Game extends Canvas implements Runnable{
         	frames++;
         	if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
-				//System.out.println("FPS: "+ frames);
+				System.out.println("FPS: "+ frames);
 				frames = 0;
         	}
         }
@@ -105,7 +104,7 @@ public class Game extends Canvas implements Runnable{
 			obstacle.render(g);
 			bird.render(g);
 			g.setColor(Color.white);
-			g.drawString("Score: " + score, 10, HEIGHT - 45);
+			//g.drawString("Score: " + score, 10, HEIGHT - 45);
 			if(gameState == STATE.Paused) {
 				g.setColor(Color.black);
 				g.drawString("Paused" , 10, 200);
@@ -127,7 +126,6 @@ public class Game extends Canvas implements Runnable{
 		if(gameState == STATE.Menu){
 			menu.tick();
 		}else if(gameState == STATE.Game){
-			score++;
 			bird.tick();
 			obstacle.tick();
 		}
