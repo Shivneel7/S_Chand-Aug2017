@@ -27,7 +27,17 @@ public class Handler {
 	public Handler(HUD hud){
 		this.hud = hud;
 		BufferedImageLoader loader = new BufferedImageLoader();
-
+		
+		Scanner levelReader;
+//		System.out.println(file.exists());
+		
+		try {
+			levelReader = new Scanner(new FileInputStream("lev.txt"));
+			LEVEL = levelReader.nextInt();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 		for(int i = 0; i < levels.length; i++) {
 			levels[i] = loader.loadImage("/level"+ (i + 1) +".png");
 		}
