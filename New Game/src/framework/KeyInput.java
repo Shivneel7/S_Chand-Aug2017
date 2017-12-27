@@ -2,8 +2,10 @@ package framework;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
-import gameObjects.Bullet;
 import gameObjects.GameObject;
 import gameObjects.Handler;
 import gameObjects.ID;
@@ -16,14 +18,25 @@ public class KeyInput implements KeyListener, Constants {
 
 	
 	public KeyInput(Handler handler) {
-		
 		this.handler = handler;
 		for(int i = 0; i < keyDown.length;i++) {
 			keyDown[i] = false;
 		}
-		
 	}
+	
 	public void keyPressed(KeyEvent e) {
+		
+		if(e.getKeyCode() == KeyEvent.VK_M) {
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter("res/lev.txt"));
+				bw.write("" + Handler.LEVEL);
+				System.out.println("saved");
+				bw.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
 		for(int i = 0; i < handler.objects.size(); i++) {
 			GameObject object = handler.objects.get(i);
 			if(object.getID() == ID.Player) {
@@ -56,7 +69,7 @@ public class KeyInput implements KeyListener, Constants {
 			}
 		}
 	}
-
+	
 	public void keyReleased(KeyEvent e) {
 		for(GameObject object : handler.objects) {
 			if(object.getID() == ID.Player) {

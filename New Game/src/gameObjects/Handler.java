@@ -28,12 +28,10 @@ public class Handler {
 		this.hud = hud;
 		BufferedImageLoader loader = new BufferedImageLoader();
 		
-		Scanner levelReader;
-//		System.out.println(file.exists());
-		
 		try {
-			levelReader = new Scanner(new FileInputStream("lev.txt"));
-			LEVEL = levelReader.nextInt();
+			Scanner levelReader = new Scanner(new File("res/lev.txt"));
+			if(levelReader.hasNextInt()) LEVEL = levelReader.nextInt();
+			levelReader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
