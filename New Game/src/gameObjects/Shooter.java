@@ -99,13 +99,13 @@ public class Shooter extends GameObject{
 		g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
 		g.drawLine((int) x, (int) y + 20, (int)x + width - 1, (int) y + 20);
 		
-		//Bounding Boxes
-		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.red);
-		g2d.draw(getBounds());
-		g2d.draw(getBoundsTop());
-		g2d.draw(getBoundsLeft());
-		g2d.draw(getBoundsRight());
+//		//Bounding Boxes
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.red);
+//		g2d.draw(getBounds());
+//		g2d.draw(getBoundsTop());
+//		g2d.draw(getBoundsLeft());
+//		g2d.draw(getBoundsRight());
 
 	}
 
