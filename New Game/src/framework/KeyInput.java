@@ -26,16 +26,16 @@ public class KeyInput implements KeyListener, Constants {
 	
 	public void keyPressed(KeyEvent e) {
 		
-		if(e.getKeyCode() == KeyEvent.VK_M) {
-			try {
-				BufferedWriter bw = new BufferedWriter(new FileWriter("res/lev.txt"));
-				bw.write("" + Handler.LEVEL);
-				System.out.println("saved");
-				bw.close();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}
+//		if(e.getKeyCode() == KeyEvent.VK_M) {
+//			try {
+//				BufferedWriter bw = new BufferedWriter(new FileWriter("res/lev.txt"));
+//				bw.write("" + Handler.LEVEL);
+//				System.out.println("saved");
+//				bw.close();
+//			} catch (IOException e1) {
+//				e1.printStackTrace();
+//			}
+//		}
 		
 		for(int i = 0; i < handler.objects.size(); i++) {
 			GameObject object = handler.objects.get(i);

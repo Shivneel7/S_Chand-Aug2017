@@ -12,8 +12,8 @@ public enum ID {
 	PlayerKnife,
 	EnemyBullet,
 	PlayerBullet,
-	Coin,
-	
-	
+	Coin, 
+	HealthUpgrade,
+	AmmoUpgrade,
 	;
 }
