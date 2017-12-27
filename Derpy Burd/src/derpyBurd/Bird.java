@@ -43,6 +43,7 @@ public class Bird {
 	}
 	
 	public void tick() {
+		System.out.println(p.getX());
 		this.y += dy;
 		if(dy != 0 ) {
 			jumpCounter ++;
@@ -61,10 +62,11 @@ public class Bird {
 				Game.gameState = STATE.Loss;
 			}
 		}
-		if(p.getX() == 40 || p.getX() == 38 || p.getX() == 35) {
+		if(p.getX() == 40 || p.getX() == 38 || (p.getX() == 35 && Game.SPEED != 5)) {
 			if(Menu.soundsOn)
 				pass.play();
 			lCounter = 0;
+			System.out.println("wad ");
 			score++;
 		}
 	}

@@ -2,7 +2,12 @@ package gameObjects;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 import framework.BufferedImageLoader;
 import framework.Game;
@@ -19,15 +24,13 @@ public class Handler {
 	private BufferedImage[] levels = new BufferedImage[3];
 	private HUD hud;
 	
-	public Handler(HUD hud) {
+	public Handler(HUD hud){
 		this.hud = hud;
-		
 		BufferedImageLoader loader = new BufferedImageLoader();
 
 		for(int i = 0; i < levels.length; i++) {
 			levels[i] = loader.loadImage("/level"+ (i + 1) +".png");
 		}
-		
 	}
 	
 	public void tick() {

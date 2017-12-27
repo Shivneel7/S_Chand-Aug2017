@@ -15,7 +15,11 @@ import gameObjects.Handler;
 import gameObjects.ID;
 import gameObjects.Knife;
 import gameObjects.Player;
-
+/**
+ * Handles all mouse events, not just menu.
+ * @author shivn
+ *
+ */
 public class Menu extends MouseAdapter implements Constants{
 	
 	private Handler handler;
@@ -38,6 +42,7 @@ public class Menu extends MouseAdapter implements Constants{
 	private void loss() {
 		hud.resetLives();
 		hud.setPlayerHasGun(false);
+		hud.setAmmo(0);
 		handler.switchLevel();
 		hud.setScore(0);
 		Game.gameState = STATE.Game;

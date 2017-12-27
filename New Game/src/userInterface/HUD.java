@@ -9,7 +9,11 @@ import framework.Animation;
 import framework.BufferedImageLoader;
 import framework.Constants;
 import framework.SpriteSheet;
-
+/**
+ * The heads up display, keeps track of gun, ammo, score, and lives.
+ * @author shivn
+ *
+ */
 public class HUD implements Constants{
 	private int lives = NUMBER_OF_LIVES;
 	private int score = 0;

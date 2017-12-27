@@ -1,8 +1,6 @@
 
-import javax.sound.sampled.AudioInputStream;//Only needed for Mixer
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;	//Only needed for Mixer
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.Mixer;
 
