@@ -9,17 +9,19 @@ import java.util.LinkedList;
 import userInterface.HUD;
 
 public class Shooter extends GameObject{
-	
+
 	private int width = SHOOTER_WIDTH, height = SHOOTER_HEIGHT;
 	private float gravity = GRAVITY;
 	private boolean falling = true;
 	private int triggerCounter = 100;
 	private HUD hud;
-	
-	public Shooter(float x, float y, ID id, float dx, HUD hud) {
+	private Player player;
+
+	public Shooter(float x, float y, ID id, float dx, HUD hud, Player p) {
 		super(x, y, id);
 		this.dx= dx;
 		this.hud = hud;
+		player = p;
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
@@ -32,25 +34,6 @@ public class Shooter extends GameObject{
 			GameObject temp = objects.get(i);
 			if(temp.getID() == ID.Block || temp.getID() == ID.DeathBlock || temp.getID() == ID.TransparentBlock) {
 				normalBlockCollision(temp);
-			}
-			if(temp.getID() == ID.Player) {
-				int distance = (int) Math.abs(temp.getX() - x);
-				if(distance < 600) {
-					triggerCounter++;
-					if(triggerCounter > 15 && distance < 150) {
-						objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
-								Math.signum((temp.getX() - x)) * BULLET_SPEED, 0));
-						triggerCounter = 0;
-					}else if(triggerCounter > 50 && distance < 300) {
-						objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
-								Math.signum((temp.getX() - x)) * BULLET_SPEED, 0));
-						triggerCounter = 0;
-					}else if(triggerCounter > 75){
-						objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
-								Math.signum((temp.getX() - x)) * BULLET_SPEED, 0));
-						triggerCounter = 0;
-					}
-				}
 			}
 			if(temp.getID() == ID.PlayerBullet) {
 				if(checkAllBounds(temp)) {
@@ -65,8 +48,25 @@ public class Shooter extends GameObject{
 					hud.increaseAmmo(6);
 					objects.remove(this);
 					//add Gun Object here
-					
+
 				}
+			}
+		}
+		int distance = (int) Math.abs(player.getX() - x);
+		if(distance < 600) {
+			triggerCounter++;
+			if(triggerCounter > 15 && distance < 150) {
+				objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
+						Math.signum((player.getX() - x)) * BULLET_SPEED, 0));
+				triggerCounter = 0;
+			}else if(triggerCounter > 50 && distance < 300) {
+				objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
+						Math.signum((player.getX() - x)) * BULLET_SPEED, 0));
+				triggerCounter = 0;
+			}else if(triggerCounter > 75){
+				objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
+						Math.signum((player.getX() - x)) * BULLET_SPEED, 0));
+				triggerCounter = 0;
 			}
 		}
 	}

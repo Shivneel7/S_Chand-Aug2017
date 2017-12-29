@@ -2,7 +2,6 @@ package gameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
@@ -36,6 +35,7 @@ public class Enemy extends GameObject{
 			if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
 				if(checkAllBounds(temp)) {
 					hud.increaseScore(100);
+					objects.add(new Upgrade(x, y, ID.HealthUpgrade));
 					objects.remove(this);
 				}
 			}
@@ -71,8 +71,8 @@ public class Enemy extends GameObject{
 	public void render(Graphics g) {
 		g.setColor(SHOOTER_COLOR);
 		g.fillRect((int)x, (int) y, width, height);
-		g.setColor(Color.white);
 		//face
+		g.setColor(Color.white);
 		g.fillRect((int)x + 6, (int) y + 8, 4, 4);
 		g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
 		g.drawLine((int) x, (int) y + 20, (int)x + width - 1, (int) y + 20);

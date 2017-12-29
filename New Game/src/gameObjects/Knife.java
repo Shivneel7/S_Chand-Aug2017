@@ -17,19 +17,21 @@ public class Knife extends GameObject {
 	private BufferedImage stillLeft;
 	private BufferedImage hitRight;
 	private BufferedImage hitLeft;
+
+	private Player player;
 	private boolean click = false;
 	private boolean right = true;
 	private int clickCounter = 0;
 	
-	public Knife(float x, float y, ID id) {
+	public Knife(float x, float y, ID id, Player p) {
 		super(x, y, id);
 		BufferedImageLoader loader = new BufferedImageLoader();
 		ss = new SpriteSheet(loader.loadImage("/spriteSheet.png"));
 		stillRight = ss.grabImage(2, 1, 16, 16);
 		stillLeft = ss.grabImage(3, 1, 16, 16);
 		hitRight = ss.grabImage(1, 2, 32, 16);
-		hitLeft = ss.grabImage(1, 3, 32, 16);
-		
+		hitLeft = ss.grabImage(1, 3, 32, 16);	
+		player = p;
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
@@ -40,15 +42,9 @@ public class Knife extends GameObject {
 			click = false;
 			clickCounter = 0;
 		}
-		for(int i = 0; i < objects.size(); i++) {
-			if(objects.get(i).getID() == ID.Player) {
-				if(((Player)objects.get(i)).getDirection()<0) {
-					right = false;
-					if(((Player)objects.get(i)).hasKnife() && id == ID.PlayerKnife) {
-					}
-				}else right = true;
-			}
-		}
+		if(player.getDirection() < 0) 
+			right = false;
+		else right = true;
 	}
 
 	public void render(Graphics g) {

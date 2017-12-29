@@ -1,14 +1,16 @@
 package gameObjects;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
-public class Upgrades extends GameObject {
+public class Upgrade extends GameObject {
 	
-	private int width = 16, height = 16;
+	private int width = 24, height = 24;
 	
-	public Upgrades(float x, float y, ID id) {
+	public Upgrade(float x, float y, ID id) {
 		super(x, y, id);
 		
 	}
@@ -23,9 +25,14 @@ public class Upgrades extends GameObject {
 
 	public void render(Graphics g) {
 		if(id == ID.HealthUpgrade) {
-
+			g.setColor(Color.cyan);
+			g.fillRect((int)x, (int) y, width, height);
+			g.setColor(Color.darkGray);
+			g.setFont(new Font(null, 1, 24));
+			g.drawString("H", (int) x + 4, (int) y + 20);
 		}else if(id == ID.AmmoUpgrade) {
-			
+			g.setColor(Color.cyan);
+			g.fillRect((int)x, (int) y, width, height);
 		}
 	}
 	

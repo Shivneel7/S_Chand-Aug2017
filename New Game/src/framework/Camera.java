@@ -1,6 +1,6 @@
 package framework;
 
-import gameObjects.GameObject;
+import gameObjects.Player;
 
 public class Camera implements Constants{
 	private float x;
@@ -13,7 +13,7 @@ public class Camera implements Constants{
 		this.y = y;
 	}
 	
-	public void tick (GameObject player) {
+	public void tick (Player player) {
 		//x = -player.getX() + Game.WIDTH/2;
 		//y = -player.getY() + Game.HEIGHT/2;
 	

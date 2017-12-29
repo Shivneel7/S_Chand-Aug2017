@@ -28,7 +28,7 @@ public interface Constants {
 	public static final Color BULLET_COLOR = Color.red;
 	public static final int BULLET_WIDTH = 8;
 	public static final int BULLET_HEIGHT = BULLET_WIDTH;
-	public static final int BULLET_SPEED = 8;
+	public static final int BULLET_SPEED = 7;
 	
 	// Enemy
 	public static final int ENEMY_WIDTH = 32;

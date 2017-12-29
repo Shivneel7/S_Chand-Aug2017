@@ -96,12 +96,7 @@ public class Game extends Canvas implements Runnable, Constants{
 		if(gameState == STATE.Game) {
 		handler.tick();
 		hud.tick();
-		for(int i = 0; i < handler.objects.size(); i++) {
-			GameObject temp = handler.objects.get(i);
-			if(temp.getID() == ID.Player) {
-				cam.tick(temp);
-			}
-		}
+		cam.tick(handler.player);
 		}else if(gameState == STATE.Menu || gameState == STATE.Loss) {
 			menu.tick();
 		}

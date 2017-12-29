@@ -3,9 +3,7 @@ package gameObjects;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -23,6 +21,7 @@ public class Handler {
 	public LinkedList<GameObject> objects = new LinkedList<GameObject>();
 	private BufferedImage[] levels = new BufferedImage[3];
 	private HUD hud;
+	public Player player;
 	
 	public Handler(HUD hud){
 		this.hud = hud;
@@ -35,7 +34,6 @@ public class Handler {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 		for(int i = 0; i < levels.length; i++) {
 			levels[i] = loader.loadImage("/level"+ (i + 1) +".png");
 		}
@@ -48,9 +46,11 @@ public class Handler {
 		for(int i = 0; i < objects.size(); i++) {
 			objects.get(i).tick(objects);
 		}
+		player.tick(objects);
 	}
 	
 	public void render(Graphics g) {
+		player.render(g);
 		for(int i = 0; i < objects.size(); i++) {
 			objects.get(i).render(g);
 		}
@@ -60,16 +60,16 @@ public class Handler {
 		clearLevel();
 		loadLevel(levels[LEVEL]);
 	}
-	
-	
+
+
 	private void clearLevel() {
 		objects.clear();
 	}
-	
+
 	public void addObject(GameObject object) {
 		this.objects.add(object);
 	}
-	
+
 	public void removeObject(GameObject object) {
 		this.objects.remove(object);
 	}
@@ -77,7 +77,7 @@ public class Handler {
 	public void loadLevel(BufferedImage image) {
 		int w = image.getWidth();
 		int h = image.getHeight();
-		//System.out.println(w + ", " + h);
+
 		for(int xx = 0; xx < h; xx++) {
 			for(int yy = 0; yy < w; yy++) {
 				int pixel = image.getRGB(xx, yy);
@@ -89,7 +89,12 @@ public class Handler {
 					addObject(new Block(xx*32, yy*32, ID.Block));
 				}
 				if(red == 0 && green == 0 & blue == 255) {
-					addObject(new Player(xx*32, yy*32, ID.Player, this, hud));
+					if(player == null) {
+						player = new Player(xx*32, yy*32, ID.Player, this, hud);
+					}else {
+						player.setX(xx*32);
+						player.setY(yy*32);
+					}
 				}
 				if(red == 255 && green == 0 & blue == 0) {
 					addObject(new DeathBlock(xx*32, yy*32, ID.DeathBlock));
@@ -101,13 +106,13 @@ public class Handler {
 					addObject(new TransparentBlock(xx*32, yy*32, ID.TransparentBlock));
 				}
 				if(red == 255 && green == 127 & blue == 39) {
-					addObject(new Shooter(xx*32, yy*32, ID.Shooter, -2, hud));
+					addObject(new Shooter(xx*32, yy*32, ID.Shooter, -2, hud, player));
 				}
 				if(red == 255 && green == 201 & blue == 14) {
 					addObject(new Coin(xx*32, yy*32, ID.Coin));
 				}
 				if(red == 0 && green == 100 & blue == 100) {
-					addObject(new Knife(xx*32, yy*32, ID.Knife));
+					addObject(new Knife(xx*32, yy*32, ID.Knife, player));
 				}
 				if(red == 100 && green == 0 & blue == 100) {
 					addObject(new Enemy(xx*32, yy*32, ID.Enemy, -2, hud));
