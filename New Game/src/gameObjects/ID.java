@@ -6,6 +6,7 @@ public enum ID {
 	TransparentBlock,
 	DeathBlock,
 	Goal,
+	Checkpoint,
 	Shooter,
 	Enemy,
 	Knife,

@@ -1,27 +1,27 @@
 package gameObjects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
 public class Checkpoint extends GameObject {
-
 	public Checkpoint(float x, float y, ID id) {
 		super(x, y, id);
 
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
-
+		
 	}
-	
-	public void render(Graphics g) {
 
+	public void render(Graphics g) {
+		g.setColor(Color.yellow);
+		g.fillRect((int)x, (int) y, 32, 32);
 	}
 
 
 	public Rectangle getBounds() {
-		return null;
+		return new Rectangle((int)x, (int) y, 32, 32);
 	}
-
 }

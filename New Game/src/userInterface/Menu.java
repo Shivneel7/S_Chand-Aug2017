@@ -10,11 +10,11 @@ import framework.Constants;
 import framework.Game;
 import framework.Game.STATE;
 import gameObjects.Bullet;
+import gameObjects.Checkpoint;
 import gameObjects.GameObject;
 import gameObjects.Handler;
 import gameObjects.ID;
 import gameObjects.Knife;
-import gameObjects.Player;
 /**
  * Handles all mouse events, not just menu.
  * @author shivn
@@ -44,6 +44,11 @@ public class Menu extends MouseAdapter implements Constants{
 		hud.setPlayerHasGun(false);
 		hud.setAmmo(0);
 		handler.switchLevel();
+		System.out.println(handler.player.getCP());
+		if(handler.player.getCP() != null) {
+			handler.player.setX(handler.player.getCP().getX());
+			handler.player.setY(handler.player.getCP().getY());
+		}
 		hud.setScore(0);
 		Game.gameState = STATE.Game;
 	}

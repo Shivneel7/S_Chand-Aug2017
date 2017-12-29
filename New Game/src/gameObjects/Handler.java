@@ -50,12 +50,17 @@ public class Handler {
 	}
 	
 	public void render(Graphics g) {
+		for(int i = 0; i < objects.size(); i++) {
+			if(objects.get(i).getID() == ID.Block || objects.get(i).getID() == ID.Checkpoint) 
+				objects.get(i).render(g);
+		}
 		player.render(g);
 		for(int i = 0; i < objects.size(); i++) {
-			objects.get(i).render(g);
+			if(objects.get(i).getID() != ID.Block && objects.get(i).getID() != ID.Checkpoint) 
+				objects.get(i).render(g);
 		}
 	}
-	
+
 	public void switchLevel() {
 		clearLevel();
 		loadLevel(levels[LEVEL]);
@@ -95,6 +100,9 @@ public class Handler {
 						player.setX(xx*32);
 						player.setY(yy*32);
 					}
+				}
+				if(red == 255 && green == 255 & blue == 0) {
+					addObject(new Checkpoint(xx*32, yy*32, ID.Checkpoint));
 				}
 				if(red == 255 && green == 0 & blue == 0) {
 					addObject(new DeathBlock(xx*32, yy*32, ID.DeathBlock));

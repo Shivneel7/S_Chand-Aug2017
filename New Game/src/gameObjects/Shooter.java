@@ -47,8 +47,6 @@ public class Shooter extends GameObject{
 					hud.setPlayerHasGun(true);
 					hud.increaseAmmo(6);
 					objects.remove(this);
-					//add Gun Object here
-
 				}
 			}
 		}

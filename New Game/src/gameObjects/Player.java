@@ -13,13 +13,14 @@ public class Player extends GameObject{
 	
 	private int width = PLAYER_WIDTH, height = PLAYER_HEIGHT;
 	private float gravity = GRAVITY;
+	
 	private boolean falling, jumping;
+	private int direction = 1;//left = -1, right = 1
+	
 	private Handler handler;
 	private HUD hud;
-	private boolean hasGun = false;
-	private int direction = 1;//left = -1, right - 1
-	private boolean hasKnife = false;
-	
+	private Checkpoint cp;
+
 	public Player(float x, float y, ID id, Handler handler, HUD hud) {
 		super(x, y, id);
 		this.handler = handler;
@@ -34,7 +35,7 @@ public class Player extends GameObject{
 			dy += gravity;
 		}
 		if(y > 1400) { // for death by falling through map
-			handler.switchLevel();
+			Game.gameState = STATE.Loss;
 		}
 		collision(objects);
 	}
@@ -53,15 +54,15 @@ public class Player extends GameObject{
 				}else {
 					falling = true;
 				}
-			}else if(temp.getID() == ID.DeathBlock) {//if player touches a deathblock
-				if(checkAllBounds(temp)) {
-					Game.gameState = STATE.Loss;
-				}
-			}else if(temp.getID() == ID.Goal) {
-				if(checkAllBounds(temp)) {
-					Handler.LEVEL ++;
-					handler.switchLevel();
-				}
+			}else if(temp.getID() == ID.DeathBlock && checkAllBounds(temp)) {//if player touches a deathblock
+				Game.gameState = STATE.Loss;
+			}else if(temp.getID() == ID.Goal && checkAllBounds(temp)) {
+				
+				Handler.LEVEL ++;
+				cp = null;
+				handler.switchLevel();
+			}else if(temp.getID() == ID.Checkpoint && checkAllBounds(temp)){
+				cp = (Checkpoint) temp;
 			}else if(temp.getID() == ID.Enemy || temp.getID() == ID.Shooter){
 				if(checkAllBounds(temp)) {
 					Game.gameState = STATE.Loss;
@@ -71,14 +72,11 @@ public class Player extends GameObject{
 					hud.loseLife();
 					objects.remove(temp);
 				}
-			}else if(temp.getID() == ID.Coin) {
-				if(checkAllBounds(temp)) {
-					hud.increaseScore(100);
-					objects.remove(temp);
-				}
+			}else if(temp.getID() == ID.Coin && checkAllBounds(temp)) {
+				hud.increaseScore(100);
+				objects.remove(temp);
 			}else if(temp.getID() == ID.Knife || temp.getID() == ID.PlayerKnife) {
 				if(checkAllBounds(temp)) {
-					hasKnife = true;
 					temp.setID(ID.PlayerKnife);
 					temp.setX(x + 8);
 					temp.setY(y + 8);
@@ -173,20 +171,11 @@ public class Player extends GameObject{
 		this.jumping = jumping;
 	}
 
-	public boolean hasGun() {
-		return hasGun;
+	public Checkpoint getCP() {
+		return cp;
 	}
 
-	public void setHasGun(boolean hasGun) {
-		this.hasGun = hasGun;
+	public void setCP(Checkpoint cp) {
+		this.cp = cp;
 	}
-	
-	public boolean hasKnife() {
-		return hasKnife;
-	}
-	
-	public void setHasKnife(boolean hasKnife) {
-		this.hasKnife = hasKnife;
-	}
-	
 }
