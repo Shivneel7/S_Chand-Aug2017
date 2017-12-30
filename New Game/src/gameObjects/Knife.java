@@ -1,8 +1,6 @@
 package gameObjects;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
@@ -17,7 +15,12 @@ public class Knife extends GameObject {
 	private BufferedImage stillLeft;
 	private BufferedImage hitRight;
 	private BufferedImage hitLeft;
-
+//	private BufferedImage midRight;
+//	private BufferedImage midLeft;
+//	
+//	private Animation ALeft;
+//	private Animation ARight;
+//	
 	private Player player;
 	private boolean click = false;
 	private boolean right = true;
@@ -27,10 +30,18 @@ public class Knife extends GameObject {
 		super(x, y, id);
 		BufferedImageLoader loader = new BufferedImageLoader();
 		ss = new SpriteSheet(loader.loadImage("/spriteSheet.png"));
-		stillRight = ss.grabImage(2, 1, 16, 16);
-		stillLeft = ss.grabImage(3, 1, 16, 16);
-		hitRight = ss.grabImage(1, 2, 32, 16);
-		hitLeft = ss.grabImage(1, 3, 32, 16);	
+		stillRight = ss.grabImage(2, 2, 16, 16);
+		stillLeft = ss.grabImage(1, 2, 16, 16);
+		hitRight = ss.grabImage(1, 4, 32, 16);
+		hitLeft = ss.grabImage(1, 3, 32, 16);
+		
+		//unimplemented
+//		midRight = ss.grabImage(2, 4, 32, 16);
+//		midLeft = ss.grabImage(2, 3, 32, 16);
+//		
+//		ALeft = new Animation(10, midLeft, hitLeft);
+//		ARight = new Animation(10, midRight, hitRight);
+//		
 		player = p;
 	}
 
@@ -45,10 +56,13 @@ public class Knife extends GameObject {
 		if(player.getDirection() < 0) 
 			right = false;
 		else right = true;
+		if(player.checkAllBounds(this)) 
+			id = ID.PlayerKnife;
+		else id = ID.Knife;
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.white);
+		////////////old
 		if(click && right) {
 			g.drawImage(hitRight, (int) x, (int) y + 20, 72, 48, null);
 		}else if(!click && right){
@@ -58,10 +72,11 @@ public class Knife extends GameObject {
 		}else {
 			g.drawImage(stillLeft, (int) x- PLAYER_WIDTH, (int) y, 48, 48, null);
 		}
-		
-		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.red);
-		g2d.draw(getBounds());
+
+		//bounds
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.red);
+//		g2d.draw(getBounds());
 	}
 	
 	public void setClick(boolean click) {

@@ -30,14 +30,15 @@ public class Animation {
 			nextFrame();
 		}
 	}
-	
+
 	private void nextFrame() {
 		for(int i = 0; i < frames; i++) {
 			if(count == i)
 				currentImg = images[i];
 		}
 		count++;
-		if(count > frames) {
+		System.out.println(count);
+		if(count >= frames) {
 			count = 0;
 		}
 	}

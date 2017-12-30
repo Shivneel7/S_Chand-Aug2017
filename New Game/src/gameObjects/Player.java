@@ -77,11 +77,9 @@ public class Player extends GameObject{
 				objects.remove(temp);
 			}else if(temp.getID() == ID.Knife || temp.getID() == ID.PlayerKnife) {
 				if(checkAllBounds(temp)) {
-					temp.setID(ID.PlayerKnife);
 					temp.setX(x + 8);
 					temp.setY(y + 8);
 				}
-				
 			}
 		}
 	}

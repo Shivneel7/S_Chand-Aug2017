@@ -2,7 +2,6 @@ package gameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
@@ -57,7 +56,7 @@ public class Shooter extends GameObject{
 				objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
 						Math.signum((player.getX() - x)) * BULLET_SPEED, 0));
 				triggerCounter = 0;
-			}else if(triggerCounter > 50 && distance < 300) {
+			}else if(triggerCounter > 50 && distance < 350) {
 				objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
 						Math.signum((player.getX() - x)) * BULLET_SPEED, 0));
 				triggerCounter = 0;

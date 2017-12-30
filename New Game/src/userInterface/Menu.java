@@ -10,7 +10,6 @@ import framework.Constants;
 import framework.Game;
 import framework.Game.STATE;
 import gameObjects.Bullet;
-import gameObjects.Checkpoint;
 import gameObjects.GameObject;
 import gameObjects.Handler;
 import gameObjects.ID;

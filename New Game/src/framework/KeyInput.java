@@ -2,13 +2,8 @@ package framework;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
-import gameObjects.GameObject;
 import gameObjects.Handler;
-import gameObjects.ID;
 import gameObjects.Player;
 
 public class KeyInput implements KeyListener, Constants {

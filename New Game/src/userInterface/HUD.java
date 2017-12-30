@@ -3,9 +3,7 @@ package userInterface;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
-import framework.Animation;
 import framework.BufferedImageLoader;
 import framework.Constants;
 import framework.SpriteSheet;
