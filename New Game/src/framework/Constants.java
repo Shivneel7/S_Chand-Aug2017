@@ -30,6 +30,11 @@ public interface Constants {
 	public static final int BULLET_HEIGHT = BULLET_WIDTH;
 	public static final int BULLET_SPEED = 7;
 	
+	//Smarter Enemy
+	public static final int SMART_WIDTH = 24;
+	public static final int SMART_HEIGHT = 48;
+	public static final int SMART_HEALTH = 6;
+	
 	// Enemy
 	public static final int ENEMY_WIDTH = 32;
 	public static final int ENEMY_HEIGHT = 32;

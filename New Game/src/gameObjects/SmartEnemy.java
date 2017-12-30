@@ -2,22 +2,25 @@ package gameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import framework.Game;
 import userInterface.HUD;
 
 public class SmartEnemy extends GameObject{
 
-	private int width = SHOOTER_WIDTH, height = SHOOTER_HEIGHT;
+	private int width = SMART_WIDTH, height = SMART_HEIGHT;
 	private float gravity = GRAVITY;
 
-	private boolean falling, jumping;
+	private int health = SMART_HEALTH;
+	private boolean falling, jumping, sensePlayer;
 	
 	private HUD hud;
 	private Player player;
+	
 	private int jumpCounter = 0;
+	private int hitWait = 0;
 
 
 	public SmartEnemy(float x, float y, ID id, float dx, HUD hud, Player p) {
@@ -33,10 +36,20 @@ public class SmartEnemy extends GameObject{
 		if(falling ) {
 			dy += gravity;
 		}
+		
+		if(health <= 0){ //if it dies
+			hud.increaseScore(200);
+			objects.add(new Upgrade(x, y + 12, ID.HealthUpgrade, -1));
+			objects.add(new Upgrade(x, y + 12, ID.HealthUpgrade, 0));
+			objects.add(new Upgrade(x, y + 12, ID.HealthUpgrade, 1));
+			objects.remove(this);
+		}
+		
 		for(int i = 0; i < objects.size(); i++) {//collision
 			GameObject temp = objects.get(i);
 			if(temp.getID() == ID.Block || temp.getID() == ID.DeathBlock) {
 				normalBlockCollision(temp);
+				
 			}else if(temp.getID() == ID.TransparentBlock) {
 				if(this.getBounds().intersects(temp.getBounds()) && dy > 0) {
 					y = temp.getY() - height;
@@ -47,38 +60,38 @@ public class SmartEnemy extends GameObject{
 					falling = true;
 				}
 			}
+			
 			if(temp.getID() == ID.PlayerBullet) {
 				if(checkAllBounds(temp)) {
 					objects.remove(temp);
-					objects.remove(this);
+					health--;
 				}
 			}
-//			if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
-//				if(checkAllBounds(temp)) {
-//					hud.increaseScore(100);
-//					hud.setPlayerHasGun(true);
-//					objects.add(new Upgrade(x, y + 12, ID.AmmoUpgrade));
-//					objects.remove(this);
-//				}
-//			}
-
-			//AI
-			int distance = (int) Math.abs(player.getX() - x);
-			System.out.println(distance);
-			if(distance < 500) {
-				if(distance < 100) {
-					System.out.println(distance);
-					dx = 3 * Math.signum((player.getX() - x));
-				}else if(distance < 350) {
-					System.out.println(distance);
-					dx = 4 * Math.signum((player.getX() - x));
-				}else {
-					System.out.println(distance);
-					dx = 5 * Math.signum((player.getX() - x));
+			
+			if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
+				hitWait++;
+				if(checkAllBounds(temp)) {
+					if(hitWait > 10) {
+						health -= 2;
+						hitWait = 0;
+					}
 				}
+			}
+		}
+		
+		//AI
+		int distance = (int) Math.abs(player.getX() - x);
+		if(distance < 500) {
+			sensePlayer = true;
+			if(distance < 100) {
+				dx = 2 * Math.signum((player.getX() - x));
+			}else if(distance < 350) {
+				dx = 3.5f * Math.signum((player.getX() - x));
 			}else {
-				jumping = true;
+				dx = 5 * Math.signum((player.getX() - x));
 			}
+		}else {
+			sensePlayer = false;
 		}
 	}
 
@@ -101,13 +114,13 @@ public class SmartEnemy extends GameObject{
 			
 		}else if(this.getBoundsLeft().intersects(block.getBounds())) {
 			x = block.getX() + BLOCK_WIDTH;
-			if(!jumping) {
+			if(!jumping && sensePlayer) {
 				dy = -11;
 				jumping = true;
 			}
 		}else if(this.getBoundsRight().intersects(block.getBounds())) {
 			x = block.getX() - width;
-			if(!jumping) {
+			if(!jumping && sensePlayer) {
 				dy = -11;
 				jumping = true;
 			}
@@ -115,21 +128,27 @@ public class SmartEnemy extends GameObject{
 	}
 
 	public void render(Graphics g) {
-		g.setColor(SHOOTER_COLOR);
+		g.setColor(new Color(200, 20, 20));
+		if(sensePlayer) {
+			g.setColor(new Color(100, 0, 0));
+		}
 		g.fillRect((int)x, (int) y, width, height);
 		g.setColor(Color.white);
 		//face
 		g.fillRect((int)x + 6, (int) y + 8, 4, 4);
 		g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
 		g.drawLine((int) x, (int) y + 20, (int)x + width - 1, (int) y + 20);
+		//health
+		g.setColor(new Color(125, Game.clamp(health, 0, SMART_HEALTH) * (255/SMART_HEALTH), 0));
+		g.fillRect((int)x, (int)y - 10 , width * health / SMART_HEALTH, 5);
 		
 //		//Bounding Boxes
-		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.red);
-		g2d.draw(getBounds());
-		g2d.draw(getBoundsTop());
-		g2d.draw(getBoundsLeft());
-		g2d.draw(getBoundsRight());
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.red);
+//		g2d.draw(getBounds());
+//		g2d.draw(getBoundsTop());
+//		g2d.draw(getBoundsLeft());
+//		g2d.draw(getBoundsRight());
 
 	}
 

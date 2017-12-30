@@ -119,6 +119,9 @@ public class Handler {
 				if(red == 255 && green == 100 & blue == 255) {
 					addObject(new SmartEnemy(xx*32, yy*32, ID.SmartEnemy, -2, hud, player));
 				}
+				if(red == 255 && green == 150 & blue == 150) {
+					addObject(new Jumper(xx*32, yy*32, ID.Jumper, -2, hud, player));
+				}
 				if(red == 255 && green == 127 & blue == 39) {
 					addObject(new Shooter(xx*32, yy*32, ID.Shooter, -2, hud, player));
 				}

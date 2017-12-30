@@ -2,6 +2,7 @@ package gameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.Random;
@@ -22,31 +23,34 @@ public class Enemy extends GameObject{
 		this.dx = dx;
 		this.hud = hud;
 		r = new Random();
-		c = new Color(r.nextInt(200), r.nextInt(200), r.nextInt(200));
+		c = new Color(r.nextInt(200) + 10, r.nextInt(200) + 10, r.nextInt(200) + 10);
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
 		x += dx;
 		y += dy;
-		if(falling ) {
+		if(falling) {
 			dy += gravity;
 		}
 		for(int i = 0; i < objects.size(); i++) {//collision
 			GameObject temp = objects.get(i);
+			
 			if(temp.getID() == ID.Block || temp.getID() == ID.DeathBlock || temp.getID() == ID.TransparentBlock) {
 				normalBlockCollision(temp);
 			}
+			
 			if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
 				if(checkAllBounds(temp)) {
 					hud.increaseScore(100);
-					objects.add(new Upgrade(x, y, ID.HealthUpgrade));
+					objects.add(new Upgrade(x, y, ID.HealthUpgrade, 0));
 					objects.remove(this);
 				}
 			}
+			
 			if(temp.getID() == ID.PlayerBullet) {
 				if(checkAllBounds(temp)) {
 					objects.remove(temp);
-					objects.add(new Upgrade(x, y, ID.HealthUpgrade));
+					objects.add(new Upgrade(x, y, ID.HealthUpgrade, 0));
 					objects.remove(this);
 
 				}
@@ -70,7 +74,6 @@ public class Enemy extends GameObject{
 			x = block.getX() - width;
 			dx*=-1;
 		}
-
 	}
 
 	public void render(Graphics g) {
@@ -82,7 +85,7 @@ public class Enemy extends GameObject{
 		g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
 		g.drawLine((int) x, (int) y + 20, (int)x + width - 1, (int) y + 20);
 		
-		//Bounding Boxes
+//		//Bounding Boxes
 //		Graphics2D g2d = (Graphics2D) g;
 //		g.setColor(Color.red);
 //		g2d.draw(getBounds());
@@ -102,6 +105,7 @@ public class Enemy extends GameObject{
 		}
 		return false;
 	}
+	
 	public Rectangle getBounds() {
 		return new Rectangle((int) x+8, (int)y + height/2, width-16, height/2);
 	}

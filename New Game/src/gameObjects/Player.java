@@ -17,6 +17,7 @@ public class Player extends GameObject{
 	
 	private boolean falling, jumping;
 	private int direction = 1;//left = -1, right = 1
+	private boolean invincible = true;
 	
 	private Handler handler;
 	private HUD hud;
@@ -56,7 +57,9 @@ public class Player extends GameObject{
 					falling = true;
 				}
 			}else if(temp.getID() == ID.DeathBlock && checkAllBounds(temp)) {//if player touches a deathblock
-				Game.gameState = STATE.Loss;
+				if(!invincible)
+					Game.gameState = STATE.Loss;
+				
 			}else if(temp.getID() == ID.Goal && checkAllBounds(temp)) {
 				
 				Handler.LEVEL ++;
@@ -65,13 +68,15 @@ public class Player extends GameObject{
 			}else if(temp.getID() == ID.Checkpoint && checkAllBounds(temp)){
 				cp = (Checkpoint) temp;
 			}else if(temp.getID() == ID.Enemy || temp.getID() == ID.Shooter 
-					|| temp.getID() == ID.SmartEnemy){
+						|| temp.getID() == ID.SmartEnemy){
 				if(checkAllBounds(temp)) {
-					Game.gameState = STATE.Loss;
+					if(!invincible)
+						Game.gameState = STATE.Loss;
 				}
 			}else if(temp.getID() == ID.EnemyBullet) {// if player touches bullet
 				if(checkAllBounds(temp)) {
-					hud.loseLife();
+					if(!invincible)
+						hud.loseLife();
 					objects.remove(temp);
 				}
 			}else if(temp.getID() == ID.Coin && checkAllBounds(temp)) {
@@ -124,6 +129,7 @@ public class Player extends GameObject{
 			g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
 			g.drawLine((int) x + width, (int) y + 20, (int)x + width - 10, (int) y + 20);
 		}
+		
 		//Bounding Boxes
 //		Graphics2D g2d = (Graphics2D) g;
 //		g.setColor(Color.red);
