@@ -17,7 +17,7 @@ public class Upgrade extends GameObject {
 
 	public void tick(LinkedList<GameObject> objects) {
 		if(id == ID.HealthUpgrade) {
-
+			
 		}else if(id == ID.AmmoUpgrade) {
 			
 		}
@@ -33,6 +33,9 @@ public class Upgrade extends GameObject {
 		}else if(id == ID.AmmoUpgrade) {
 			g.setColor(Color.cyan);
 			g.fillRect((int)x, (int) y, width, height);
+			g.setColor(Color.darkGray);
+			g.setFont(new Font(null, 1, 24));
+			g.drawString("A", (int) x + 4, (int) y + 20);
 		}
 	}
 	

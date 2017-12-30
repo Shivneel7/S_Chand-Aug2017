@@ -43,7 +43,7 @@ public class Menu extends MouseAdapter implements Constants{
 		hud.setPlayerHasGun(false);
 		hud.setAmmo(0);
 		handler.switchLevel();
-		System.out.println(handler.player.getCP());
+
 		if(handler.player.getCP() != null) {
 			handler.player.setX(handler.player.getCP().getX());
 			handler.player.setY(handler.player.getCP().getY());

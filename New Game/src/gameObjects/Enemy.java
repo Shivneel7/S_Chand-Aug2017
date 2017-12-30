@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
+import java.util.Random;
 
 import userInterface.HUD;
 
@@ -13,12 +14,15 @@ public class Enemy extends GameObject{
 	private float gravity = GRAVITY;
 	private boolean falling = true;
 	private HUD hud;
+	private Random r;
+	private Color c;
 	
 	public Enemy(float x, float y, ID id, float dx, HUD hud) {
 		super(x, y, id);
 		this.dx = dx;
 		this.hud = hud;
-
+		r = new Random();
+		c = new Color(r.nextInt(200), r.nextInt(200), r.nextInt(200));
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
@@ -42,6 +46,7 @@ public class Enemy extends GameObject{
 			if(temp.getID() == ID.PlayerBullet) {
 				if(checkAllBounds(temp)) {
 					objects.remove(temp);
+					objects.add(new Upgrade(x, y, ID.HealthUpgrade));
 					objects.remove(this);
 
 				}
@@ -69,7 +74,7 @@ public class Enemy extends GameObject{
 	}
 
 	public void render(Graphics g) {
-		g.setColor(SHOOTER_COLOR);
+		g.setColor(c);
 		g.fillRect((int)x, (int) y, width, height);
 		//face
 		g.setColor(Color.white);
@@ -106,10 +111,10 @@ public class Enemy extends GameObject{
 	}
 	
 	public Rectangle getBoundsLeft() {
-		return new Rectangle((int) x, (int)y + 4, width/2 - 10, height - 8);
+		return new Rectangle((int) x, (int)y + 4, width/2 - 6, height - 8);
 	}
 
 	public Rectangle getBoundsRight() {
-		return new Rectangle((int) x + width/2 + 10, (int)y + 4, width/2 - 10, height - 8);
+		return new Rectangle((int) x + width/2 + 6, (int)y + 4, width/2 - 7, height - 8);
 	}
 }

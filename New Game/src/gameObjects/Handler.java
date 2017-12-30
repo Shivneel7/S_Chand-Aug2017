@@ -113,6 +113,12 @@ public class Handler {
 				if(red == 127 && green == 127 & blue == 127) {
 					addObject(new TransparentBlock(xx*32, yy*32, ID.TransparentBlock));
 				}
+				if(red == 100 && green == 0 & blue == 100) {
+					addObject(new Enemy(xx*32, yy*32, ID.Enemy, -2, hud));
+				}
+				if(red == 255 && green == 100 & blue == 255) {
+					addObject(new SmartEnemy(xx*32, yy*32, ID.SmartEnemy, -2, hud, player));
+				}
 				if(red == 255 && green == 127 & blue == 39) {
 					addObject(new Shooter(xx*32, yy*32, ID.Shooter, -2, hud, player));
 				}
@@ -122,9 +128,7 @@ public class Handler {
 				if(red == 0 && green == 100 & blue == 100) {
 					addObject(new Knife(xx*32, yy*32, ID.Knife, player));
 				}
-				if(red == 100 && green == 0 & blue == 100) {
-					addObject(new Enemy(xx*32, yy*32, ID.Enemy, -2, hud));
-				}
+
 			}
 		}
 	}

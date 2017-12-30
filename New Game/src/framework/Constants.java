@@ -33,7 +33,6 @@ public interface Constants {
 	// Enemy
 	public static final int ENEMY_WIDTH = 32;
 	public static final int ENEMY_HEIGHT = 32;
-	public static final Color ENEMY_COLOR = Color.darkGray;
 	
 	//Block
 	public static final int BLOCK_WIDTH = 32;

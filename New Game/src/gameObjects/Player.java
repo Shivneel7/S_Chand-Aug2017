@@ -2,6 +2,7 @@ package gameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
@@ -25,7 +26,7 @@ public class Player extends GameObject{
 		super(x, y, id);
 		this.handler = handler;
 		this.hud = hud;
-
+		
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
@@ -48,7 +49,7 @@ public class Player extends GameObject{
 			}else if(temp.getID() == ID.TransparentBlock) {
 				if(this.getBounds().intersects(temp.getBounds()) && dy > 0) {
 					y = temp.getY() - height;
-					dy=0;
+					dy = 0;
 					falling = false;
 					jumping = false;
 				}else {
@@ -63,7 +64,8 @@ public class Player extends GameObject{
 				handler.switchLevel();
 			}else if(temp.getID() == ID.Checkpoint && checkAllBounds(temp)){
 				cp = (Checkpoint) temp;
-			}else if(temp.getID() == ID.Enemy || temp.getID() == ID.Shooter){
+			}else if(temp.getID() == ID.Enemy || temp.getID() == ID.Shooter 
+					|| temp.getID() == ID.SmartEnemy){
 				if(checkAllBounds(temp)) {
 					Game.gameState = STATE.Loss;
 				}
@@ -80,6 +82,12 @@ public class Player extends GameObject{
 					temp.setX(x + 8);
 					temp.setY(y + 8);
 				}
+			}else if(temp.getID() == ID.HealthUpgrade && checkAllBounds(temp)) {
+				hud.gainLife();
+				objects.remove(temp);
+			}else if(temp.getID() == ID.AmmoUpgrade && checkAllBounds(temp)) {
+				hud.increaseAmmo(6);
+				objects.remove(temp);
 			}
 		}
 	}
@@ -94,7 +102,7 @@ public class Player extends GameObject{
 			falling = true;
 		}
 		if(this.getBoundsTop().intersects(block.getBounds())) {
-			y = block.getY() + height/2;
+			y = block.getY() + BLOCK_HEIGHT;
 			dy = 0;
 		}
 		if(this.getBoundsLeft().intersects(block.getBounds())) {

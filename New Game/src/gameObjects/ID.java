@@ -8,6 +8,7 @@ public enum ID {
 	Goal,
 	Checkpoint,
 	Shooter,
+	SmartEnemy,
 	Enemy,
 	Knife,
 	PlayerKnife,

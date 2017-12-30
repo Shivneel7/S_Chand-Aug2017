@@ -33,7 +33,7 @@ public class HUD implements Constants{
 		//Lives
 		g.setColor(Color.black);
 		g.fillRect(6, 22, lives * 12 + 60, 20);
-		g.setColor(new Color(125, lives * (255/NUMBER_OF_LIVES), 0));
+		g.setColor(new Color(125, clamp(lives, 0, NUMBER_OF_LIVES) * (255/NUMBER_OF_LIVES), 0));
 		g.setFont(new Font(null, 1, 16));
 		g.drawString("Lives:" , 10, 38);
 		for(int i = 0; i < lives; i ++) {
@@ -54,7 +54,15 @@ public class HUD implements Constants{
 		}
 
 	}
-
+	
+	public int clamp(int x, int min, int max) {
+		if(x < min) 
+			return min;
+		if(x > max)
+			return max;
+		return x;
+	}
+	
 	public void resetLives() {
 		lives = NUMBER_OF_LIVES;
 	}

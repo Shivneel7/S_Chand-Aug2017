@@ -30,6 +30,7 @@ public class Game extends Canvas implements Runnable, Constants{
 		handler = new Handler(hud);
 		handler.switchLevel();
 		menu = new Menu(handler, hud);
+		
 		cam = new Camera(-1000, 0);
 		new Window(GAME_WIDTH, GAME_HEIGHT, TITLE , this);
 		
@@ -128,4 +129,5 @@ public class Game extends Canvas implements Runnable, Constants{
         }
         stop();
 	}
+	
 }
