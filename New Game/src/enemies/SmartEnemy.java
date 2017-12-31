@@ -1,4 +1,4 @@
-package gameObjects;
+package enemies;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,6 +6,11 @@ import java.awt.Rectangle;
 import java.util.LinkedList;
 
 import framework.Game;
+import gameObjects.GameObject;
+import gameObjects.ID;
+import gameObjects.Knife;
+import gameObjects.Player;
+import gameObjects.Upgrade;
 import userInterface.HUD;
 
 public class SmartEnemy extends GameObject{
@@ -20,7 +25,7 @@ public class SmartEnemy extends GameObject{
 	private Player player;
 	
 	private int jumpCounter = 0;
-	private int hitWait = 0;
+	private int hitWait = CLICK_SPEED;
 
 
 	public SmartEnemy(float x, float y, ID id, float dx, HUD hud, Player p) {
@@ -36,7 +41,9 @@ public class SmartEnemy extends GameObject{
 		if(falling ) {
 			dy += gravity;
 		}
-		
+		if(!sensePlayer) {
+			dx = Math.signum(dx) * 2;
+		}
 		if(health <= 0){ //if it dies
 			hud.increaseScore(200);
 			objects.add(new Upgrade(x, y + 12, ID.HealthUpgrade, -1));
@@ -51,7 +58,7 @@ public class SmartEnemy extends GameObject{
 				normalBlockCollision(temp);
 				
 			}else if(temp.getID() == ID.TransparentBlock) {
-				if(this.getBounds().intersects(temp.getBounds()) && dy > 0) {
+				if(this.getBoundsBottom().intersects(temp.getBounds()) && dy > 0) {
 					y = temp.getY() - height;
 					dy = 0;
 					falling = false;
@@ -59,19 +66,15 @@ public class SmartEnemy extends GameObject{
 				}else {
 					falling = true;
 				}
-			}
-			
-			if(temp.getID() == ID.PlayerBullet) {
-				if(checkAllBounds(temp)) {
+			}else if(temp.getID() == ID.PlayerBullet) {
+				if(checkBounds(temp)) {
 					objects.remove(temp);
 					health--;
 				}
-			}
-			
-			if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
+			}else if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
 				hitWait++;
-				if(checkAllBounds(temp)) {
-					if(hitWait > 10) {
+				if(checkBounds(temp)) {
+					if(hitWait > CLICK_SPEED) {
 						health -= 2;
 						hitWait = 0;
 					}
@@ -80,23 +83,18 @@ public class SmartEnemy extends GameObject{
 		}
 		
 		//AI
-		int distance = (int) Math.abs(player.getX() - x);
-		if(distance < 500) {
+		int distanceX = (int) Math.abs(player.getX() - x);
+		int distanceY = (int) Math.abs(player.getY() - y);
+		if(distanceX < 500 && distanceY < 250) {
 			sensePlayer = true;
-			if(distance < 100) {
-				dx = 2 * Math.signum((player.getX() - x));
-			}else if(distance < 350) {
-				dx = 3.5f * Math.signum((player.getX() - x));
-			}else {
 				dx = 5 * Math.signum((player.getX() - x));
-			}
 		}else {
 			sensePlayer = false;
 		}
 	}
 
 	private void normalBlockCollision(GameObject block) {
-		if(this.getBounds().intersects(block.getBounds())) {
+		if(this.getBoundsBottom().intersects(block.getBounds())) {
 			y = block.getY() - height;
 			dy = 0;
 			falling = false;
@@ -117,12 +115,16 @@ public class SmartEnemy extends GameObject{
 			if(!jumping && sensePlayer) {
 				dy = -11;
 				jumping = true;
+			}else {
+				dx *= -1;
 			}
 		}else if(this.getBoundsRight().intersects(block.getBounds())) {
 			x = block.getX() - width;
 			if(!jumping && sensePlayer) {
 				dy = -11;
 				jumping = true;
+			}else {
+				dx *= -1;
 			}
 		}
 	}
@@ -145,27 +147,20 @@ public class SmartEnemy extends GameObject{
 //		//Bounding Boxes
 //		Graphics2D g2d = (Graphics2D) g;
 //		g.setColor(Color.red);
-//		g2d.draw(getBounds());
+//		g2d.draw(getBoundsBottom());
 //		g2d.draw(getBoundsTop());
 //		g2d.draw(getBoundsLeft());
 //		g2d.draw(getBoundsRight());
 
 	}
-
-	//returns true if the object is touching the given object on any side.
-	public boolean checkAllBounds(GameObject temp) {
-		if(this.getBounds().intersects(temp.getBounds()) ||
-				this.getBoundsTop().intersects(temp.getBounds()) ||
-				this.getBoundsRight().intersects(temp.getBounds()) ||
-				this.getBoundsLeft().intersects(temp.getBounds())) {
-			return true;
-		}
-		return false;
-	}
+	
 	public Rectangle getBounds() {
+		return new Rectangle((int) x, (int)y, width, height);
+	}
+	
+	public Rectangle getBoundsBottom() {
 		return new Rectangle((int) x+8, (int)y + height/2, width-16, height/2);
 	}
-
 	public Rectangle getBoundsTop() {
 		return new Rectangle((int) x+8, (int)y, width-16, height/2);
 	}

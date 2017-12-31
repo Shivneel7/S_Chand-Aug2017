@@ -11,7 +11,7 @@ public enum ID {
 	SmartEnemy,
 	Enemy,
 	Jumper,
-	RandomJumper,
+	
 	SmartJumper,
 	Knife,
 	PlayerKnife,

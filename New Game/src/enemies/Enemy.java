@@ -1,37 +1,52 @@
-package gameObjects;
+package enemies;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
-import java.util.Random;
 
+import framework.Game;
+import gameObjects.GameObject;
+import gameObjects.ID;
+import gameObjects.Knife;
+import gameObjects.Upgrade;
 import userInterface.HUD;
-
+/**
+ * Just moves back and forth when it hits a block.
+ * @author shivn
+ *
+ */
 public class Enemy extends GameObject{
 	
-	private int width = ENEMY_WIDTH, height = ENEMY_HEIGHT;
+	private int width = ENEMY_WIDTH, height = ENEMY_HEIGHT, health = ENEMY_HEALTH;
 	private float gravity = GRAVITY;
 	private boolean falling = true;
 	private HUD hud;
-	private Random r;
 	private Color c;
+	private int hitWait = CLICK_SPEED;
 	
 	public Enemy(float x, float y, ID id, float dx, HUD hud) {
 		super(x, y, id);
 		this.dx = dx;
 		this.hud = hud;
-		r = new Random();
 		c = new Color(r.nextInt(200) + 10, r.nextInt(200) + 10, r.nextInt(200) + 10);
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
 		x += dx;
 		y += dy;
+		
+		if(health <= 0) {
+			objects.add(new Upgrade(x, y, ID.HealthUpgrade, 0));
+			hud.increaseScore(40);
+			objects.remove(this);
+		}
+		
 		if(falling) {
 			dy += gravity;
 		}
+		
 		for(int i = 0; i < objects.size(); i++) {//collision
 			GameObject temp = objects.get(i);
 			
@@ -40,26 +55,29 @@ public class Enemy extends GameObject{
 			}
 			
 			if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
-				if(checkAllBounds(temp)) {
-					hud.increaseScore(100);
-					objects.add(new Upgrade(x, y, ID.HealthUpgrade, 0));
-					objects.remove(this);
+				hitWait ++;
+				if(checkBounds(temp)) {
+					if(hitWait > CLICK_SPEED) {
+						health -= 2;
+						hitWait = 0;
+					}
 				}
-			}
-			
-			if(temp.getID() == ID.PlayerBullet) {
-				if(checkAllBounds(temp)) {
+				
+			}else if(temp.getID() == ID.PlayerBullet) {
+				if(checkBounds(temp)) {
 					objects.remove(temp);
-					objects.add(new Upgrade(x, y, ID.HealthUpgrade, 0));
-					objects.remove(this);
-
+					health --;
 				}
 			}
 		}
+
+//		if(player.isPunch() && player.getBoundsFist().intersects(r)) {
+//			
+//		}
 	}
 
 	private void normalBlockCollision(GameObject block) {
-		if(this.getBounds().intersects(block.getBounds())) {
+		if(this.getBoundsBottom().intersects(block.getBounds())) {
 			y = block.getY() - height;
 			dy = 0;
 			falling = false;
@@ -84,29 +102,26 @@ public class Enemy extends GameObject{
 		g.fillRect((int)x + 6, (int) y + 8, 4, 4);
 		g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
 		g.drawLine((int) x, (int) y + 20, (int)x + width - 1, (int) y + 20);
+		//Health
+		g.setColor(new Color(125, Game.clamp(health, 0, ENEMY_HEALTH) * (255/ENEMY_HEALTH), 0));
+		g.fillRect((int)x, (int)y - 10 , width * health / ENEMY_HEALTH, 5);
+		
 		
 //		//Bounding Boxes
 //		Graphics2D g2d = (Graphics2D) g;
 //		g.setColor(Color.red);
-//		g2d.draw(getBounds());
+//		g2d.draw(getBoundsBottom());
 //		g2d.draw(getBoundsTop());
 //		g2d.draw(getBoundsLeft());
 //		g2d.draw(getBoundsRight());
 
 	}
-
-	//returns true if the object is touching the given object on any side.
-	public boolean checkAllBounds(GameObject temp) {
-		if(this.getBounds().intersects(temp.getBounds()) ||
-				this.getBoundsTop().intersects(temp.getBounds()) ||
-				this.getBoundsRight().intersects(temp.getBounds()) ||
-				this.getBoundsLeft().intersects(temp.getBounds())) {
-			return true;
-		}
-		return false;
-	}
 	
 	public Rectangle getBounds() {
+		return new Rectangle((int) x, (int)y, width, height);
+	}
+	
+	public Rectangle getBoundsBottom() {
 		return new Rectangle((int) x+8, (int)y + height/2, width-16, height/2);
 	}
 

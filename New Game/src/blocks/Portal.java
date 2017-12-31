@@ -1,4 +1,4 @@
-package gameObjects;
+package blocks;
 
 public class Portal {
 	//TODO

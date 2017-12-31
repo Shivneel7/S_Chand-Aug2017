@@ -1,4 +1,4 @@
-package gameObjects;
+package enemies;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -7,21 +7,30 @@ import java.awt.Rectangle;
 import java.util.LinkedList;
 
 import framework.Game;
+import gameObjects.GameObject;
+import gameObjects.ID;
+import gameObjects.Knife;
+import gameObjects.Player;
+import gameObjects.Upgrade;
 import userInterface.HUD;
-
+/**
+ * @see Jumper
+ * When the player is close, will track the player.
+ * @author Shivneel Chand
+ *
+ */
 public class SmartJumper extends GameObject{
 
-	private int width = 32, height = 32;
+	private int width = SMART_JUMPER_WIDTH, height = SMART_JUMPER_HEIGHT;
 	private float gravity = GRAVITY;
 
-	private int health = SMART_HEALTH;
-	private boolean falling, jumping, sensePlayer;
+	private int health = SMART_JUMPER_HEALTH;
+	private boolean falling, sensePlayer;
 	
 	private HUD hud;
 	private Player player;
-	
-	private int jumpCounter = 0;
-	private int hitWait = 0;
+
+	private int hitWait = CLICK_SPEED;
 
 
 	public SmartJumper(float x, float y, ID id, float dx, HUD hud, Player p) {
@@ -37,31 +46,43 @@ public class SmartJumper extends GameObject{
 		if(falling ) {
 			dy += gravity;
 		}
-		
 		if(health <= 0){ //if it dies
-			hud.increaseScore(200);
+			hud.increaseScore(400);
 			objects.add(new Upgrade(x, y + 12, ID.HealthUpgrade, -1));
 			objects.add(new Upgrade(x, y + 12, ID.HealthUpgrade, 0));
 			objects.add(new Upgrade(x, y + 12, ID.HealthUpgrade, 1));
 			objects.remove(this);
 		}
-		
+		if(!sensePlayer) {
+			dx = Math.signum(dx) * 2;
+		}
 		for(int i = 0; i < objects.size(); i++) {//collision
 			GameObject temp = objects.get(i);
-			if(temp.getID() == ID.Block || temp.getID() == ID.DeathBlock || temp.getID() == ID.TransparentBlock ) {
-				normalBlockCollision(temp);
-			}
-			if(temp.getID() == ID.PlayerBullet) {
-				if(checkAllBounds(temp)) {
-					objects.remove(temp);
-					health--;
-				}
-			}
 			
-			if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
+			if(temp.getID() == ID.Block || temp.getID() == ID.DeathBlock) {
+				normalBlockCollision(temp);
+				
+			}else if(temp.getID() == ID.TransparentBlock && sensePlayer) {
+				if(this.getBoundsBottom().intersects(temp.getBounds()) && dy > 0) {
+					y = temp.getY() - height;
+					dy = -10 - r.nextInt(4);
+					falling = false;
+				}else {
+					falling = true;
+				}
+				
+			}else if(temp.getID() == ID.TransparentBlock){
+				normalBlockCollision(temp);
+			}else if(temp.getID() == ID.PlayerBullet) {
+				if(checkBounds(temp)) {
+					objects.remove(temp);
+					health -= 2;
+				}
+				
+			}else if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
 				hitWait++;
-				if(checkAllBounds(temp)) {
-					if(hitWait > 10) {
+				if(checkBounds(temp)) {
+					if(hitWait > CLICK_SPEED) {
 						health -= 2;
 						hitWait = 0;
 					}
@@ -70,28 +91,22 @@ public class SmartJumper extends GameObject{
 		}
 		
 		//AI
-		int distance = (int) Math.abs(player.getX() - x);
-		if(distance < 500) {
+		int distanceX = (int) Math.abs(player.getX() - x);
+		int distanceY = (int) Math.abs(player.getX() - y);
+		if(distanceX < 500 && distanceY < 250) {
 			sensePlayer = true;
-			if(distance < 100) {
-				dx = 2 * Math.signum((player.getX() - x));
-			}else if(distance < 350) {
-				dx = 3.5f * Math.signum((player.getX() - x));
-			}else {
-				dx = 5 * Math.signum((player.getX() - x));
-			}
+			dx = 6 * Math.signum((player.getX() - x));
 		}else {
 			sensePlayer = false;
 		}
 	}
 
 	private void normalBlockCollision(GameObject block) {
-		if(this.getBounds().intersects(block.getBounds())) {
+		if(this.getBoundsBottom().intersects(block.getBounds())) {
 			y = block.getY() - height;
-			dy = -10;
-		}else {
-			falling = true;
-		}
+			dy = -10 - r.nextInt(4);
+		}else falling = true;
+		
 		if(this.getBoundsTop().intersects(block.getBounds())) {
 			dy = 0;
 			y = block.getY() + BLOCK_HEIGHT;
@@ -106,6 +121,9 @@ public class SmartJumper extends GameObject{
 
 	public void render(Graphics g) {
 		g.setColor(new Color(200, 200, 100));
+		if(sensePlayer){
+			g.setColor(new Color(100, 100, 50));
+		}
 		g.fillRect((int)x, (int) y, width, height);
 		g.setColor(Color.white);
 		//face
@@ -113,31 +131,31 @@ public class SmartJumper extends GameObject{
 		g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
 		g.drawLine((int) x, (int) y + 20, (int)x + width - 1, (int) y + 20);
 		//health
-		g.setColor(new Color(125, Game.clamp(health, 0, SMART_HEALTH) * (255/SMART_HEALTH), 0));
-		g.fillRect((int)x, (int)y - 10 , width * health / SMART_HEALTH, 5);
+		g.setColor(new Color(125, Game.clamp(health, 0, SMART_JUMPER_HEALTH) * (255/SMART_JUMPER_HEALTH), 0));
+		g.fillRect((int)x, (int)y - 10 , width * health / SMART_JUMPER_HEALTH, 5);
 		
 //		//Bounding Boxes
 		Graphics2D g2d = (Graphics2D) g;
 		g.setColor(Color.red);
-		g2d.draw(getBounds());
+		g2d.draw(getBoundsBottom());
 		g2d.draw(getBoundsTop());
 		g2d.draw(getBoundsLeft());
 		g2d.draw(getBoundsRight());
 
 	}
 
-	//returns true if the object is touching the given object on any side.
-	public boolean checkAllBounds(GameObject temp) {
-		if(this.getBounds().intersects(temp.getBounds()) ||
-				this.getBoundsTop().intersects(temp.getBounds()) ||
-				this.getBoundsRight().intersects(temp.getBounds()) ||
-				this.getBoundsLeft().intersects(temp.getBounds())) {
+	public boolean checkBounds(GameObject temp) {
+		if(getBounds().intersects(temp.getBounds())) {
 			return true;
 		}
 		return false;
 	}
 	
 	public Rectangle getBounds() {
+		return new Rectangle((int) x, (int)y, width, height);
+	}
+	
+	public Rectangle getBoundsBottom() {
 		return new Rectangle((int) x+8, (int)y + height/2, width-16, height/2);
 	}
 

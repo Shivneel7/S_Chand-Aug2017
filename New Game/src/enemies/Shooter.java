@@ -1,20 +1,36 @@
-package gameObjects;
+package enemies;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import gameObjects.Bullet;
+import gameObjects.GameObject;
+import gameObjects.ID;
+import gameObjects.Knife;
+import gameObjects.Player;
+import gameObjects.Upgrade;
 import userInterface.HUD;
-
+/**
+ * Shoots bullets at the player.
+ * When the players gets closer, fire rate increases.
+ * Will drop ammo when killed, and give the player a gun.
+ * @author shivn
+ *
+ */
 public class Shooter extends GameObject{
 
-	private int width = SHOOTER_WIDTH, height = SHOOTER_HEIGHT;
+	private int width = SHOOTER_WIDTH, height = SHOOTER_HEIGHT, health = SHOOTER_HEALTH;;
 	private float gravity = GRAVITY;
+	
 	private boolean falling = true;
+	
 	private int triggerCounter = 100;
 	private HUD hud;
 	private Player player;
+
+	private int hitWait = CLICK_SPEED;
 
 	public Shooter(float x, float y, ID id, float dx, HUD hud, Player p) {
 		super(x, y, id);
@@ -29,27 +45,42 @@ public class Shooter extends GameObject{
 		if(falling ) {
 			dy += gravity;
 		}
+		if(health <= 0) {
+			hud.increaseScore(100);
+			hud.setPlayerHasGun(true);
+			objects.add(new Upgrade(x, y + 12, ID.AmmoUpgrade, 0));
+			objects.remove(this);
+		}
 		for(int i = 0; i < objects.size(); i++) {//collision
 			GameObject temp = objects.get(i);
+			
 			if(temp.getID() == ID.Block || temp.getID() == ID.DeathBlock || temp.getID() == ID.TransparentBlock) {
 				normalBlockCollision(temp);
-			}
-			if(temp.getID() == ID.PlayerBullet) {
-				if(checkAllBounds(temp)) {
+			}else if(temp.getID() == ID.PlayerBullet) {
+				if(checkBounds(temp)) {
 					objects.remove(temp);
 					objects.add(new Upgrade(x, y + 16, ID.AmmoUpgrade, 0));
 					objects.remove(this);
 				}
-			}
-			if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
-				if(checkAllBounds(temp)) {
-					hud.increaseScore(100);
-					hud.setPlayerHasGun(true);
-					objects.add(new Upgrade(x, y + 12, ID.AmmoUpgrade, 0));
-					objects.remove(this);
+			}else if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
+				hitWait++;
+				if(checkBounds(temp)) {
+					if(hitWait > 10) {
+						health  -= 2;
+						hitWait  = 0;
+					}
+				}
+			}else if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
+				if(checkBounds(temp)) {
+					if(hitWait > CLICK_SPEED) {
+						health -= 2;
+						hitWait = 0;
+					}
 				}
 			}
 		}
+		
+		//AI
 		int distance = (int) Math.abs(player.getX() - x);
 		if(distance < 600) {
 			triggerCounter++;
@@ -57,13 +88,13 @@ public class Shooter extends GameObject{
 				objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
 						Math.signum((player.getX() - x)) * BULLET_SPEED, 0));
 				triggerCounter = 0;
-			}else if(triggerCounter > 50 && distance < 350) {
+			}else if(triggerCounter > 40 && distance < 250) {
 				objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
 						Math.signum((player.getX() - x)) * BULLET_SPEED, 0));
 				triggerCounter = 0;
-			}else if(triggerCounter > 70){
+			}else if(triggerCounter > 80){
 				objects.add(new Bullet(x + width/2 , y + height/2 - 17, ID.EnemyBullet,
-						Math.signum((player.getX() - x)) * BULLET_SPEED, 0));
+						Math.signum((player.getX() - x)) * (BULLET_SPEED + 1), 0));
 				triggerCounter = 0;
 			}
 		}
@@ -100,23 +131,20 @@ public class Shooter extends GameObject{
 //		//Bounding Boxes
 //		Graphics2D g2d = (Graphics2D) g;
 //		g.setColor(Color.red);
-//		g2d.draw(getBounds());
+//		g2d.draw(getBoundsBottom());
 //		g2d.draw(getBoundsTop());
 //		g2d.draw(getBoundsLeft());
 //		g2d.draw(getBoundsRight());
 
 	}
 
-	//returns true if the object is touching the given object on any side.
-	public boolean checkAllBounds(GameObject temp) {
-		if(this.getBounds().intersects(temp.getBounds()) ||
-				this.getBoundsTop().intersects(temp.getBounds()) ||
-				this.getBoundsRight().intersects(temp.getBounds()) ||
-				this.getBoundsLeft().intersects(temp.getBounds())) {
+	public boolean checkBounds(GameObject temp) {
+		if(getBounds().intersects(temp.getBounds())) {
 			return true;
 		}
 		return false;
 	}
+	
 	public Rectangle getBounds() {
 		return new Rectangle((int) x+8, (int)y + height/2, width-16, height/2);
 	}

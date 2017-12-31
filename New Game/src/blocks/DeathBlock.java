@@ -1,8 +1,11 @@
-package gameObjects;
+package blocks;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
+
+import gameObjects.GameObject;
+import gameObjects.ID;
 
 public class DeathBlock extends GameObject{
 

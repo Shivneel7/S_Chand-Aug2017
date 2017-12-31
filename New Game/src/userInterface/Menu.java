@@ -51,20 +51,6 @@ public class Menu extends MouseAdapter implements Constants{
 		hud.setScore(0);
 		Game.gameState = STATE.Game;
 	}
-	
-	public void render(Graphics g) {
-		if(Game.gameState == STATE.Menu) {
-			g.setColor(Color.white);
-			g.setFont(new Font(null, 1, 90));
-			g.drawString("THIS IS THE MENU" , 0, GAME_HEIGHT /2 );
-			g.drawRect(200, 200, 200, 200);
-		}else if(Game.gameState == STATE.Loss) {
-			g.setColor(Color.white);
-			g.setFont(new Font(null, 1, 90));
-			g.drawString("U Looz" , 0, GAME_HEIGHT /2 );
-			g.drawRect(200, 200, 200, 200);
-		}
-	}
 
 	public void mousePressed(MouseEvent e) {
 		int mx = e.getX();
@@ -72,8 +58,13 @@ public class Menu extends MouseAdapter implements Constants{
 		if(Game.gameState == STATE.Game) {
 			for(int i = 0; i < handler.objects.size(); i++) {
 				GameObject temp = handler.objects.get(i);
-				if(temp.getID() == ID.PlayerKnife &&  e.getButton() == MouseEvent.BUTTON1){
-					((Knife)temp).setClick(true);
+				
+				if(e.getButton() == MouseEvent.BUTTON1){
+					if(temp.getID() == ID.PlayerKnife) {
+						((Knife)temp).setClick(true);
+					}else{
+						handler.player.punch();
+					}
 				}
 			}
 			if(hud.doesPlayerHasGun() && hud.getAmmo() > 0 &&  e.getButton() == MouseEvent.BUTTON3) {
@@ -83,13 +74,57 @@ public class Menu extends MouseAdapter implements Constants{
 				hud.increaseAmmo(-1);
 			}
 		}else if(Game.gameState == STATE.Menu) {
-			if(getClick(mx, my, 200, 200, 200, 200)) {
+			if(getClick(mx, my, 100, 100, 200, 200)) {
 				Game.gameState = STATE.Game;
+				
+			}else if(getClick(mx, my, 100,400,100,50)) {
+				handler.player.setInvincible(true);
+				
+			}else if(getClick(mx, my, 300,400,100,50)) {
+				handler.player.setFly(true);
+				handler.player.setNoClip(false);
+				
+			}else if(getClick(mx, my, 500,400,100,50)) {
+				handler.player.setFly(true);
+				handler.player.setNoClip(true);
+				
+			}else if(getClick(mx, my, 400,300,50,50)) {
+				handler.player.setInvincible(false);
+				handler.player.setFly(false);
+				handler.player.setNoClip(false);
 			}
 		}else if(Game.gameState == STATE.Loss) {
 			if(getClick(mx, my, 200, 200, 200, 200)) {
 				Game.gameState = STATE.Game;
 			}
+		}
+	}
+
+	public void render(Graphics g) {
+		if(Game.gameState == STATE.Menu) {
+			g.setColor(Color.white);
+			g.setFont(new Font(null, 1, 20));
+			
+			g.drawRect(100, 100, 200, 200);
+			g.drawString("Play", 100, 100);
+			
+			g.drawRect(100,400,100,50);
+			g.drawString("Invincible" , 100, 500);
+			
+			g.drawRect(300,400,100,50);
+			g.drawString("Fly" , 300, 500);
+			
+			g.drawRect(500,400,100,50);
+			g.drawString("Fly + no Clip" , 500, 500);
+			
+			g.drawRect(400,300,50,50);
+			g.drawString("No Cheats" , 400, 300);
+			
+		}else if(Game.gameState == STATE.Loss) {
+			g.setColor(Color.white);
+			g.setFont(new Font(null, 1, 90));
+			g.drawString("U Looz" , 0, GAME_HEIGHT /2 );
+			g.drawRect(200, 200, 200, 200);
 		}
 	}
 

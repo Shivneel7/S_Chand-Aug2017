@@ -7,6 +7,15 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import blocks.Block;
+import blocks.Checkpoint;
+import blocks.DeathBlock;
+import blocks.TransparentBlock;
+import enemies.Enemy;
+import enemies.Jumper;
+import enemies.Shooter;
+import enemies.SmartEnemy;
+import enemies.SmartJumper;
 import framework.BufferedImageLoader;
 import framework.Game;
 import framework.Game.STATE;
@@ -90,6 +99,8 @@ public class Handler {
 				int green = (pixel >> 8 ) & 0xff;
 				int blue = (pixel) & 0xff;
 				//if statements determining objects:
+				
+				//normal blocks
 				if(red == 255 && green == 255 & blue == 255) {
 					addObject(new Block(xx*32, yy*32, ID.Block));
 				}
@@ -101,6 +112,7 @@ public class Handler {
 						player.setY(yy*32);
 					}
 				}
+				//Other BLOCKS
 				if(red == 255 && green == 255 & blue == 0) {
 					addObject(new Checkpoint(xx*32, yy*32, ID.Checkpoint));
 				}
@@ -113,18 +125,25 @@ public class Handler {
 				if(red == 127 && green == 127 & blue == 127) {
 					addObject(new TransparentBlock(xx*32, yy*32, ID.TransparentBlock));
 				}
-				if(red == 100 && green == 0 & blue == 100) {
+				
+				//ENEMIES
+				if(red == 255 && green == 50 & blue == 50) {
 					addObject(new Enemy(xx*32, yy*32, ID.Enemy, -2, hud));
 				}
-				if(red == 255 && green == 100 & blue == 255) {
-					addObject(new SmartEnemy(xx*32, yy*32, ID.SmartEnemy, -2, hud, player));
-				}
-				if(red == 255 && green == 150 & blue == 150) {
-					addObject(new Jumper(xx*32, yy*32, ID.Jumper, -2, hud, player));
-				}
-				if(red == 255 && green == 127 & blue == 39) {
+				if(red == 255 && green == 100 & blue == 100) {
 					addObject(new Shooter(xx*32, yy*32, ID.Shooter, -2, hud, player));
 				}
+				if(red == 255 && green == 150 & blue == 150) {
+					addObject(new SmartEnemy(xx*32, yy*32, ID.SmartEnemy, -2, hud, player));
+				}
+				if(red == 255 && green == 50 & blue == 200) {
+					addObject(new Jumper(xx*32, yy*32, ID.Jumper, -2, hud));
+				}
+				if(red == 255 && green == 150 & blue == 200) {
+					addObject(new SmartJumper(xx*32, yy*32, ID.SmartJumper, -2, hud, player));
+				}
+				
+				//Other
 				if(red == 255 && green == 201 & blue == 14) {
 					addObject(new Coin(xx*32, yy*32, ID.Coin));
 				}

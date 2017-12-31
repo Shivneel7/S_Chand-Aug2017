@@ -10,13 +10,10 @@ public class KeyInput implements KeyListener, Constants {
 
 	private Player player;
 	
-	private boolean[] keyDown = new boolean[2];
+	private boolean[] keyDown = new boolean[4];
 
 
 	public KeyInput(Handler handler) {
-		for(int i = 0; i < keyDown.length;i++) {
-			keyDown[i] = false;
-		}
 		player = handler.player;
 	}
 
@@ -32,21 +29,31 @@ public class KeyInput implements KeyListener, Constants {
 		//				e.printStackTrace();
 		//			}
 		//		}
+		if(player.isFly()) {
+			if(e.getKeyCode() == KeyEvent.VK_W) {
+				player.setDy(-5);
+				keyDown[2] = true;
 
+			}else if(e.getKeyCode() == KeyEvent.VK_S) {
+				player.setDy(5);
+				keyDown[3] = true;
+			}
+		}else {
 			if(e.getKeyCode() == KeyEvent.VK_W && !player.isJumping()) {
 				player.setDy(JUMP_HEIGHT);
 				player.setJumping(true);
-				
-			}else if(e.getKeyCode() == KeyEvent.VK_A) {
-				player.setDx(-5);
-				player.setDirection(-1);
-				keyDown[0] = true;
-				
-			}else if(e.getKeyCode() == KeyEvent.VK_D) {
-				player.setDx(5);
-				player.setDirection(1);
-				keyDown[1] = true;
 
+			}
+		}
+		if(e.getKeyCode() == KeyEvent.VK_A) {
+			player.setDx(-5);
+			player.setDirection(-1);
+			keyDown[0] = true;
+
+		}else if(e.getKeyCode() == KeyEvent.VK_D) {
+			player.setDx(5);
+			player.setDirection(1);
+			keyDown[1] = true;
 		}
 	}
 
@@ -60,6 +67,18 @@ public class KeyInput implements KeyListener, Constants {
 		}
 		if(!keyDown[0] && !keyDown[1]) {
 			player.setDx(0);
+		}
+		
+		if(player.isFly()) {
+			if(e.getKeyCode() == KeyEvent.VK_W) {
+				keyDown[2] = false;
+			}
+			if(e.getKeyCode() == KeyEvent.VK_S) {
+				keyDown[3] = false;
+			}
+			if(!keyDown[2] && !keyDown[3]) {
+				player.setDy(0);
+			}
 		}
 	}
 

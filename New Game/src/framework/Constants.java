@@ -12,6 +12,7 @@ public interface Constants {
 	//Other
 	public static final float GRAVITY = .5f;
 	public static final int NUMBER_OF_LIVES = 3;
+	public static final int CLICK_SPEED = 10;
 	
 	//player
 	public static final int PLAYER_WIDTH = 32;
@@ -23,7 +24,7 @@ public interface Constants {
 	public static final int SHOOTER_WIDTH = 24;
 	public static final int SHOOTER_HEIGHT = 48;
 	public static final Color SHOOTER_COLOR = new Color(223,102,13);
-	
+	public static final int SHOOTER_HEALTH = 2;
 	//Bullet
 	public static final Color BULLET_COLOR = Color.red;
 	public static final int BULLET_WIDTH = 8;
@@ -35,9 +36,20 @@ public interface Constants {
 	public static final int SMART_HEIGHT = 48;
 	public static final int SMART_HEALTH = 6;
 	
+	//Jumper Enemy
+	public static final int JUMPER_WIDTH = 32;
+	public static final int JUMPER_HEIGHT = 32;
+	public static final int JUMPER_HEALTH = 6;
+	
+	//Smart Jumper Enemy
+	public static final int SMART_JUMPER_WIDTH = 24;
+	public static final int SMART_JUMPER_HEIGHT = 48;
+	public static final int SMART_JUMPER_HEALTH = 6;
+	
 	// Enemy
-	public static final int ENEMY_WIDTH = 32;
-	public static final int ENEMY_HEIGHT = 32;
+	public static final int ENEMY_WIDTH = 24;
+	public static final int ENEMY_HEIGHT = 48;
+	public static final int ENEMY_HEALTH = 2;
 	
 	//Block
 	public static final int BLOCK_WIDTH = 32;

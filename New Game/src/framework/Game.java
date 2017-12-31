@@ -23,7 +23,7 @@ public class Game extends Canvas implements Runnable, Constants{
 	
 	public enum STATE {Game, Menu, Loss}
 	
-	public static STATE gameState = STATE.Game;
+	public static STATE gameState = STATE.Menu;
 	
 	public Game() {
 		hud = new HUD();

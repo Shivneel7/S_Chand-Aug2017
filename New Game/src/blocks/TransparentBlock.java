@@ -1,13 +1,16 @@
-package gameObjects;
+package blocks;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
-public class Block extends GameObject{
+import gameObjects.GameObject;
+import gameObjects.ID;
 
-	public Block(float x, float y, ID id) {
+public class TransparentBlock extends GameObject{
+
+	public TransparentBlock(float x, float y, ID id) {
 		super(x, y, id);
 	}
 
@@ -16,10 +19,7 @@ public class Block extends GameObject{
 	}
 
 	public void render(Graphics g) {
-		g.setColor(BLOCK_COLOR);
-		g.fillRect((int) x, (int) y, BLOCK_WIDTH, BLOCK_HEIGHT);
-		
-		g.setColor(Color.pink);
+		g.setColor(Color.white);
 		g.drawRect((int) x, (int) y, BLOCK_WIDTH, BLOCK_HEIGHT);
 	}
 

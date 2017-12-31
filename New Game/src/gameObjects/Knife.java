@@ -1,6 +1,8 @@
 package gameObjects;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
@@ -15,15 +17,11 @@ public class Knife extends GameObject {
 	private BufferedImage stillLeft;
 	private BufferedImage hitRight;
 	private BufferedImage hitLeft;
-//	private BufferedImage midRight;
-//	private BufferedImage midLeft;
-//	
-//	private Animation ALeft;
-//	private Animation ARight;
-//	
+
 	private Player player;
-	private boolean click = false;
-	private boolean right = true;
+	
+	private boolean click = false, right = true;
+
 	private int clickCounter = 0;
 	
 	public Knife(float x, float y, ID id, Player p) {
@@ -35,13 +33,6 @@ public class Knife extends GameObject {
 		hitRight = ss.grabImage(1, 4, 32, 16);
 		hitLeft = ss.grabImage(1, 3, 32, 16);
 		
-		//unimplemented
-//		midRight = ss.grabImage(2, 4, 32, 16);
-//		midLeft = ss.grabImage(2, 3, 32, 16);
-//		
-//		ALeft = new Animation(10, midLeft, hitLeft);
-//		ARight = new Animation(10, midRight, hitRight);
-//		
 		player = p;
 	}
 
@@ -49,20 +40,21 @@ public class Knife extends GameObject {
 		if(click) {
 			clickCounter++;
 		}
-		if(clickCounter > 10) {
+		if(clickCounter > CLICK_SPEED) {
 			click = false;
 			clickCounter = 0;
 		}
+		
 		if(player.getDirection() < 0) 
 			right = false;
 		else right = true;
-		if(player.checkAllBounds(this)) 
+		
+		if(player.checkBounds(this)) 
 			id = ID.PlayerKnife;
 		else id = ID.Knife;
 	}
 
 	public void render(Graphics g) {
-		////////////old
 		if(click && right) {
 			g.drawImage(hitRight, (int) x, (int) y + 20, 72, 48, null);
 		}else if(!click && right){
@@ -74,9 +66,9 @@ public class Knife extends GameObject {
 		}
 
 		//bounds
-//		Graphics2D g2d = (Graphics2D) g;
-//		g.setColor(Color.red);
-//		g2d.draw(getBounds());
+		Graphics2D g2d = (Graphics2D) g;
+		g.setColor(Color.red);
+		g2d.draw(getBounds());
 	}
 	
 	public void setClick(boolean click) {
