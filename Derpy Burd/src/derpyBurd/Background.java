@@ -36,6 +36,9 @@ public class Background {
 	
 	public void tick() {
 		x -= speed;
+		if(Math.abs(x) % Game.WIDTH < 3) {
+			x = originalX;
+		}
 	}
 
 	public void setSpeed(int speed) {
@@ -43,10 +46,8 @@ public class Background {
 	}
 	
 	public void render(Graphics g) {
-		if(Math.abs(x) % Game.WIDTH < 3) {
-			x = originalX;
-		}
 		g.drawImage(img, x, 0, null);
+		
 		if(imageNotFound) {
 			g.setFont(new Font(null,1,20));
 			g.drawString("Background Image not found,contact Shivneel for assistance", 0, 245);

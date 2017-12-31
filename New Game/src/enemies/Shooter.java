@@ -20,6 +20,7 @@ import userInterface.HUD;
  * @author shivn
  *
  */
+
 public class Shooter extends GameObject{
 
 	private int width = SHOOTER_WIDTH, height = SHOOTER_HEIGHT, health = SHOOTER_HEALTH;;

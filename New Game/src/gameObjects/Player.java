@@ -20,7 +20,7 @@ public class Player extends GameObject{
 	
 	//Timers and cool downs
 	private int punchTimer, invincibleTimer = 0;
-	private int direction = 1;//left = -1, right = 1
+	private int direction = 1; //left = -1, right = 1
 
 	//Cheats for testing
 	private boolean permInvincible = false, fly = false, noClip = false;

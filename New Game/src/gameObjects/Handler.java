@@ -26,9 +26,13 @@ import userInterface.HUD;
  *Also where lives are checked.
  */
 public class Handler {
+	
 	public static int LEVEL = 0;
+	
 	public LinkedList<GameObject> objects = new LinkedList<GameObject>();
+	
 	private BufferedImage[] levels = new BufferedImage[3];
+	
 	private HUD hud;
 	public Player player;
 	
