@@ -82,6 +82,14 @@ public class SmartEnemy extends GameObject{
 			}
 		}
 		
+		if(player.isPunching() && player.getBoundsFist().intersects(this.getBounds())) {
+			hitWait ++;
+			if(hitWait > CLICK_SPEED) {
+				health -= 3;
+				hitWait = 0;
+			}
+		}
+		
 		//AI
 		int distanceX = (int) Math.abs(player.getX() - x);
 		int distanceY = (int) Math.abs(player.getY() - y);

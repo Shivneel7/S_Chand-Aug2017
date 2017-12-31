@@ -16,17 +16,21 @@ public class Player extends GameObject{
 	private int width = PLAYER_WIDTH, height = PLAYER_HEIGHT;
 	private float gravity = GRAVITY;
 
-	private boolean falling, jumping, punching;
-	private int punchTimer;
+	private boolean invincible = false, falling, jumping, punching, hasKnife;
+	
+	//Timers and cool downs
+	private int punchTimer, invincibilityTimer = 0;
 	private int direction = 1;//left = -1, right = 1
 
 	//Cheats for testing
-	private boolean invincible = false, fly = false, noClip = false;
+	private boolean permInvincible = false, fly = false, noClip = false;
 
 	private Handler handler;
 	private HUD hud;
 	private Checkpoint cp;
 	public Knife knife;
+	
+	
 	public Player(float x, float y, ID id, Handler handler, HUD hud) {
 		super(x, y, id);
 		this.handler = handler;
@@ -37,16 +41,27 @@ public class Player extends GameObject{
 	public void tick(LinkedList<GameObject> objects) {
 		x += dx;
 		y += dy;
+		
+		if(!permInvincible) invincibilityTimer ++;
+		
 		if(falling && !fly) {
 			dy += gravity;
 		}
+		
 		if(punching) {
 			punchTimer++;
-			if(punchTimer > 10) {
+			if(punchTimer > CLICK_SPEED) {
 				punching = false;
 				punchTimer = 0;
 			}
 		}
+		
+		if(invincibilityTimer > 25) {
+			invincible = false;
+		}else {
+			invincible = true;
+		}
+		
 		if(y > 1400) { // for death by falling through map
 			Game.gameState = STATE.Loss;
 		}
@@ -58,8 +73,8 @@ public class Player extends GameObject{
 	private void collision(LinkedList<GameObject> objects) {
 		for(int i = 0; i < objects.size(); i++) {
 			GameObject temp = objects.get(i);
+			
 			if(!noClip) {
-
 				if(temp.getID() == ID.Block) {//if player touches a block
 					normalBlockCollision(temp);
 
@@ -92,14 +107,16 @@ public class Player extends GameObject{
 					|| temp.getID() == ID.SmartEnemy || temp.getID() == ID.Jumper 
 					|| temp.getID() == ID.SmartJumper){
 				if(checkBounds(temp)) {
-					if(!invincible)
-						Game.gameState = STATE.Loss;
+					if(!invincible) {
+						hud.loseHeath();
+						invincibilityTimer = 0;
+					}
 				}
 				
 			}else if(temp.getID() == ID.EnemyBullet) {// if player touches bullet
 				if(checkBounds(temp)) {
 					if(!invincible)
-						hud.loseLife();
+						hud.loseHeath();
 					objects.remove(temp);
 				}
 			}else if(temp.getID() == ID.Coin && checkBounds(temp)) {
@@ -111,9 +128,11 @@ public class Player extends GameObject{
 					temp.setX(x + 8);
 					temp.setY(y + 8);
 					knife = (Knife) temp;
-				}
+					hasKnife = true;
+				}else hasKnife = false;
+				
 			}else if(temp.getID() == ID.HealthUpgrade && checkBounds(temp)) {
-				hud.gainLife();
+				hud.gainHealth();
 				objects.remove(temp);
 				
 			}else if(temp.getID() == ID.AmmoUpgrade && checkBounds(temp)) {
@@ -147,6 +166,9 @@ public class Player extends GameObject{
 
 	public void render(Graphics g) {
 		g.setColor(PLAYER_COLOR);
+		if(invincible) {
+			g.setColor(Color.CYAN);
+		}
 		g.fillRect((int)x, (int) y, width, height);
 		g.setColor(Color.white);
 		if(direction == -1) {
@@ -155,7 +177,7 @@ public class Player extends GameObject{
 			//punch
 			if(punching) {
 				g.setColor(PLAYER_COLOR);
-				g.fillRect((int)x - 20, (int) y + 32, 20, 8);
+				g.fillRect((int)x - 24, (int) y + 32, 24, 8);
 			}
 		}else {
 			g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
@@ -168,12 +190,14 @@ public class Player extends GameObject{
 		}
 
 		//Bounding Boxes
-		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.red);
-		g2d.draw(getBoundsBottom());
-		g2d.draw(getBoundsTop());
-		g2d.draw(getBoundsLeft());
-		g2d.draw(getBoundsRight());
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.red);
+//		g2d.draw(getBoundsBottom());
+//		g2d.draw(getBoundsTop());
+//		g2d.draw(getBoundsLeft());
+//		g2d.draw(getBoundsRight());
+//		if(punching)
+//			g2d.draw(getBoundsFist());
 	}
 
 	public void punch() {
@@ -198,13 +222,21 @@ public class Player extends GameObject{
 	
 	public Rectangle getBoundsFist() {
 		if(direction < 0) 
-			return new Rectangle((int)x - 20, (int) y + 32, 20, 8);
+			return new Rectangle((int)x - 24, (int) y + 32, 24, 8);
 		else
-			return new Rectangle((int)x + width, (int) y + 32, 20, 8);
+			return new Rectangle((int)x + width, (int) y + 32, 24, 8);
 	}
 	
 	public Rectangle getBounds() {
 		return new Rectangle((int)x,(int)y,width,height);
+	}
+
+	public boolean hasKnife() {
+		return hasKnife;
+	}
+
+	public void setHasKnife(boolean hasKnife) {
+		this.hasKnife = hasKnife;
 	}
 
 	public boolean isJumping() {
@@ -232,11 +264,11 @@ public class Player extends GameObject{
 	}
 
 	public boolean isInvincible() {
-		return invincible;
+		return permInvincible;
 	}
 
 	public void setInvincible(boolean invincible) {
-		this.invincible = invincible;
+		this.permInvincible = invincible;
 	}
 
 	public boolean isNoClip() {
@@ -253,6 +285,14 @@ public class Player extends GameObject{
 
 	public void setCP(Checkpoint cp) {
 		this.cp = cp;
+	}
+
+	public boolean isPunching() {
+		return punching;
+	}
+
+	public void setPunching(boolean punching) {
+		this.punching = punching;
 	}
 
 }

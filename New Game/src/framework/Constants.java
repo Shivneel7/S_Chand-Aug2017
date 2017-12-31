@@ -39,7 +39,7 @@ public interface Constants {
 	//Jumper Enemy
 	public static final int JUMPER_WIDTH = 32;
 	public static final int JUMPER_HEIGHT = 32;
-	public static final int JUMPER_HEALTH = 6;
+	public static final int JUMPER_HEALTH = 4;
 	
 	//Smart Jumper Enemy
 	public static final int SMART_JUMPER_WIDTH = 24;

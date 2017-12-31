@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import framework.Game;
 import gameObjects.Bullet;
 import gameObjects.GameObject;
 import gameObjects.ID;
@@ -58,9 +59,7 @@ public class Shooter extends GameObject{
 				normalBlockCollision(temp);
 			}else if(temp.getID() == ID.PlayerBullet) {
 				if(checkBounds(temp)) {
-					objects.remove(temp);
-					objects.add(new Upgrade(x, y + 16, ID.AmmoUpgrade, 0));
-					objects.remove(this);
+					health--;
 				}
 			}else if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
 				hitWait++;
@@ -73,10 +72,18 @@ public class Shooter extends GameObject{
 			}else if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
 				if(checkBounds(temp)) {
 					if(hitWait > CLICK_SPEED) {
-						health -= 2;
+						health = 0;
 						hitWait = 0;
 					}
 				}
+			}
+		}
+		
+		if(player.isPunching() && player.getBoundsFist().intersects(this.getBounds())) {
+			hitWait ++;
+			if(hitWait > CLICK_SPEED) {
+				health =0;
+				hitWait = 0;
 			}
 		}
 		
@@ -101,7 +108,7 @@ public class Shooter extends GameObject{
 	}
 
 	private void normalBlockCollision(GameObject block) {
-		if(this.getBounds().intersects(block.getBounds())) {
+		if(this.getBoundsBottom().intersects(block.getBounds())) {
 			y = block.getY() - height;
 			dy = 0;
 			falling = false;
@@ -127,6 +134,9 @@ public class Shooter extends GameObject{
 		g.fillRect((int)x + 6, (int) y + 8, 4, 4);
 		g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
 		g.drawLine((int) x, (int) y + 20, (int)x + width - 1, (int) y + 20);
+		//health
+		g.setColor(new Color(125, Game.clamp(health, 0, SHOOTER_HEALTH) * (255/SHOOTER_HEALTH), 0));
+		g.fillRect((int)x, (int)y - 10 , width * health / SHOOTER_HEALTH, 5);
 		
 //		//Bounding Boxes
 //		Graphics2D g2d = (Graphics2D) g;
@@ -146,9 +156,11 @@ public class Shooter extends GameObject{
 	}
 	
 	public Rectangle getBounds() {
+		return new Rectangle((int) x, (int)y, width, height);
+	}
+	public Rectangle getBoundsBottom() {
 		return new Rectangle((int) x+8, (int)y + height/2, width-16, height/2);
 	}
-
 	public Rectangle getBoundsTop() {
 		return new Rectangle((int) x+8, (int)y, width-16, height/2);
 	}

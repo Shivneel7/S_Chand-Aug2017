@@ -73,10 +73,11 @@ public class SmartJumper extends GameObject{
 				
 			}else if(temp.getID() == ID.TransparentBlock){
 				normalBlockCollision(temp);
+				
 			}else if(temp.getID() == ID.PlayerBullet) {
 				if(checkBounds(temp)) {
 					objects.remove(temp);
-					health -= 2;
+					health --;
 				}
 				
 			}else if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
@@ -90,12 +91,20 @@ public class SmartJumper extends GameObject{
 			}
 		}
 		
+		if(player.isPunching() && player.getBoundsFist().intersects(this.getBounds())) {
+			hitWait ++;
+			if(hitWait > CLICK_SPEED) {
+				health -= 2;
+				hitWait = 0;
+			}
+		}
+		
 		//AI
 		int distanceX = (int) Math.abs(player.getX() - x);
-		int distanceY = (int) Math.abs(player.getX() - y);
-		if(distanceX < 500 && distanceY < 250) {
+		int distanceY = (int) Math.abs(player.getY() - y);
+		if(distanceX < 500 && distanceY < 200) {
 			sensePlayer = true;
-			dx = 6 * Math.signum((player.getX() - x));
+			dx = (player.getX() - x)/32;
 		}else {
 			sensePlayer = false;
 		}

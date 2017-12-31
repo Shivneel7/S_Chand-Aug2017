@@ -49,7 +49,7 @@ public class Handler {
 	}
 	
 	public void tick() {
-		if(hud.getLives() == 0) {//checks lives
+		if(hud.getHealth() == 0) {//checks lives
 			Game.gameState = STATE.Loss;
 		}
 		for(int i = 0; i < objects.size(); i++) {
@@ -128,7 +128,7 @@ public class Handler {
 				
 				//ENEMIES
 				if(red == 255 && green == 50 & blue == 50) {
-					addObject(new Enemy(xx*32, yy*32, ID.Enemy, -2, hud));
+					addObject(new Enemy(xx*32, yy*32, ID.Enemy, -2, hud, player));
 				}
 				if(red == 255 && green == 100 & blue == 100) {
 					addObject(new Shooter(xx*32, yy*32, ID.Shooter, -2, hud, player));
@@ -137,7 +137,7 @@ public class Handler {
 					addObject(new SmartEnemy(xx*32, yy*32, ID.SmartEnemy, -2, hud, player));
 				}
 				if(red == 255 && green == 50 & blue == 200) {
-					addObject(new Jumper(xx*32, yy*32, ID.Jumper, -2, hud));
+					addObject(new Jumper(xx*32, yy*32, ID.Jumper, -2, hud, player));
 				}
 				if(red == 255 && green == 150 & blue == 200) {
 					addObject(new SmartJumper(xx*32, yy*32, ID.SmartJumper, -2, hud, player));

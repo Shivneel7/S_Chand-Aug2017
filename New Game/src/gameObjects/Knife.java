@@ -22,10 +22,11 @@ public class Knife extends GameObject {
 	
 	private boolean click = false, right = true;
 
-	private int clickCounter = 0;
+	private int clickCounter = 0, knifeCooldown = 30;
 	
 	public Knife(float x, float y, ID id, Player p) {
 		super(x, y, id);
+		
 		BufferedImageLoader loader = new BufferedImageLoader();
 		ss = new SpriteSheet(loader.loadImage("/spriteSheet.png"));
 		stillRight = ss.grabImage(2, 2, 16, 16);
@@ -37,6 +38,8 @@ public class Knife extends GameObject {
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
+		knifeCooldown++;
+		
 		if(click) {
 			clickCounter++;
 		}
@@ -49,8 +52,10 @@ public class Knife extends GameObject {
 			right = false;
 		else right = true;
 		
-		if(player.checkBounds(this)) 
+		if(player.checkBounds(this)) {
 			id = ID.PlayerKnife;
+			
+		}
 		else id = ID.Knife;
 	}
 
@@ -66,13 +71,16 @@ public class Knife extends GameObject {
 		}
 
 		//bounds
-		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.red);
-		g2d.draw(getBounds());
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.red);
+//		g2d.draw(getBounds());
 	}
 	
-	public void setClick(boolean click) {
-		this.click = click;
+	public void click() {
+		if(knifeCooldown > 25) {
+			click = true;
+			knifeCooldown = 0;
+		}
 	}
 	
 	public boolean getClick() {

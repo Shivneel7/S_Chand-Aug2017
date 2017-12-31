@@ -2,7 +2,6 @@ package enemies;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
@@ -10,6 +9,7 @@ import framework.Game;
 import gameObjects.GameObject;
 import gameObjects.ID;
 import gameObjects.Knife;
+import gameObjects.Player;
 import gameObjects.Upgrade;
 import userInterface.HUD;
 /**
@@ -23,13 +23,15 @@ public class Enemy extends GameObject{
 	private float gravity = GRAVITY;
 	private boolean falling = true;
 	private HUD hud;
+	private Player player;
 	private Color c;
 	private int hitWait = CLICK_SPEED;
 	
-	public Enemy(float x, float y, ID id, float dx, HUD hud) {
+	public Enemy(float x, float y, ID id, float dx, HUD hud, Player player) {
 		super(x, y, id);
 		this.dx = dx;
 		this.hud = hud;
+		this.player = player;
 		c = new Color(r.nextInt(200) + 10, r.nextInt(200) + 10, r.nextInt(200) + 10);
 	}
 
@@ -38,8 +40,10 @@ public class Enemy extends GameObject{
 		y += dy;
 		
 		if(health <= 0) {
-			objects.add(new Upgrade(x, y, ID.HealthUpgrade, 0));
-			hud.increaseScore(40);
+			if(r.nextBoolean()) {
+				objects.add(new Upgrade(x, y, ID.HealthUpgrade, 0));
+			}
+			hud.increaseScore(50);
 			objects.remove(this);
 		}
 		
@@ -58,7 +62,7 @@ public class Enemy extends GameObject{
 				hitWait ++;
 				if(checkBounds(temp)) {
 					if(hitWait > CLICK_SPEED) {
-						health -= 2;
+						health --;
 						hitWait = 0;
 					}
 				}
@@ -71,9 +75,13 @@ public class Enemy extends GameObject{
 			}
 		}
 
-//		if(player.isPunch() && player.getBoundsFist().intersects(r)) {
-//			
-//		}
+		if(player.isPunching() && player.getBoundsFist().intersects(this.getBounds())) {
+			hitWait ++;
+			if(hitWait > CLICK_SPEED) {
+				health --;
+				hitWait = 0;
+			}
+		}
 	}
 
 	private void normalBlockCollision(GameObject block) {

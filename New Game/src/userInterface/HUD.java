@@ -9,12 +9,12 @@ import framework.Constants;
 import framework.Game;
 import framework.SpriteSheet;
 /**
- * The heads up display, keeps track of gun, ammo, score, and lives.
+ * The heads up display, keeps track of gun, ammo, score, and health.
  * @author shivn
  *
  */
 public class HUD implements Constants{
-	private int lives = NUMBER_OF_LIVES;
+	private int health = NUMBER_OF_LIVES;
 	private int score = 0;
 	private boolean playerHasGun = false;
 	private int ammo = 0;
@@ -33,11 +33,11 @@ public class HUD implements Constants{
 	public void render(Graphics g) {
 		//Lives
 		g.setColor(Color.black);
-		g.fillRect(6, 22, lives * 12 + 60, 20);
-		g.setColor(new Color(125, Game.clamp(lives, 0, NUMBER_OF_LIVES) * (255/NUMBER_OF_LIVES), 0));
+		g.fillRect(6, 22, health * 12 + 60, 20);
+		g.setColor(new Color(125, Game.clamp(health, 0, NUMBER_OF_LIVES) * (255/NUMBER_OF_LIVES), 0));
 		g.setFont(new Font(null, 1, 16));
 		g.drawString("Lives:" , 10, 38);
-		for(int i = 0; i < lives; i ++) {
+		for(int i = 0; i < health; i ++) {
 			g.fillRect(60 + (12*i), 28, 10, 10);
 		}
 		//Score
@@ -59,25 +59,25 @@ public class HUD implements Constants{
 
 	
 	public void resetLives() {
-		lives = NUMBER_OF_LIVES;
+		health = NUMBER_OF_LIVES;
 	}
 
-	public void loseLife() {
-		if(lives > 0) {
-			lives--;
+	public void loseHeath() {
+		if(health > 0) {
+			health--;
 		}
 	}
 
-	public void gainLife() {
-		lives++;
+	public void gainHealth() {
+		health++;
 	}
 	
-	public int getLives() {
-		return lives;
+	public int getHealth() {
+		return health;
 	}
 
-	public void setLives(int lives) {
-		this.lives = lives;
+	public void setHealth(int lives) {
+		this.health = lives;
 	}
 	
 	public void increaseScore(int d) {
@@ -98,10 +98,6 @@ public class HUD implements Constants{
 
 	public void setPlayerHasGun(boolean playerHasGun) {
 		this.playerHasGun = playerHasGun;
-	}
-	
-	public boolean doesPlayerHasKnife() {
-		return playerHasGun;
 	}
 
 	public boolean isPlayerHasGun() {

@@ -5,12 +5,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
-import java.util.Random;
 
 import framework.Game;
 import gameObjects.GameObject;
 import gameObjects.ID;
 import gameObjects.Knife;
+import gameObjects.Player;
 import gameObjects.Upgrade;
 import userInterface.HUD;
 /**
@@ -27,15 +27,17 @@ public class Jumper extends GameObject{
 	private int health = JUMPER_HEALTH;
 	private boolean falling;
 	private HUD hud;
-
+	private Player player;
+	
 	private int hitWait = CLICK_SPEED;
 
 
 
-	public Jumper(float x, float y, ID id, float dx, HUD hud) {
+	public Jumper(float x, float y, ID id, float dx, HUD hud, Player player) {
 		super(x, y, id);
 		this.dx= dx;
 		this.hud = hud;
+		this.player = player;
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
@@ -72,6 +74,14 @@ public class Jumper extends GameObject{
 						hitWait = 0;
 					}
 				}
+			}
+		}
+		
+		if(player.isPunching() && player.getBoundsFist().intersects(this.getBounds())) {
+			hitWait ++;
+			if(hitWait > CLICK_SPEED) {
+				health -= 2;
+				hitWait = 0;
 			}
 		}
 	}

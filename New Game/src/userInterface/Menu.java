@@ -58,11 +58,14 @@ public class Menu extends MouseAdapter implements Constants{
 		if(Game.gameState == STATE.Game) {
 			for(int i = 0; i < handler.objects.size(); i++) {
 				GameObject temp = handler.objects.get(i);
-				
+
 				if(e.getButton() == MouseEvent.BUTTON1){
-					if(temp.getID() == ID.PlayerKnife) {
-						((Knife)temp).setClick(true);
-					}else{
+					if(handler.player.hasKnife()) {
+						if(temp.getID() == ID.PlayerKnife) {
+							((Knife)temp).click();
+						}
+					}
+					else{
 						handler.player.punch();
 					}
 				}
@@ -76,7 +79,7 @@ public class Menu extends MouseAdapter implements Constants{
 		}else if(Game.gameState == STATE.Menu) {
 			if(getClick(mx, my, 100, 100, 200, 200)) {
 				Game.gameState = STATE.Game;
-				
+
 			}else if(getClick(mx, my, 100,400,100,50)) {
 				handler.player.setInvincible(true);
 				
