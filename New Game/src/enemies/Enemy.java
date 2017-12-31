@@ -21,11 +21,13 @@ public class Enemy extends GameObject{
 	
 	private int width = ENEMY_WIDTH, height = ENEMY_HEIGHT, health = ENEMY_HEALTH;
 	private float gravity = GRAVITY;
-	private boolean falling = true;
+
+	private int invincibleTimer = 0;
+	private boolean falling = true, invincible;
+	
 	private HUD hud;
 	private Player player;
 	private Color c;
-	private int hitWait = CLICK_SPEED;
 	
 	public Enemy(float x, float y, ID id, float dx, HUD hud, Player player) {
 		super(x, y, id);
@@ -39,6 +41,14 @@ public class Enemy extends GameObject{
 		x += dx;
 		y += dy;
 		
+		if(invincible) {
+			invincibleTimer ++;
+			if(invincibleTimer > 25) {
+				invincible = false;
+				invincibleTimer = 0;
+			}
+		}
+		
 		if(health <= 0) {
 			if(r.nextBoolean()) {
 				objects.add(new Upgrade(x, y, ID.HealthUpgrade, 0));
@@ -46,40 +56,37 @@ public class Enemy extends GameObject{
 			hud.increaseScore(50);
 			objects.remove(this);
 		}
-		
+
 		if(falling) {
 			dy += gravity;
 		}
-		
+
 		for(int i = 0; i < objects.size(); i++) {//collision
 			GameObject temp = objects.get(i);
-			
+
 			if(temp.getID() == ID.Block || temp.getID() == ID.DeathBlock || temp.getID() == ID.TransparentBlock) {
 				normalBlockCollision(temp);
-			}
-			
-			if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
-				hitWait ++;
-				if(checkBounds(temp)) {
-					if(hitWait > CLICK_SPEED) {
-						health --;
-						hitWait = 0;
-					}
-				}
-				
+
 			}else if(temp.getID() == ID.PlayerBullet) {
 				if(checkBounds(temp)) {
 					objects.remove(temp);
-					health --;
+					health--;
+				}
+
+			}else if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
+				if(checkBounds(temp)) {
+					if(!invincible) {
+						health -= 2;
+						invincible = true;
+					}
 				}
 			}
 		}
 
 		if(player.isPunching() && player.getBoundsFist().intersects(this.getBounds())) {
-			hitWait ++;
-			if(hitWait > CLICK_SPEED) {
-				health --;
-				hitWait = 0;
+			if(!invincible) {
+				health -= 2;
+				invincible = true;
 			}
 		}
 	}
@@ -104,6 +111,9 @@ public class Enemy extends GameObject{
 
 	public void render(Graphics g) {
 		g.setColor(c);
+		if(invincible) {
+			g.setColor(Color.red);
+		}
 		g.fillRect((int)x, (int) y, width, height);
 		//face
 		g.setColor(Color.white);

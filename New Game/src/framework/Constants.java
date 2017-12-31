@@ -34,22 +34,22 @@ public interface Constants {
 	//Smarter Enemy
 	public static final int SMART_WIDTH = 24;
 	public static final int SMART_HEIGHT = 48;
-	public static final int SMART_HEALTH = 6;
+	public static final int SMART_HEALTH = 4;
 	
 	//Jumper Enemy
 	public static final int JUMPER_WIDTH = 32;
 	public static final int JUMPER_HEIGHT = 32;
-	public static final int JUMPER_HEALTH = 4;
+	public static final int JUMPER_HEALTH = 2;
 	
 	//Smart Jumper Enemy
 	public static final int SMART_JUMPER_WIDTH = 24;
 	public static final int SMART_JUMPER_HEIGHT = 48;
-	public static final int SMART_JUMPER_HEALTH = 6;
+	public static final int SMART_JUMPER_HEALTH = 4;
 	
 	// Enemy
 	public static final int ENEMY_WIDTH = 24;
 	public static final int ENEMY_HEIGHT = 48;
-	public static final int ENEMY_HEALTH = 2;
+	public static final int ENEMY_HEALTH = 4;
 	
 	//Block
 	public static final int BLOCK_WIDTH = 32;

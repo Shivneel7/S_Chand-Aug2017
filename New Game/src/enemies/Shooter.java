@@ -25,13 +25,12 @@ public class Shooter extends GameObject{
 	private int width = SHOOTER_WIDTH, height = SHOOTER_HEIGHT, health = SHOOTER_HEALTH;;
 	private float gravity = GRAVITY;
 	
-	private boolean falling = true;
-	
-	private int triggerCounter = 100;
+	private int invincibleTimer = 0, triggerCounter = 100;
+	private boolean falling = true, invincible;
+
 	private HUD hud;
 	private Player player;
 
-	private int hitWait = CLICK_SPEED;
 
 	public Shooter(float x, float y, ID id, float dx, HUD hud, Player p) {
 		super(x, y, id);
@@ -43,9 +42,19 @@ public class Shooter extends GameObject{
 	public void tick(LinkedList<GameObject> objects) {
 		x += dx;
 		y += dy;
+		
 		if(falling ) {
 			dy += gravity;
 		}
+		
+		if(invincible) {
+			invincibleTimer ++;
+			if(invincibleTimer > 25) {
+				invincible = false;
+				invincibleTimer = 0;
+			}
+		}
+		
 		if(health <= 0) {
 			hud.increaseScore(100);
 			hud.setPlayerHasGun(true);
@@ -57,33 +66,25 @@ public class Shooter extends GameObject{
 			
 			if(temp.getID() == ID.Block || temp.getID() == ID.DeathBlock || temp.getID() == ID.TransparentBlock) {
 				normalBlockCollision(temp);
+				
 			}else if(temp.getID() == ID.PlayerBullet) {
 				if(checkBounds(temp)) {
 					health--;
 				}
 			}else if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
-				hitWait++;
 				if(checkBounds(temp)) {
-					if(hitWait > 10) {
-						health  -= 2;
-						hitWait  = 0;
-					}
-				}
-			}else if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
-				if(checkBounds(temp)) {
-					if(hitWait > CLICK_SPEED) {
+					if(!invincible) {
 						health = 0;
-						hitWait = 0;
+						invincible = true;
 					}
 				}
 			}
 		}
-		
+
 		if(player.isPunching() && player.getBoundsFist().intersects(this.getBounds())) {
-			hitWait ++;
-			if(hitWait > CLICK_SPEED) {
-				health =0;
-				hitWait = 0;
+			if(!invincible) {
+				health = 0;
+				invincible = true;
 			}
 		}
 		
@@ -128,6 +129,9 @@ public class Shooter extends GameObject{
 
 	public void render(Graphics g) {
 		g.setColor(SHOOTER_COLOR);
+		if(invincible) {
+			g.setColor(Color.red);
+		}
 		g.fillRect((int)x, (int) y, width, height);
 		g.setColor(Color.white);
 		//face

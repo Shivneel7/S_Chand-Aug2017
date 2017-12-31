@@ -77,10 +77,7 @@ public class Knife extends GameObject {
 	}
 	
 	public void click() {
-		if(knifeCooldown > 25) {
-			click = true;
-			knifeCooldown = 0;
-		}
+		click = true;
 	}
 	
 	public boolean getClick() {

@@ -19,7 +19,7 @@ public class Player extends GameObject{
 	private boolean invincible = false, falling, jumping, punching, hasKnife;
 	
 	//Timers and cool downs
-	private int punchTimer, invincibilityTimer = 0;
+	private int punchTimer, invincibleTimer = 0;
 	private int direction = 1;//left = -1, right = 1
 
 	//Cheats for testing
@@ -42,7 +42,13 @@ public class Player extends GameObject{
 		x += dx;
 		y += dy;
 		
-		if(!permInvincible) invincibilityTimer ++;
+		if(!permInvincible && invincible) {
+			invincibleTimer ++;
+			if(invincibleTimer > 25) {
+				invincible = false;
+				invincibleTimer = 0;
+			}
+		}
 		
 		if(falling && !fly) {
 			dy += gravity;
@@ -55,12 +61,7 @@ public class Player extends GameObject{
 				punchTimer = 0;
 			}
 		}
-		
-		if(invincibilityTimer > 25) {
-			invincible = false;
-		}else {
-			invincible = true;
-		}
+
 		
 		if(y > 1400) { // for death by falling through map
 			Game.gameState = STATE.Loss;
@@ -109,7 +110,7 @@ public class Player extends GameObject{
 				if(checkBounds(temp)) {
 					if(!invincible) {
 						hud.loseHeath();
-						invincibilityTimer = 0;
+						invincible = true;
 					}
 				}
 				
@@ -170,23 +171,26 @@ public class Player extends GameObject{
 			g.setColor(Color.CYAN);
 		}
 		g.fillRect((int)x, (int) y, width, height);
-		g.setColor(Color.white);
 		if(direction == -1) {
-			g.fillRect((int)x + 8, (int) y + 8, 4, 4);
-			g.drawLine((int) x, (int) y + 20, (int)x + 10, (int) y + 20);
 			//punch
 			if(punching) {
 				g.setColor(PLAYER_COLOR);
 				g.fillRect((int)x - 24, (int) y + 32, 24, 8);
 			}
+			g.setColor(Color.white);
+			g.fillRect((int)x + 8, (int) y + 8, 4, 4);
+			g.drawLine((int) x, (int) y + 20, (int)x + 10, (int) y + 20);
+
 		}else {
-			g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
-			g.drawLine((int) x + width, (int) y + 20, (int)x + width - 10, (int) y + 20);
 			//punch
 			if(punching) {
 				g.setColor(PLAYER_COLOR);
 				g.fillRect((int)x + width, (int) y + 32, 20, 8);
 			}
+			g.setColor(Color.white);
+			g.fillRect((int)x + width - 8, (int) y + 8, 4, 4);
+			g.drawLine((int) x + width, (int) y + 20, (int)x + width - 10, (int) y + 20);
+
 		}
 
 		//Bounding Boxes

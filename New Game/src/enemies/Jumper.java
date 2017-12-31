@@ -21,17 +21,14 @@ import userInterface.HUD;
  */
 public class Jumper extends GameObject{
 
-	private int width = JUMPER_WIDTH, height = JUMPER_HEIGHT;
+	private int width = JUMPER_WIDTH, height = JUMPER_HEIGHT, health = JUMPER_HEALTH;
 	private float gravity = GRAVITY;
 
-	private int health = JUMPER_HEALTH;
-	private boolean falling;
+	private int invincibleTimer = 0;
+	private boolean falling = true, invincible;
+	
 	private HUD hud;
 	private Player player;
-	
-	private int hitWait = CLICK_SPEED;
-
-
 
 	public Jumper(float x, float y, ID id, float dx, HUD hud, Player player) {
 		super(x, y, id);
@@ -43,8 +40,17 @@ public class Jumper extends GameObject{
 	public void tick(LinkedList<GameObject> objects) {
 		x += dx;
 		y += dy;
+		
 		if(falling ) {
 			dy += gravity;
+		}
+		
+		if(invincible) {
+			invincibleTimer ++;
+			if(invincibleTimer > 25) {
+				invincible = false;
+				invincibleTimer = 0;
+			}
 		}
 		
 		if(health <= 0){ //if it dies
@@ -67,21 +73,19 @@ public class Jumper extends GameObject{
 				}
 				
 			}else if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
-				hitWait++;
 				if(checkBounds(temp)) {
-					if(hitWait > CLICK_SPEED) {
+					if(!invincible) {
 						health -= 2;
-						hitWait = 0;
+						invincible = true;
 					}
 				}
 			}
 		}
-		
+
 		if(player.isPunching() && player.getBoundsFist().intersects(this.getBounds())) {
-			hitWait ++;
-			if(hitWait > CLICK_SPEED) {
+			if(!invincible) {
 				health -= 2;
-				hitWait = 0;
+				invincible = true;
 			}
 		}
 	}
@@ -108,6 +112,9 @@ public class Jumper extends GameObject{
 
 	public void render(Graphics g) {
 		g.setColor(new Color(200, 200, 100));
+		if(invincible) {
+			g.setColor(Color.red);
+		}
 		g.fillRect((int)x, (int) y, width, height);
 		g.setColor(Color.white);
 		//face
@@ -119,12 +126,12 @@ public class Jumper extends GameObject{
 		g.fillRect((int)x, (int)y - 10 , width * health / JUMPER_HEALTH, 5);
 		
 //		//Bounding Boxes
-		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.red);
-		g2d.draw(getBoundsBottom());
-		g2d.draw(getBoundsTop());
-		g2d.draw(getBoundsLeft());
-		g2d.draw(getBoundsRight());
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.red);
+//		g2d.draw(getBoundsBottom());
+//		g2d.draw(getBoundsTop());
+//		g2d.draw(getBoundsLeft());
+//		g2d.draw(getBoundsRight());
 
 	}
 

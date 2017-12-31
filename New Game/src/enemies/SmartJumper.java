@@ -21,16 +21,14 @@ import userInterface.HUD;
  */
 public class SmartJumper extends GameObject{
 
-	private int width = SMART_JUMPER_WIDTH, height = SMART_JUMPER_HEIGHT;
+	private int width = SMART_JUMPER_WIDTH, height = SMART_JUMPER_HEIGHT, health = SMART_JUMPER_HEALTH;
 	private float gravity = GRAVITY;
 
-	private int health = SMART_JUMPER_HEALTH;
-	private boolean falling, sensePlayer;
+	private boolean falling, sensePlayer, invincible;
+	private int invincibleTimer = 0;
 	
 	private HUD hud;
 	private Player player;
-
-	private int hitWait = CLICK_SPEED;
 
 
 	public SmartJumper(float x, float y, ID id, float dx, HUD hud, Player p) {
@@ -43,9 +41,19 @@ public class SmartJumper extends GameObject{
 	public void tick(LinkedList<GameObject> objects) {
 		x += dx;
 		y += dy;
+		
 		if(falling ) {
 			dy += gravity;
 		}
+		
+		if(invincible) {
+			invincibleTimer ++;
+			if(invincibleTimer > 25) {
+				invincible = false;
+				invincibleTimer = 0;
+			}
+		}
+		
 		if(health <= 0){ //if it dies
 			hud.increaseScore(400);
 			objects.add(new Upgrade(x, y + 12, ID.HealthUpgrade, -1));
@@ -77,25 +85,23 @@ public class SmartJumper extends GameObject{
 			}else if(temp.getID() == ID.PlayerBullet) {
 				if(checkBounds(temp)) {
 					objects.remove(temp);
-					health --;
+					health--;
 				}
 				
 			}else if(temp.getID() == ID.PlayerKnife && ((Knife)temp).getClick()) {
-				hitWait++;
 				if(checkBounds(temp)) {
-					if(hitWait > CLICK_SPEED) {
+					if(!invincible) {
 						health -= 2;
-						hitWait = 0;
+						invincible = true;
 					}
 				}
 			}
 		}
-		
+
 		if(player.isPunching() && player.getBoundsFist().intersects(this.getBounds())) {
-			hitWait ++;
-			if(hitWait > CLICK_SPEED) {
+			if(!invincible) {
 				health -= 2;
-				hitWait = 0;
+				invincible = true;
 			}
 		}
 		
@@ -132,6 +138,9 @@ public class SmartJumper extends GameObject{
 		g.setColor(new Color(200, 200, 100));
 		if(sensePlayer){
 			g.setColor(new Color(100, 100, 50));
+		}
+		if(invincible) {
+			g.setColor(Color.red);
 		}
 		g.fillRect((int)x, (int) y, width, height);
 		g.setColor(Color.white);
