@@ -93,9 +93,9 @@ public class SmartEnemy extends GameObject{
 		//AI
 		int distanceX = (int) Math.abs(player.getX() - x);
 		int distanceY = (int) Math.abs(player.getY() - y);
-		if(distanceX < 500 && distanceY < 250) {
+		if(distanceX < 400 && distanceY < 300) {
 			sensePlayer = true;
-				dx = 5 * Math.signum((player.getX() - x));
+			dx = Game.clamp((int)(player.getX() - x)/32, -7, 7);
 		}else {
 			sensePlayer = false;
 		}

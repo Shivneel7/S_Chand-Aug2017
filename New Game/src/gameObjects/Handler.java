@@ -122,7 +122,7 @@ public class Handler {
 				if(red == 0 && green == 255 & blue == 0) {
 					addObject(new Goal(xx*32, yy*32, ID.Goal));
 				}
-				if(red == 127 && green == 127 & blue == 127) {
+				if(red == 128 && green == 128 & blue == 128) {
 					addObject(new TransparentBlock(xx*32, yy*32, ID.TransparentBlock));
 				}
 				
