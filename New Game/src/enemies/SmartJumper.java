@@ -110,7 +110,11 @@ public class SmartJumper extends GameObject{
 		int distanceY = (int) Math.abs(player.getY() - y);
 		if(distanceX < 400 && distanceY < 200) {
 			sensePlayer = true;
-			dx = Game.clamp((int)(player.getX() - x)/32, -7, 7);
+			if(Math.signum(player.getX() - x) < 0) {
+				dx = Game.clamp((int)(player.getX() - x)/32, -7, -2);
+			}else if(Math.signum(player.getX() - x) > 0) {
+				dx = Game.clamp((int)(player.getX() - x)/32, 2, 7);
+			}
 		}else {
 			sensePlayer = false;
 		}
@@ -152,13 +156,13 @@ public class SmartJumper extends GameObject{
 		g.setColor(new Color(125, Game.clamp(health, 0, SMART_JUMPER_HEALTH) * (255/SMART_JUMPER_HEALTH), 0));
 		g.fillRect((int)x, (int)y - 10 , width * health / SMART_JUMPER_HEALTH, 5);
 		
-//		//Bounding Boxes
-//		Graphics2D g2d = (Graphics2D) g;
-//		g.setColor(Color.red);
-//		g2d.draw(getBoundsBottom());
-//		g2d.draw(getBoundsTop());
-//		g2d.draw(getBoundsLeft());
-//		g2d.draw(getBoundsRight());
+		//Bounding Boxes
+		Graphics2D g2d = (Graphics2D) g;
+		g.setColor(Color.red);
+		g2d.draw(getBoundsBottom());
+		g2d.draw(getBoundsTop());
+		g2d.draw(getBoundsLeft());
+		g2d.draw(getBoundsRight());
 
 	}
 

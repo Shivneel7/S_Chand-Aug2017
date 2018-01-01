@@ -2,6 +2,7 @@ package enemies;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
@@ -103,7 +104,11 @@ public class SmartEnemy extends GameObject{
 		int distanceY = (int) Math.abs(player.getY() - y);
 		if(distanceX < 400 && distanceY < 300) {
 			sensePlayer = true;
-			dx = Game.clamp((int)(player.getX() - x)/32, -7, 7);
+			if(Math.signum(player.getX() - x) < 0) {
+				dx = Game.clamp((int)(player.getX() - x)/32, -7, -2);
+			}else if(Math.signum(player.getX() - x) > 0) {
+				dx = Game.clamp((int)(player.getX() - x)/32, 2, 7);
+			}
 		}else {
 			sensePlayer = false;
 		}
@@ -163,13 +168,13 @@ public class SmartEnemy extends GameObject{
 		g.setColor(new Color(125, Game.clamp(health, 0, SMART_HEALTH) * (255/SMART_HEALTH), 0));
 		g.fillRect((int)x, (int)y - 10 , width * health / SMART_HEALTH, 5);
 		
-//		//Bounding Boxes
-//		Graphics2D g2d = (Graphics2D) g;
-//		g.setColor(Color.red);
-//		g2d.draw(getBoundsBottom());
-//		g2d.draw(getBoundsTop());
-//		g2d.draw(getBoundsLeft());
-//		g2d.draw(getBoundsRight());
+		//Bounding Boxes
+		Graphics2D g2d = (Graphics2D) g;
+		g.setColor(Color.red);
+		g2d.draw(getBoundsBottom());
+		g2d.draw(getBoundsTop());
+		g2d.draw(getBoundsLeft());
+		g2d.draw(getBoundsRight());
 
 	}
 	
