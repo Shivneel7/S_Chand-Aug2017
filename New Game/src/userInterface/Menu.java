@@ -40,15 +40,18 @@ public class Menu extends MouseAdapter implements Constants{
 	 */
 	private void loss() {
 		hud.resetLives();
-		hud.setPlayerHasGun(false);
-		hud.setAmmo(0);
+		hud.increaseScore(-500);
+		
 		handler.switchLevel();
-
 		if(handler.player.getCP() != null) {
 			handler.player.setX(handler.player.getCP().getX());
 			handler.player.setY(handler.player.getCP().getY());
+			if(handler.player.knife!=null) {
+				handler.addObject(handler.player.knife);//handler.player.getX(), handler.player.getY(), ID.PlayerKnife, handler.player));
+											//handler.player.knife <-- adds the knife to the place it was when player died.
+			}
 		}
-		hud.setScore(0);
+		
 		Game.gameState = STATE.Game;
 	}
 
@@ -56,20 +59,14 @@ public class Menu extends MouseAdapter implements Constants{
 		int mx = e.getX();
 		int my = e.getY();
 		if(Game.gameState == STATE.Game) {
-			for(int i = 0; i < handler.objects.size(); i++) {
-				GameObject temp = handler.objects.get(i);
-
 				if(e.getButton() == MouseEvent.BUTTON1){
-					if(handler.player.hasKnife()) {
-						if(temp.getID() == ID.PlayerKnife) {
-							((Knife)temp).click();
-						}
+					if(handler.player.knife!=null) {
+						handler.player.knife.click();
 					}
 					else{
 						handler.player.punch();
 					}
 				}
-			}
 			if(hud.doesPlayerHasGun() && hud.getAmmo() > 0 &&  e.getButton() == MouseEvent.BUTTON3) {
 				handler.addObject(new Bullet(handler.player.getX() + PLAYER_WIDTH/2, 
 						handler.player.getY() + PLAYER_HEIGHT/5 * 2, ID.PlayerBullet,

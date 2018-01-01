@@ -20,7 +20,7 @@ public class SmartEnemy extends GameObject{
 	private float gravity = GRAVITY;
 
 	private boolean falling, jumping, sensePlayer, invincible;
-	private int jumpCounter = 0, invincibleTimer = 0;
+	private int invincibleTimer = 0;
 	
 	private HUD hud;
 	private Player player;
@@ -105,9 +105,9 @@ public class SmartEnemy extends GameObject{
 		if(distanceX < 400 && distanceY < 300) {
 			sensePlayer = true;
 			if(Math.signum(player.getX() - x) < 0) {
-				dx = Game.clamp((int)(player.getX() - x)/32, -7, -2);
+				dx = Game.clamp((int)(player.getX() - x)/32, -7, -3);
 			}else if(Math.signum(player.getX() - x) > 0) {
-				dx = Game.clamp((int)(player.getX() - x)/32, 2, 7);
+				dx = Game.clamp((int)(player.getX() - x)/32, 3, 7);
 			}
 		}else {
 			sensePlayer = false;
@@ -119,11 +119,7 @@ public class SmartEnemy extends GameObject{
 			y = block.getY() - height;
 			dy = 0;
 			falling = false;
-			jumpCounter++;
-			if(jumpCounter > 20) {
-				jumping = false;
-				jumpCounter = 0;
-			}
+			jumping = false;
 		}else {
 			falling = true;
 		}
@@ -168,13 +164,13 @@ public class SmartEnemy extends GameObject{
 		g.setColor(new Color(125, Game.clamp(health, 0, SMART_HEALTH) * (255/SMART_HEALTH), 0));
 		g.fillRect((int)x, (int)y - 10 , width * health / SMART_HEALTH, 5);
 		
-		//Bounding Boxes
-		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.red);
-		g2d.draw(getBoundsBottom());
-		g2d.draw(getBoundsTop());
-		g2d.draw(getBoundsLeft());
-		g2d.draw(getBoundsRight());
+//		//Bounding Boxes
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.red);
+//		g2d.draw(getBoundsBottom());
+//		g2d.draw(getBoundsTop());
+//		g2d.draw(getBoundsLeft());
+//		g2d.draw(getBoundsRight());
 
 	}
 	

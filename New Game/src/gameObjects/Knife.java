@@ -22,7 +22,7 @@ public class Knife extends GameObject {
 	
 	private boolean click = false, right = true;
 
-	private int clickCounter = 0, knifeCooldown = 30;
+	private int clickCounter = 0;
 	
 	public Knife(float x, float y, ID id, Player p) {
 		super(x, y, id);
@@ -38,12 +38,10 @@ public class Knife extends GameObject {
 	}
 
 	public void tick(LinkedList<GameObject> objects) {
-		knifeCooldown++;
-		
 		if(click) {
 			clickCounter++;
 		}
-		if(clickCounter > CLICK_SPEED) {
+		if(clickCounter > 100) {
 			click = false;
 			clickCounter = 0;
 		}
@@ -51,12 +49,6 @@ public class Knife extends GameObject {
 		if(player.getDirection() < 0) 
 			right = false;
 		else right = true;
-		
-		if(player.checkBounds(this)) {
-			id = ID.PlayerKnife;
-			
-		}
-		else id = ID.Knife;
 	}
 
 	public void render(Graphics g) {
@@ -71,9 +63,9 @@ public class Knife extends GameObject {
 		}
 
 		//bounds
-//		Graphics2D g2d = (Graphics2D) g;
-//		g.setColor(Color.red);
-//		g2d.draw(getBounds());
+		Graphics2D g2d = (Graphics2D) g;
+		g.setColor(Color.red);
+		g2d.draw(getBounds());
 	}
 	
 	public void click() {
@@ -88,11 +80,11 @@ public class Knife extends GameObject {
 		if(this.id == ID.Knife) {
 			return new Rectangle((int) x, (int) y, 48, 48);
 		}else if(click && right) {
-			return new Rectangle((int) x+ 7, (int) y+23, 55, 20);
+			return new Rectangle((int) x + 22, (int) y + 23, 40, 20);
 		}else if(!click && right){
 			return new Rectangle((int) x, (int) y +  28, 12, 12);
 		}else if(click && ! right) {
-			return new Rectangle((int) x - 45, (int) y+25, 55, 20);
+			return new Rectangle((int) x - 46, (int) y + 23, 40, 20);
 		}else {
 			return new Rectangle((int) x, (int) y +  26, 12, 12);
 		}

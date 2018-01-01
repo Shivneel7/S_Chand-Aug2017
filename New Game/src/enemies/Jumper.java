@@ -93,7 +93,7 @@ public class Jumper extends GameObject{
 	private void normalBlockCollision(GameObject block) {
 		if(this.getBoundsBottom().intersects(block.getBounds())) {
 			y = block.getY() - height;
-			dy = -10 - r.nextInt(5);
+			dy = -10 - r.nextInt(3);
 			falling = false;
 		}else falling = true;
 		

@@ -16,7 +16,7 @@ public class Player extends GameObject{
 	private int width = PLAYER_WIDTH, height = PLAYER_HEIGHT;
 	private float gravity = GRAVITY;
 
-	private boolean invincible = false, falling, jumping, punching, hasKnife;
+	private boolean invincible = false, falling, jumping, punching;
 	
 	//Timers and cool downs
 	private int punchTimer, invincibleTimer = 0;
@@ -27,8 +27,8 @@ public class Player extends GameObject{
 
 	private Handler handler;
 	private HUD hud;
-	private Checkpoint cp;
-	public Knife knife;
+	private Checkpoint cp;//for switching levels
+	public Knife knife;//for menu
 	
 	
 	public Player(float x, float y, ID id, Handler handler, HUD hud) {
@@ -123,19 +123,23 @@ public class Player extends GameObject{
 			}else if(temp.getID() == ID.Coin && checkBounds(temp)) {
 				hud.increaseScore(100);
 				objects.remove(temp);
-				
-			}else if(temp.getID() == ID.PlayerKnife || temp.getID() == ID.Knife) {
+
+			}else if(temp.getID() == ID.Knife) {
 				if(checkBounds(temp)) {
-					temp.setX(x + 8);
-					temp.setY(y + 8);
-					knife = (Knife) temp;
-					hasKnife = true;
-				}else hasKnife = false;
+					if(this.knife == null) {
+						((Knife)temp).setID(ID.PlayerKnife);
+						this.knife = (Knife)temp;
+					}else objects.remove(temp);
+				}
 				
+			}else if(temp.getID() == ID.PlayerKnife) {
+				temp.setX(x + 8);
+				temp.setY(y + 8);
+
 			}else if(temp.getID() == ID.HealthUpgrade && checkBounds(temp)) {
 				hud.gainHealth();
 				objects.remove(temp);
-				
+
 			}else if(temp.getID() == ID.AmmoUpgrade && checkBounds(temp)) {
 				hud.increaseAmmo(6);
 				objects.remove(temp);
@@ -175,7 +179,7 @@ public class Player extends GameObject{
 			//punch
 			if(punching) {
 				g.setColor(PLAYER_COLOR);
-				g.fillRect((int)x - 24, (int) y + 32, 24, 8);
+				g.fillRect((int)x - 20, (int) y + 32, 20, 8);
 			}
 			g.setColor(Color.white);
 			g.fillRect((int)x + 8, (int) y + 8, 4, 4);
@@ -226,21 +230,13 @@ public class Player extends GameObject{
 	
 	public Rectangle getBoundsFist() {
 		if(direction < 0) 
-			return new Rectangle((int)x - 24, (int) y + 32, 24, 8);
+			return new Rectangle((int)x - 20, (int) y + 32, 20, 8);
 		else
-			return new Rectangle((int)x + width, (int) y + 32, 24, 8);
+			return new Rectangle((int)x + width, (int) y + 32, 20, 8);
 	}
 	
 	public Rectangle getBounds() {
 		return new Rectangle((int)x,(int)y,width,height);
-	}
-
-	public boolean hasKnife() {
-		return hasKnife;
-	}
-
-	public void setHasKnife(boolean hasKnife) {
-		this.hasKnife = hasKnife;
 	}
 
 	public boolean isJumping() {

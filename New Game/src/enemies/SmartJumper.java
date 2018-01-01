@@ -64,6 +64,7 @@ public class SmartJumper extends GameObject{
 		if(!sensePlayer) {
 			dx = Math.signum(dx) * 2;
 		}
+		
 		for(int i = 0; i < objects.size(); i++) {//collision
 			GameObject temp = objects.get(i);
 			
@@ -73,7 +74,7 @@ public class SmartJumper extends GameObject{
 			}else if(temp.getID() == ID.TransparentBlock && sensePlayer) {
 				if(this.getBoundsBottom().intersects(temp.getBounds()) && dy > 0) {
 					y = temp.getY() - height;
-					dy = -10 - r.nextInt(4);
+					dy = -10 - r.nextInt(3);
 					falling = false;
 				}else {
 					falling = true;
@@ -111,9 +112,9 @@ public class SmartJumper extends GameObject{
 		if(distanceX < 400 && distanceY < 200) {
 			sensePlayer = true;
 			if(Math.signum(player.getX() - x) < 0) {
-				dx = Game.clamp((int)(player.getX() - x)/32, -7, -2);
+				dx = Game.clamp((int)(player.getX() - x)/32, -7, -3);
 			}else if(Math.signum(player.getX() - x) > 0) {
-				dx = Game.clamp((int)(player.getX() - x)/32, 2, 7);
+				dx = Game.clamp((int)(player.getX() - x)/32, 3, 7);
 			}
 		}else {
 			sensePlayer = false;

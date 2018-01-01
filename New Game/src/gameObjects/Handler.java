@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.Scanner;
 
 import blocks.Block;
@@ -35,11 +36,12 @@ public class Handler {
 	
 	private HUD hud;
 	public Player player;
+	private Random r;
 	
 	public Handler(HUD hud){
 		this.hud = hud;
 		BufferedImageLoader loader = new BufferedImageLoader();
-		
+		r = new Random();
 		try {
 			Scanner levelReader = new Scanner(new File("res/lev.txt"));
 			if(levelReader.hasNextInt()) LEVEL = levelReader.nextInt();
@@ -132,23 +134,26 @@ public class Handler {
 				
 				//ENEMIES
 				if(red == 255 && green == 50 & blue == 50) {
-					addObject(new Enemy(xx*32, yy*32, ID.Enemy, -2, hud, player));
+					if(r.nextBoolean()) 
+						addObject(new Enemy(xx*32, yy*32, ID.Enemy, -2, hud, player));
+					else
+						addObject(new Enemy(xx*32, yy*32, ID.Enemy, 2, hud, player));
 				}
 				if(red == 255 && green == 100 & blue == 100) {
 					addObject(new Shooter(xx*32, yy*32, ID.Shooter, -2, hud, player));
 				}
-				if(red == 255 && green == 150 & blue == 150) {
+				if(red == 255 && green == 200 & blue == 50) {
 					addObject(new SmartEnemy(xx*32, yy*32, ID.SmartEnemy, -2, hud, player));
 				}
 				if(red == 255 && green == 50 & blue == 200) {
 					addObject(new Jumper(xx*32, yy*32, ID.Jumper, -2, hud, player));
 				}
-				if(red == 255 && green == 150 & blue == 200) {
+				if(red == 255 && green == 200 & blue == 200) {
 					addObject(new SmartJumper(xx*32, yy*32, ID.SmartJumper, -2, hud, player));
 				}
 				
 				//Other
-				if(red == 255 && green == 201 & blue == 14) {
+				if(red == 200 && green == 120 & blue == 0) {
 					addObject(new Coin(xx*32, yy*32, ID.Coin));
 				}
 				if(red == 0 && green == 100 & blue == 100) {
