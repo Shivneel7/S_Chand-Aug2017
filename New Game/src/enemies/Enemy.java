@@ -50,9 +50,8 @@ public class Enemy extends GameObject{
 		}
 		
 		if(health <= 0) {
-			if(r.nextBoolean()) {
+			if(r.nextBoolean()) 
 				objects.add(new Upgrade(x, y, ID.HealthUpgrade, 0));
-			}
 			hud.increaseScore(50);
 			objects.remove(this);
 		}

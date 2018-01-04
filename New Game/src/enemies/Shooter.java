@@ -17,7 +17,7 @@ import userInterface.HUD;
  * Shoots bullets at the player.
  * When the players gets closer, fire rate increases.
  * Will drop ammo when killed, and give the player a gun.
- * @author shivn
+ * @author Shivneel Chand
  *
  */
 
@@ -59,7 +59,8 @@ public class Shooter extends GameObject{
 		if(health <= 0) {
 			hud.increaseScore(100);
 			hud.setPlayerHasGun(true);
-			objects.add(new Upgrade(x, y + 12, ID.AmmoUpgrade, 0));
+			objects.add(new Upgrade(x, y + 12, ID.AmmoUpgrade, 1));
+			objects.add(new Upgrade(x, y + 12, ID.AmmoUpgrade, -1));
 			objects.remove(this);
 		}
 		for(int i = 0; i < objects.size(); i++) {//collision

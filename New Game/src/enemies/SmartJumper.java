@@ -57,8 +57,11 @@ public class SmartJumper extends GameObject{
 		if(health <= 0){ //if it dies
 			hud.increaseScore(400);
 			objects.add(new Upgrade(x, y + 12, ID.HealthUpgrade, -1));
-			objects.add(new Upgrade(x, y + 12, ID.HealthUpgrade, 0));
 			objects.add(new Upgrade(x, y + 12, ID.HealthUpgrade, 1));
+			
+			if(hud.doesPlayerHasGun()) 
+				objects.add(new Upgrade(x, y + 12, ID.AmmoUpgrade, 0));
+			hud.increaseScore(150);
 			objects.remove(this);
 		}
 		if(!sensePlayer) {

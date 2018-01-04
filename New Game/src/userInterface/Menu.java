@@ -46,12 +46,10 @@ public class Menu extends MouseAdapter implements Constants{
 		if(handler.player.getCP() != null) {
 			handler.player.setX(handler.player.getCP().getX());
 			handler.player.setY(handler.player.getCP().getY());
-			if(handler.player.knife!=null) {
-				handler.addObject(handler.player.knife);//handler.player.getX(), handler.player.getY(), ID.PlayerKnife, handler.player));
-											//handler.player.knife <-- adds the knife to the place it was when player died.
-			}
 		}
-		
+		if(handler.player.knife!=null) {
+			handler.addObject(handler.player.knife);
+		}
 		Game.gameState = STATE.Game;
 	}
 

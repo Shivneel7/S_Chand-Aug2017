@@ -55,8 +55,11 @@ public class Jumper extends GameObject{
 		
 		if(health <= 0){ //if it dies
 			hud.increaseScore(200);
-			objects.add(new Upgrade(x, y + 12, ID.HealthUpgrade, -1));
-			objects.add(new Upgrade(x, y + 12, ID.HealthUpgrade, 1));
+			if(r.nextBoolean())
+				objects.add(new Upgrade(x, y + 12, ID.HealthUpgrade, -1));
+			if(hud.doesPlayerHasGun())
+				objects.add(new Upgrade(x, y + 12, ID.AmmoUpgrade, 1));
+			hud.increaseScore(50);
 			objects.remove(this);
 		}
 		

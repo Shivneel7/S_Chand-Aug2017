@@ -135,9 +135,9 @@ public class Handler {
 				//ENEMIES
 				if(red == 255 && green == 50 & blue == 50) {
 					if(r.nextBoolean()) 
-						addObject(new Enemy(xx*32, yy*32, ID.Enemy, -2, hud, player));
+						addObject(new Enemy(xx*32, yy*32, ID.Enemy, -3, hud, player));
 					else
-						addObject(new Enemy(xx*32, yy*32, ID.Enemy, 2, hud, player));
+						addObject(new Enemy(xx*32, yy*32, ID.Enemy, 3, hud, player));
 				}
 				if(red == 255 && green == 100 & blue == 100) {
 					addObject(new Shooter(xx*32, yy*32, ID.Shooter, -2, hud, player));

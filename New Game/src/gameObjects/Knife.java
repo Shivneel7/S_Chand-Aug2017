@@ -41,7 +41,7 @@ public class Knife extends GameObject {
 		if(click) {
 			clickCounter++;
 		}
-		if(clickCounter > 100) {
+		if(clickCounter > CLICK_SPEED) {
 			click = false;
 			clickCounter = 0;
 		}
@@ -63,9 +63,9 @@ public class Knife extends GameObject {
 		}
 
 		//bounds
-		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.red);
-		g2d.draw(getBounds());
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.red);
+//		g2d.draw(getBounds());
 	}
 	
 	public void click() {
