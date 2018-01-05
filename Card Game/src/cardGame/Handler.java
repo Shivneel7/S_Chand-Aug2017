@@ -15,26 +15,26 @@ public class Handler implements Constants {
 	
 	public Handler() {
 		makeBoard();
-		for(int i = 0; i < 13; i++) {
-			Card temp = new Card(SPACE, SPACE,  "Spades", i + 1);
-			cards.add(temp);
-			stock.addCard(temp);
-		}
-		for(int i = 0; i < 13; i++) {
-			Card temp = new Card(SPACE, SPACE,  "Clubs", i + 1);
-			cards.add(temp);
-			stock.addCard(temp);
-		}
-		for(int i = 0; i < 13; i++) {
-			Card temp = new Card(SPACE, SPACE,  "Hearts", i + 1);
-			cards.add(temp);
-			stock.addCard(temp);
-		}
-		for(int i = 0; i < 13; i++) {
-			Card temp = new Card(SPACE, SPACE,  "Diamonds", i + 1);
-			cards.add(temp);
-			stock.addCard(temp);
-		}
+//		for(int i = 0; i < 13; i++) {
+//			Card temp = new Card(SPACE, SPACE,  "Spades", i + 1);
+//			cards.add(temp);
+//			stock.addCard(temp);
+//		}
+//		for(int i = 0; i < 13; i++) {
+//			Card temp = new Card(SPACE, SPACE,  "Clubs", i + 1);
+//			cards.add(temp);
+//			stock.addCard(temp);
+//		}
+//		for(int i = 0; i < 13; i++) {
+//			Card temp = new Card(SPACE, SPACE,  "Hearts", i + 1);
+//			cards.add(temp);
+//			stock.addCard(temp);
+//		}
+//		for(int i = 0; i < 13; i++) {
+//			Card temp = new Card(SPACE, SPACE,  "Diamonds", i + 1);
+//			cards.add(temp);
+//			stock.addCard(temp);
+//		}
 	}
 	
 	public void makeBoard() {
@@ -49,8 +49,10 @@ public class Handler implements Constants {
 		tableau = new Deck[7];
 		for(int i = 0; i < tableau.length; i ++) {
 			tableau[i] = new Deck((SPACE * (i+2)) + DECK_WIDTH * i , SPACE * 2 + DECK_HEIGHT, i+1);
-//			tableau[i].addCard(new Card((SPACE * (i+2)) + DECK_WIDTH * i, SPACE * 2 + DECK_HEIGHT
-//					, "Spades", 2));
+			for(int j = 0; j <= i; j++) {
+				tableau[i].addCard(new Card((SPACE * (i+2)) + DECK_WIDTH * i, SPACE * 2 + DECK_HEIGHT
+					, "Spades", 2));
+			}
 		}
 	}
 	
