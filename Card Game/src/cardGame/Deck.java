@@ -7,24 +7,28 @@ import java.util.ArrayList;
 public class Deck implements Constants{
 
 	private int x,y;
-
+	private boolean stackable;
+	
 	public ArrayList<Card> deck;
 	
-	public Deck(int x, int y, int size) {
+	public Deck(int x, int y, int size, boolean stackable) {
 		deck = new ArrayList<>(size);
 		this.x = x;
 		this.y = y;
+		this.stackable = stackable;
 	}
 	
 	public Deck(int x, int y) {
-		this(x, y, 10);
+		this(x, y, 10, false);
 	}
 	
 	public void tick() {
-		for(int i = 0; i < deck.size(); i++) {
-			deck.get(i).setY(y+10*i);
+		if(stackable) {
+			for(int i = 0; i < deck.size(); i++) {
+				deck.get(i).setY(y+10*i);
+			}
 		}
-		if(deck.size()>1) {
+		if(deck.size()>0) {
 			deck.get(deck.size()-1).setTop(true);
 		}
 	}
@@ -32,7 +36,7 @@ public class Deck implements Constants{
 	public void render(Graphics g) {
 		g.setColor(Color.white);
 		g.drawRect(x, y, DECK_WIDTH, DECK_HEIGHT);
-		for(int i = 0; i < deck.size(); i++) {
+		for(int i = 0; i < deck.size(); i ++) {
 			deck.get(i).render(g);
 		}
 	}
@@ -41,8 +45,8 @@ public class Deck implements Constants{
 		deck.add(c);
 	}
 	
-	public void removeCard() {
-		deck.remove(deck.size()-1);
+	public void removeCard(Card c) {
+		deck.remove(c);
 	}
 	
 	public Rectangle getBounds() {
@@ -57,4 +61,8 @@ public class Deck implements Constants{
 		return y;
 	}
 
+	public String toString() {
+		return ""+deck;
+	}
+	
 }

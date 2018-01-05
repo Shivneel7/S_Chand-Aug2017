@@ -6,43 +6,51 @@ import java.awt.event.MouseEvent;
 public class MouseHandler extends MouseAdapter implements Constants {
 	
 	private Handler handler;
-	private Card card;
+	
+	private Card held;
 	
 	public MouseHandler(Handler handler) {
 		this.handler = handler;
 	}
-	
+
 	public void mousePressed(MouseEvent e) {
-		for(int i = 0; i < handler.cards.size(); i ++) {
-			if(handler.stock.getBounds().contains(e.getPoint())) {
-				card = handler.stock.deck.get(handler.stock.deck.size()-1);
-				handler.bringToFront(card);
-				card.reveal();
-			}else if(handler.cards.get(i).getBounds().contains(e.getPoint())) {
-				card = handler.cards.get(i);
-				handler.bringToFront(card);
-				card.reveal();
-				//System.out.println(handler.stock.deck);
+		if(held == null) {
+			for(int i = 0; i < handler.decks.length; i++) {
+				Deck tempDeck = handler.decks[i];
+				//System.out.println(tempDeck);
+				if(tempDeck.deck.size() > 0) {
+					for(int j = 0; j < tempDeck.deck.size(); j ++) {
+						if(tempDeck.deck.get(j).getBounds().contains(e.getPoint())) {
+							held = handler.decks[i].deck.get(j);
+							handler.addCard(held);
+							held.reveal();
+							tempDeck.removeCard(held);
+						}
+					}
+				}
 			}
 		}
 	}
-	
+
 	public void mouseReleased(MouseEvent e) {
-		for(int i = 0; i < handler.tableau.length; i ++) {
-			if(handler.tableau[i].getBounds().contains(e.getPoint())) {
-				card.setX(handler.tableau[i].getX());
-				card.setY(handler.tableau[i].getY());
-				handler.tableau[i].addCard(card);
-				handler.stock.deck.remove(card);
+		if(held != null) {
+			for(int i = 0; i < handler.decks.length; i++) {
+				Deck tempDeck = handler.decks[i];
+				if(tempDeck.getBounds().contains(e.getPoint())) {
+					held.setX(tempDeck.getX());
+					held.setY(tempDeck.getY());
+					tempDeck.addCard(held);
+				}
 			}
+			held = null;
 		}
-		card = null;
+		handler.removeCard(held);
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		if(card != null) {
-			card.setX(e.getX() - DECK_WIDTH/2);
-			card.setY(e.getY() - DECK_HEIGHT/2);
+		if(held != null) {
+			held.setX(e.getX() - DECK_WIDTH/2);
+			held.setY(e.getY() - DECK_HEIGHT/2);
 		}
 	}
 	

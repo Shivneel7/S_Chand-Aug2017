@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class Card implements Constants{
+
 	private int x, y;
 	private String suit;
 	private int number;
@@ -16,6 +17,10 @@ public class Card implements Constants{
 		this.y = y;
 		this.suit = suit;
 		this.number = number;
+	}
+
+	public void tick() {
+		
 	}
 	
 	public void render(Graphics g) {
@@ -66,9 +71,6 @@ public class Card implements Constants{
 
 	public void setY(int y) {
 		this.y = y;
-	}
-
-	public void tick() {
 	}
 	
 	public Rectangle getBounds() {
