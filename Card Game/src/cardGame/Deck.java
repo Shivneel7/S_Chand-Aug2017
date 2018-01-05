@@ -7,7 +7,7 @@ public class Deck implements Constants{
 
 	private int x,y;
 
-	private ArrayList<Card> deck;
+	public ArrayList<Card> deck;
 	
 	public Deck(int x, int y, int size) {
 		deck = new ArrayList<>(size);
@@ -16,10 +16,8 @@ public class Deck implements Constants{
 	}
 	
 	public Deck(int x, int y) {
-		this(x, y, 52);
-		for(int i = 1; i <= 13; i++) {
-			this.addCard(new Card(x, y, "Spades", i));
-		}
+		this(x, y, 13);
+		this.addCard(new Card(x, y, "Spades", 2));
 	}
 	
 	public void tick() {
@@ -29,6 +27,9 @@ public class Deck implements Constants{
 	public void render(Graphics g) {
 		g.setColor(Color.white);
 		g.drawRect(x, y, DECK_WIDTH, DECK_HEIGHT);
+		for(int i = 0; i < deck.size(); i++) {
+			deck.get(i).render(g);
+		}
 	}
 	
 	public void addCard(Card c) {

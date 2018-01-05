@@ -11,20 +11,17 @@ public class Game extends Canvas implements Runnable, Constants {
 	private Thread thread;
 	private boolean running = false;
 	
-	private Deck[] slots = new Deck[6];
-	
-	private Deck deck;
+	private DeckHandler handler;
+	private MouseHandler mouse;
 	
 	public Game() {
 		new Window("Cards", GAME_WIDTH, GAME_HEIGHT, this);
 		
-		deck = new Deck(SPACE, SPACE);
-		
-		for(int i = 0; i < 6; i++) {
-			slots[i] = new Deck((SPACE * (i+1)) +  (DECK_WIDTH * i), DECK_HEIGHT + SPACE * 2);
-		}
-		
-		this.addMouseListener(new mouseHandler());
+		handler = new DeckHandler();
+		handler.newGame();;
+		mouse = new MouseHandler(handler);
+		this.addMouseListener(mouse);
+		this.addMouseMotionListener(mouse);
 	}
 	
 	public static void main(String[] args) {
@@ -32,7 +29,7 @@ public class Game extends Canvas implements Runnable, Constants {
 	}
 	
 	public void tick() {
-		//slots.tick();
+
 	}
 	
 	public void render() {
@@ -46,10 +43,8 @@ public class Game extends Canvas implements Runnable, Constants {
 		g.setColor(Color.green);
 		g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 		
-		deck.render(g);
-		for(int i = 0; i < 6; i++) {
-			slots[i].render(g);
-		}
+		handler.render(g);
+		
 		/////////////////////////////////////////////////////
 		g.dispose();
 		bs.show();
