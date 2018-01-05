@@ -9,6 +9,7 @@ public class Card implements Constants{
 	private String suit;
 	private int number;
 	private boolean revealed;
+	private boolean isTop;
 	
 	public Card(int x, int y, String suit, int number) {
 		this.x = x;
@@ -22,18 +23,33 @@ public class Card implements Constants{
 		if(revealed) {
 			g.setColor(Color.white);
 			g.fillRect(x, y, DECK_WIDTH, DECK_HEIGHT);
-			if(suit.equals("Spades") || suit.equals("Clubs") ) {
+			
+			if(suit.equals("Spades")) {
 				g.setColor(Color.black);
-			}else{
+				g.drawString("Spades"+number, x + 20, y + 10);
+				
+			}else if(suit.equals("Clubs")){
+				g.setColor(Color.black);
+				g.drawString("Clubs"+number, x + 20, y + 10);
+				
+			}else if(suit.equals("Diamonds")) {
 				g.setColor(Color.red);
+				g.drawString("Diamonds"+number, x + 20, y + 10);
+				
+			}else {
+				g.setColor(Color.red);
+				g.drawString("Hearts"+number, x + 20, y + 10);
+				
 			}
-			g.drawString(""+number, x + 20, y + 50);
+			g.setColor(Color.black);
+			g.drawRect(x, y, DECK_WIDTH, DECK_HEIGHT);
+
 		}else {
 			g.setColor(Color.black);
 			g.fillRect(x, y, DECK_WIDTH, DECK_HEIGHT);
+			g.setColor(Color.white);
+			g.drawRect(x, y, DECK_WIDTH, DECK_HEIGHT);
 		}
-		g.setColor(Color.white);
-		g.drawRect(x, y, DECK_WIDTH, DECK_HEIGHT);
 	}
 
 	public int getX() {
@@ -56,7 +72,18 @@ public class Card implements Constants{
 	}
 	
 	public Rectangle getBounds() {
-		return new Rectangle(x ,y ,DECK_WIDTH, DECK_HEIGHT);
+		if(isTop)
+			return new Rectangle(x ,y ,DECK_WIDTH, DECK_HEIGHT);
+		else 
+			return new Rectangle(x ,y ,DECK_WIDTH, 10);
+	}
+
+	public boolean isTop() {
+		return isTop;
+	}
+
+	public void setTop(boolean isTop) {
+		this.isTop = isTop;
 	}
 
 	public boolean isRevealed() {
@@ -66,5 +93,10 @@ public class Card implements Constants{
 	public void reveal() {
 		revealed = true;
 	}
+
+	public String toString() {
+		return "suit=" + suit + ", number=" + number;
+	}
+
 	
 }

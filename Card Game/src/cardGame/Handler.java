@@ -14,23 +14,56 @@ public class Handler implements Constants {
 	public LinkedList<Card> cards = new LinkedList<Card>();
 	
 	public Handler() {
-		stock = new Deck(SPACE,SPACE);
+		makeBoard();
+		for(int i = 0; i < 13; i++) {
+			Card temp = new Card(SPACE, SPACE,  "Spades", i + 1);
+			cards.add(temp);
+			stock.addCard(temp);
+		}
+		for(int i = 0; i < 13; i++) {
+			Card temp = new Card(SPACE, SPACE,  "Clubs", i + 1);
+			cards.add(temp);
+			stock.addCard(temp);
+		}
+		for(int i = 0; i < 13; i++) {
+			Card temp = new Card(SPACE, SPACE,  "Hearts", i + 1);
+			cards.add(temp);
+			stock.addCard(temp);
+		}
+		for(int i = 0; i < 13; i++) {
+			Card temp = new Card(SPACE, SPACE,  "Diamonds", i + 1);
+			cards.add(temp);
+			stock.addCard(temp);
+		}
+	}
+	
+	public void makeBoard() {
+		stock = new Deck(SPACE,SPACE, 52);
 		wastePile = new Deck(SPACE * 2 + DECK_WIDTH,SPACE);
 		
 		foundations = new Deck[4];
 		for(int i = 0; i < foundations.length; i ++) {
-			foundations[i] = new Deck((SPACE * (i + 5)) + DECK_WIDTH * (i + 3), SPACE);
+			foundations[i] = new Deck((SPACE * (i + 5)) + DECK_WIDTH * (i + 3), SPACE, 13);
 		}
 		
 		tableau = new Deck[7];
 		for(int i = 0; i < tableau.length; i ++) {
-			tableau[i] = new Deck((SPACE * (i+2)) + DECK_WIDTH * i , SPACE * 2 + DECK_HEIGHT);
+			tableau[i] = new Deck((SPACE * (i+2)) + DECK_WIDTH * i , SPACE * 2 + DECK_HEIGHT, i+1);
+//			tableau[i].addCard(new Card((SPACE * (i+2)) + DECK_WIDTH * i, SPACE * 2 + DECK_HEIGHT
+//					, "Spades", 2));
 		}
 	}
 	
 	public void tick() {
-		for(int i = 0; i < cards.size(); i++) {
-			cards.get(i).tick();
+		stock.tick();
+		wastePile.tick();
+		
+		for(Deck d:  foundations) {
+			d.tick();
+		}
+		
+		for(Deck d:  tableau) {
+			d.tick();
 		}
 	}
 	
@@ -44,10 +77,6 @@ public class Handler implements Constants {
 		
 		for(Deck d:  tableau) {
 			d.render(g);
-		}
-		
-		for(int i = 0; i < cards.size(); i++) {
-			cards.get(i).render(g);
 		}
 	}
 	

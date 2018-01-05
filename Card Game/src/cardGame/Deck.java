@@ -17,11 +17,16 @@ public class Deck implements Constants{
 	}
 	
 	public Deck(int x, int y) {
-		this(x, y, 13);
+		this(x, y, 10);
 	}
 	
 	public void tick() {
-		
+		for(int i = 0; i < deck.size(); i++) {
+			deck.get(i).setY(y+10*i);
+		}
+		if(deck.size()>1) {
+			deck.get(deck.size()-1).setTop(true);
+		}
 	}
 	
 	public void render(Graphics g) {
@@ -48,15 +53,8 @@ public class Deck implements Constants{
 		return x;
 	}
 
-	public void setX(int x) {
-		this.x = x;
-	}
-
 	public int getY() {
 		return y;
 	}
 
-	public void setY(int y) {
-		this.y = y;
-	}
 }

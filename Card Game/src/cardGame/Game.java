@@ -18,9 +18,7 @@ public class Game extends Canvas implements Runnable, Constants {
 		new Window("Cards", GAME_WIDTH, GAME_HEIGHT, this);
 		
 		handler = new Handler();
-		for(int i = 0; i < 500; i +=100) {
-			handler.cards.add(new Card(i, i, "Spades", 2));
-		}
+
 		mouse = new MouseHandler(handler);
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);
@@ -31,7 +29,7 @@ public class Game extends Canvas implements Runnable, Constants {
 	}
 	
 	public void tick() {
-
+		handler.tick();
 	}
 	
 	public void render() {
