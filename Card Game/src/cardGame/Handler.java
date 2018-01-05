@@ -1,15 +1,19 @@
 package cardGame;
 
 import java.awt.Graphics;
+import java.util.LinkedList;
 
-public class DeckHandler implements Constants{
+
+public class Handler implements Constants {
 	
 	Deck stock;
 	Deck wastePile;
 	Deck[] tableau;
 	Deck[] foundations;
 	
-	public DeckHandler() {
+	public LinkedList<Card> cards = new LinkedList<Card>();
+	
+	public Handler() {
 		stock = new Deck(SPACE,SPACE);
 		wastePile = new Deck(SPACE * 2 + DECK_WIDTH,SPACE);
 		
@@ -24,17 +28,15 @@ public class DeckHandler implements Constants{
 		}
 	}
 	
-
-	public void newGame() {
-
-
-		
+	public void tick() {
+		for(int i = 0; i < cards.size(); i++) {
+			cards.get(i).tick();
+		}
 	}
 	
-	public void render(Graphics g){
+	public void render(Graphics g) {
 		stock.render(g);
 		wastePile.render(g);
-		
 		
 		for(Deck d:  foundations) {
 			d.render(g);
@@ -43,5 +45,22 @@ public class DeckHandler implements Constants{
 		for(Deck d:  tableau) {
 			d.render(g);
 		}
+		
+		for(int i = 0; i < cards.size(); i++) {
+			cards.get(i).render(g);
+		}
+	}
+	
+	public void addObject(Card c) {
+		this.cards.add(c);
+	}
+	
+	public void removeObject(Card c) {
+		this.cards.remove(c);
+	}
+	
+	public void bringToFront(Card c) {
+		this.cards.remove(c);
+		this.cards.add(c);
 	}
 }

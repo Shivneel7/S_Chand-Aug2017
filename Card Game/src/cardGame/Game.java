@@ -11,14 +11,16 @@ public class Game extends Canvas implements Runnable, Constants {
 	private Thread thread;
 	private boolean running = false;
 	
-	private DeckHandler handler;
+	private Handler handler;
 	private MouseHandler mouse;
 	
 	public Game() {
 		new Window("Cards", GAME_WIDTH, GAME_HEIGHT, this);
 		
-		handler = new DeckHandler();
-		handler.newGame();;
+		handler = new Handler();
+		for(int i = 0; i < 500; i +=100) {
+			handler.cards.add(new Card(i, i, "Spades", 2));
+		}
 		mouse = new MouseHandler(handler);
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);
