@@ -1,3 +1,4 @@
+package cardGame;
 import java.awt.Canvas;
 import java.awt.Dimension;
 
