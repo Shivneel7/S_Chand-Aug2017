@@ -7,25 +7,26 @@ public class MouseHandler extends MouseAdapter implements Constants {
 	
 	private Handler handler;
 	
-	private Card held;
+	//private Card held;
+	private Deck held;
 	
 	public MouseHandler(Handler handler) {
 		this.handler = handler;
+		held = handler.held;
 	}
 
 	public void mousePressed(MouseEvent e) {
-		if(held == null) {
-			for(int i = 0; i < handler.decks.length; i++) {
-				Deck tempDeck = handler.decks[i];
-				//System.out.println(tempDeck);
-				if(tempDeck.deck.size() > 0) {
-					for(int j = 0; j < tempDeck.deck.size(); j ++) {
-						if(tempDeck.deck.get(j).getBounds().contains(e.getPoint())) {
-							held = handler.decks[i].deck.get(j);
-							handler.addCard(held);
-							held.reveal();
-							tempDeck.removeCard(held);
-						}
+		for(int i = 0; i < handler.decks.length - 1; i++) {
+			Deck tempDeck = handler.decks[i];
+			//System.out.println(tempDeck);
+
+			if(tempDeck.deck.size() > 0) {
+				for(int j = 0; j < tempDeck.deck.size(); j ++) {
+					Card tempCard = tempDeck.deck.get(j);
+					
+					if(tempCard.getBounds().contains(e.getPoint())) {
+						held.addCard(tempDeck);
+						tempDeck.clear();
 					}
 				}
 			}
@@ -33,22 +34,19 @@ public class MouseHandler extends MouseAdapter implements Constants {
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		if(held != null) {
-			for(int i = 0; i < handler.decks.length; i++) {
-				Deck tempDeck = handler.decks[i];
-				if(tempDeck.getBounds().contains(e.getPoint())) {
-					held.setX(tempDeck.getX());
-					held.setY(tempDeck.getY());
-					tempDeck.addCard(held);
-				}
-			}
-			held = null;
-		}
-		handler.removeCard(held);
-	}
+		for(int i = 0; i < handler.decks.length-1; i++) {
+			Deck tempDeck = handler.decks[i];
 
+			if(tempDeck.getBounds().contains(e.getPoint())) {
+				tempDeck.addCard(held);
+				held.clear();
+				held.setX(GAME_WIDTH);
+			}
+		}
+	}
+	
 	public void mouseDragged(MouseEvent e) {
-		if(held != null) {
+		if(!held.isEmpty()) {
 			held.setX(e.getX() - DECK_WIDTH/2);
 			held.setY(e.getY() - DECK_HEIGHT/2);
 		}

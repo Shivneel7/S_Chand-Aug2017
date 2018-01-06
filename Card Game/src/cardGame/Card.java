@@ -9,7 +9,7 @@ public class Card implements Constants{
 	private int x, y;
 	private String suit;
 	private int number;
-	private boolean revealed;
+	private boolean revealed = true;
 	private boolean isTop;
 	
 	public Card(int x, int y, String suit, int number) {

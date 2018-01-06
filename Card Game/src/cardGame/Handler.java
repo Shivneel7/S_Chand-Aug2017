@@ -7,12 +7,14 @@ import java.util.Random;
 
 public class Handler implements Constants {
 	
-	Deck[] decks = new Deck[13];
+	Deck[] decks = new Deck[14];
 	
 	Deck stock;
 	Deck wastePile;
 	Deck[] tableau;
 	Deck[] foundations;
+	Deck held;
+	
 	Random r;
 	
 	public LinkedList<Card> cards = new LinkedList<Card>();
@@ -47,6 +49,7 @@ public class Handler implements Constants {
 	}
 	
 	public void makeBoard() {
+		
 		tableau = new Deck[7];
 		int numCards = 52;
 		for(int i = 0; i < tableau.length; i ++) {
@@ -75,6 +78,9 @@ public class Handler implements Constants {
 		wastePile = new Deck(SPACE * 2 + DECK_WIDTH,SPACE);
 		decks[1] = wastePile;
 		
+		held = new Deck(GAME_WIDTH, GAME_HEIGHT, 10, true);
+		decks[13] = held;
+		
 		foundations = new Deck[4];
 		for(int i = 0; i < foundations.length; i ++) {
 			foundations[i] = new Deck((SPACE * (i + 5)) + DECK_WIDTH * (i + 3), SPACE, 13, false);
@@ -92,19 +98,8 @@ public class Handler implements Constants {
 		for(Deck d: decks) {
 			d.render(g);
 		}
-		if(heldCard != null) {
-			heldCard.render(g);
-		}
 	}
-	
-	public void addCard(Card c) {
-		heldCard = c;
-	}
-	
-	public void removeCard(Card c) {
-		heldCard = null;
-	}
-	
+
 	public void bringToFront(Card c) {
 		this.cards.remove(c);
 		this.cards.add(c);
