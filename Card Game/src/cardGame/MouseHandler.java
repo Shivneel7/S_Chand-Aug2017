@@ -5,28 +5,35 @@ import java.awt.event.MouseEvent;
 
 public class MouseHandler extends MouseAdapter implements Constants {
 	
-	private Handler handler;
-	
-	//private Card held;
+	private Deck[] decks;
 	private Deck held;
+	private Deck stock;
+	private Deck wastePile;
 	
 	public MouseHandler(Handler handler) {
-		this.handler = handler;
-		held = handler.held;
+		decks = handler.getDecks();
+		held = decks[13];
+		stock = decks[0];
+		wastePile = decks[1];
 	}
 
 	public void mousePressed(MouseEvent e) {
-		for(int i = 0; i < handler.decks.length - 1; i++) {
-			Deck tempDeck = handler.decks[i];
-			//System.out.println(tempDeck);
+		if(stock.getBounds().contains(e.getPoint())) {
+			wastePile.addCard(stock.deck.remove(stock.deck.size()-1));
+		}else {
+			for(int i = 0; i < decks.length - 1; i++) {
+				Deck tempDeck = decks[i];
 
-			if(tempDeck.deck.size() > 0) {
-				for(int j = 0; j < tempDeck.deck.size(); j ++) {
-					Card tempCard = tempDeck.deck.get(j);
-					
-					if(tempCard.getBounds().contains(e.getPoint())) {
-						held.addCard(tempDeck);
-						tempDeck.clear();
+				if(tempDeck.deck.size() > 0) {
+					for(int j = 0; j < tempDeck.deck.size(); j ++) {
+						Card tempCard = tempDeck.deck.get(j);
+
+						if(tempCard.getBounds().contains(e.getPoint())) {
+							held.addCard(tempDeck);
+							held.setX(e.getX()- CARD_WIDTH/2);
+							held.setY(e.getY());
+							tempDeck.clear();
+						}
 					}
 				}
 			}
@@ -34,8 +41,8 @@ public class MouseHandler extends MouseAdapter implements Constants {
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		for(int i = 0; i < handler.decks.length-1; i++) {
-			Deck tempDeck = handler.decks[i];
+		for(int i = 0; i < decks.length-1; i++) {
+			Deck tempDeck = decks[i];
 
 			if(tempDeck.getBounds().contains(e.getPoint())) {
 				tempDeck.addCard(held);
@@ -47,8 +54,8 @@ public class MouseHandler extends MouseAdapter implements Constants {
 	
 	public void mouseDragged(MouseEvent e) {
 		if(!held.isEmpty()) {
-			held.setX(e.getX() - DECK_WIDTH/2);
-			held.setY(e.getY() - DECK_HEIGHT/2);
+			held.setX(e.getX()- CARD_WIDTH/2);
+			held.setY(e.getY());
 		}
 	}
 	

@@ -1,91 +1,78 @@
 package cardGame;
 
 import java.awt.Graphics;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Random;
 
 
 public class Handler implements Constants {
-	
-	Deck[] decks = new Deck[14];
-	
-	Deck stock;
-	Deck wastePile;
-	Deck[] tableau;
-	Deck[] foundations;
-	Deck held;
-	
-	Random r;
-	
-	public LinkedList<Card> cards = new LinkedList<Card>();
-	Card heldCard;
+	private Random r;
+	/**
+	 * 14 decks
+	 * @indices
+	 * deck = {0 stock, 1 wastepile, 2-5 foundations, 6-12 tableau, 13 held}
+	 */
+	private Deck[] decks = new Deck[14];
 	
 	public Handler() {
 		r = new Random();
-		
-		for(int i = 1; i <= 13; i ++) {
-			cards.add(new Card(0, 0, "Spades", i));
-		}
-		for(int i = 1; i <= 13; i ++) {
-			cards.add(new Card(0, 0, "Hearts", i));
-		}
-		for(int i = 1; i <= 13; i ++) {
-			cards.add(new Card(0, 0, "Clubs", i));
-		}
-		for(int i = 1; i <= 13; i ++) {
-			cards.add(new Card(0, 0, "Diamonds", i));
-		}
-		
 		makeBoard();
-		
-		for(int i = 0; i < 7; i ++) {
-			for(int j = 0; j < tableau[i].deck.size(); j++) {
-				cards.add(tableau[i].deck.get(j));
-			}
-		}
-		for(int i = 0; i < stock.deck.size(); i ++) {
-			cards.add(stock.deck.get(i));
-		}
 	}
 	
 	public void makeBoard() {
+		ArrayList<Card> freshDeck = getFreshDeck();
 		
-		tableau = new Deck[7];
-		int numCards = 52;
-		for(int i = 0; i < tableau.length; i ++) {
-			tableau[i] = new Deck((SPACE * (i+2)) + DECK_WIDTH * i , SPACE * 2 + DECK_HEIGHT, i+1, true);
+		//tableau, 6-12
+		for(int i = 0; i < 7; i ++) {
+			decks[i + 6] = new Deck((SPACE * (i+2)) + CARD_WIDTH * i , SPACE * 2 + CARD_HEIGHT, DeckID.TABLEAU);
 			for(int j = 0; j <= i; j++) {
-				Card temp = cards.get(r.nextInt(numCards));
-				tableau[i].addCard(temp);
-				decks[i+6] = tableau[i];
-				temp.setX((SPACE * (i+2)) + DECK_WIDTH * i);
-				temp.setY((SPACE * 2 + DECK_HEIGHT));
-				cards.remove(temp);
-				numCards--;
+				Card temp = freshDeck.get(r.nextInt(freshDeck.size()));
+				decks[i + 6].addCard(temp);
+				temp.setX((SPACE * (i+2)) + CARD_WIDTH * i);
+				temp.setY((SPACE * 2 + CARD_HEIGHT));
+				freshDeck.remove(temp);
 			}
 		}
 		
-		stock = new Deck(SPACE,SPACE, 24, false);
-		decks[0] = stock;
+		//stock
+		decks[0] = new Deck(SPACE,SPACE, DeckID.STOCK);
 		for(int i = 0; i < 24; i++) {
-			Card temp = cards.get(r.nextInt(cards.size()));
-			stock.addCard(temp);
+			Card temp = freshDeck.get(r.nextInt(freshDeck.size()));
+			decks[0].addCard(temp);
 			temp.setX((SPACE));
 			temp.setY((SPACE));
-			cards.remove(temp);
+			freshDeck.remove(temp);
 		}
 		
-		wastePile = new Deck(SPACE * 2 + DECK_WIDTH,SPACE);
-		decks[1] = wastePile;
+		//wastePile
+		decks[1] = new Deck(SPACE * 2 + CARD_WIDTH, SPACE, DeckID.WASTEPILE);
 		
-		held = new Deck(GAME_WIDTH, GAME_HEIGHT, 10, true);
-		decks[13] = held;
-		
-		foundations = new Deck[4];
-		for(int i = 0; i < foundations.length; i ++) {
-			foundations[i] = new Deck((SPACE * (i + 5)) + DECK_WIDTH * (i + 3), SPACE, 13, false);
-			decks[i+2] = foundations[i];
+		//foundations
+		for(int i = 0; i < 4; i ++) {
+			decks[i+2] = new Deck((SPACE * (i + 5)) + CARD_WIDTH * (i + 3), SPACE, DeckID.FOUNDATION);
 		}
+		
+		//held
+		decks[13] = new Deck(GAME_WIDTH, GAME_HEIGHT, DeckID.HELD);
+	}
+	
+	public ArrayList<Card> getFreshDeck(){
+		ArrayList<Card> allCards = new ArrayList<>();
+		
+		for(int i = 1; i <= 13; i ++) {
+			allCards.add(new Card(0, 0, "Spades", i));
+		}
+		for(int i = 1; i <= 13; i ++) {
+			allCards.add(new Card(0, 0, "Hearts", i));
+		}
+		for(int i = 1; i <= 13; i ++) {
+			allCards.add(new Card(0, 0, "Clubs", i));
+		}
+		for(int i = 1; i <= 13; i ++) {
+			allCards.add(new Card(0, 0, "Diamonds", i));
+		}
+		
+		return allCards;
 	}
 	
 	public void tick() {
@@ -99,9 +86,8 @@ public class Handler implements Constants {
 			d.render(g);
 		}
 	}
-
-	public void bringToFront(Card c) {
-		this.cards.remove(c);
-		this.cards.add(c);
+	
+	public Deck[] getDecks() {
+		return decks;
 	}
 }

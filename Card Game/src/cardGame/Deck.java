@@ -6,41 +6,47 @@ import java.util.ArrayList;
 
 public class Deck implements Constants{
 
-	private int x,y;
+	private int x,y, width = CARD_WIDTH, height = CARD_HEIGHT;
 	private boolean stackable;
+	private DeckID id;
 	
 	public ArrayList<Card> deck;
 	
-	public Deck(int x, int y, int size, boolean stackable) {
-		deck = new ArrayList<>(size);
+	public Deck(int x, int y, DeckID id) {
+		deck = new ArrayList<>();
 		this.x = x;
 		this.y = y;
-		this.stackable = stackable;
-	}
-	
-	public Deck(int x, int y) {
-		this(x, y, 10, false);
+		this.id = id;
+		this.stackable = id.stackable();
 	}
 
 	public void tick() {
 		
 		for(int i = 0; i < deck.size(); i++) {
-			if(stackable)
+			if(stackable) {
 				deck.get(i).setY(y+10*i);
-			else deck.get(i).setY(y);
+			}
+			else {
+				deck.get(i).setY(y);
+			}
+			if(id == DeckID.WASTEPILE) {
+				deck.get(i).setX(x+ CARD_WIDTH/2 *i);
+				System.out.println(deck.get(i).getX());
+			}else {
+				deck.get(i).setX(x);
+			}
 		}
 		
 		if(deck.size()>0) {
 			deck.get(deck.size()-1).setTop(true);
-		}
-		for(int i = 0; i < deck.size(); i ++) {
-			deck.get(i).setX(x);
+			if(stackable)
+				height = CARD_HEIGHT + ((deck.size()- 1) * 10);
 		}
 	}
 	
 	public void render(Graphics g) {
 		g.setColor(Color.white);
-		g.drawRect(x, y, DECK_WIDTH, DECK_HEIGHT);
+		g.drawRect(x, y, width, CARD_HEIGHT);
 		for(int i = 0; i < deck.size(); i ++) {
 			deck.get(i).render(g);
 		}
@@ -63,7 +69,7 @@ public class Deck implements Constants{
 	}
 	
 	public Rectangle getBounds() {
-		return new Rectangle(x ,y ,DECK_WIDTH, DECK_HEIGHT);
+		return new Rectangle(x ,y, width, height);
 	}
 	
 	public boolean isEmpty() {

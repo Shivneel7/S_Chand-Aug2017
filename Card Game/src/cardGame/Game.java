@@ -15,10 +15,8 @@ public class Game extends Canvas implements Runnable, Constants {
 	private MouseHandler mouse;
 	
 	public Game() {
-		new Window("Cards", GAME_WIDTH, GAME_HEIGHT, this);
-		
 		handler = new Handler();
-
+		new Window("Cards", GAME_WIDTH, GAME_HEIGHT, this);
 		mouse = new MouseHandler(handler);
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);
