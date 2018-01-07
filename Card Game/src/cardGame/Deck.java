@@ -24,7 +24,7 @@ public class Deck implements Constants{
 		
 		for(int i = 0; i < deck.size(); i++) {
 			if(stackable) {
-				deck.get(i).setY(y+10*i);
+				deck.get(i).setY(y+ STACK_SPACING *i);
 			}
 			else {
 				deck.get(i).setY(y);
@@ -40,7 +40,7 @@ public class Deck implements Constants{
 		if(deck.size()>0) {
 			deck.get(deck.size()-1).setTop(true);
 			if(stackable)
-				height = CARD_HEIGHT + ((deck.size()- 1) * 10);
+				height = CARD_HEIGHT + ((deck.size()- 1) * STACK_SPACING);
 		}
 	}
 	

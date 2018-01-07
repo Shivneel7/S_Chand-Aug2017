@@ -7,12 +7,12 @@ import java.awt.Rectangle;
 public class Card implements Constants{
 
 	private int x, y, number;
-	private String suit;
+	private Suit suit;
 
 	private boolean revealed = true;
 	private boolean isTop;
 	
-	public Card(int x, int y, String suit, int number) {
+	public Card(int x, int y, Suit suit, int number) {
 		this.x = x;
 		this.y = y;
 		this.suit = suit;
@@ -26,26 +26,15 @@ public class Card implements Constants{
 	public void render(Graphics g) {
 		
 		if(revealed) {
+			//placeholder for graphics.
+			//card back
 			g.setColor(Color.white);
 			g.fillRect(x, y, CARD_WIDTH, CARD_HEIGHT);
+			//card text
+			g.setColor(suit.color());
 			
-			if(suit.equals("Spades")) {
-				g.setColor(Color.black);
-				g.drawString("Spades"+number, x + 20, y + 10);
-				
-			}else if(suit.equals("Clubs")){
-				g.setColor(Color.black);
-				g.drawString("Clubs"+number, x + 20, y + 10);
-				
-			}else if(suit.equals("Diamonds")) {
-				g.setColor(Color.red);
-				g.drawString("Diamonds"+number, x + 20, y + 10);
-				
-			}else {
-				g.setColor(Color.red);
-				g.drawString("Hearts"+number, x + 20, y + 10);
-				
-			}
+			g.drawString("" +suit+number, x + 17, y + 13);
+			//card border
 			g.setColor(Color.black);
 			g.drawRect(x, y, CARD_WIDTH, CARD_HEIGHT);
 
@@ -61,7 +50,7 @@ public class Card implements Constants{
 		if(isTop)
 			return new Rectangle(x ,y ,CARD_WIDTH, CARD_HEIGHT);
 		else 
-			return new Rectangle(x ,y ,CARD_WIDTH, 10);
+			return new Rectangle(x ,y ,CARD_WIDTH, STACK_SPACING);
 	}
 
 	public int getX() {

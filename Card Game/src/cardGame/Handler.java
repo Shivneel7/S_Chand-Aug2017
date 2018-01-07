@@ -60,16 +60,16 @@ public class Handler implements Constants {
 		ArrayList<Card> allCards = new ArrayList<>();
 		
 		for(int i = 1; i <= 13; i ++) {
-			allCards.add(new Card(0, 0, "Spades", i));
+			allCards.add(new Card(0, 0, Suit.SPADE, i));
 		}
 		for(int i = 1; i <= 13; i ++) {
-			allCards.add(new Card(0, 0, "Hearts", i));
+			allCards.add(new Card(0, 0, Suit.CLUB, i));
 		}
 		for(int i = 1; i <= 13; i ++) {
-			allCards.add(new Card(0, 0, "Clubs", i));
+			allCards.add(new Card(0, 0, Suit.HEART, i));
 		}
 		for(int i = 1; i <= 13; i ++) {
-			allCards.add(new Card(0, 0, "Diamonds", i));
+			allCards.add(new Card(0, 0, Suit.DIAMOND, i));
 		}
 		
 		return allCards;
