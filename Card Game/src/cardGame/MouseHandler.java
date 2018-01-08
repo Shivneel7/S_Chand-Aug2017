@@ -19,20 +19,27 @@ public class MouseHandler extends MouseAdapter implements Constants {
 
 	public void mousePressed(MouseEvent e) {
 		if(stock.getBounds().contains(e.getPoint())) {
-			wastePile.addCard(stock.deck.remove(stock.deck.size()-1));
+			for(int i = 0; i < 3; i++) {
+				if(stock.deck.size() >0) {
+					wastePile.addCard(stock.getTopCard());
+				}
+			}
+		}else if(wastePile.getBounds().contains(e.getPoint())){
+			held.addCard(wastePile.getTopCard());
+			
 		}else {
 			for(int i = 0; i < decks.length - 1; i++) {
 				Deck tempDeck = decks[i];
-
-				if(tempDeck.deck.size() > 0) {
+				
+				if(tempDeck.deck.size() > 0 && tempDeck.getID() != DeckID.FOUNDATION && tempDeck.getID() != DeckID.HELD) {
 					for(int j = 0; j < tempDeck.deck.size(); j ++) {
 						Card tempCard = tempDeck.deck.get(j);
 
 						if(tempCard.getBounds().contains(e.getPoint())) {
-							held.addCard(tempDeck);
+							Card.held = true;
+							held.addCard(tempDeck.getTopCard());
 							held.setX(e.getX()- CARD_WIDTH/2);
 							held.setY(e.getY());
-							tempDeck.clear();
 						}
 					}
 				}
@@ -47,6 +54,7 @@ public class MouseHandler extends MouseAdapter implements Constants {
 			if(tempDeck.getBounds().contains(e.getPoint())) {
 				tempDeck.addCard(held);
 				held.clear();
+				Card.held = false;
 				held.setX(GAME_WIDTH);
 			}
 		}

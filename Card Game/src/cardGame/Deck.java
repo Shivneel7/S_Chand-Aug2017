@@ -1,6 +1,7 @@
 package cardGame;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public class Deck implements Constants{
 	public void tick() {
 		
 		for(int i = 0; i < deck.size(); i++) {
+			deck.get(i).tick();
 			if(stackable) {
 				deck.get(i).setY(y+ STACK_SPACING *i);
 			}
@@ -30,17 +32,24 @@ public class Deck implements Constants{
 				deck.get(i).setY(y);
 			}
 			if(id == DeckID.WASTEPILE) {
-				deck.get(i).setX(x+ CARD_WIDTH/2 *i);
-				System.out.println(deck.get(i).getX());
+				deck.get(i).setX(x + WASTEPILE_SPACING * (i % 3));
+				deck.get(i).reveal();
+				deck.get(i).setWastepile(true);
 			}else {
 				deck.get(i).setX(x);
+				deck.get(i).setTop(false);
+				deck.get(i).setWastepile(false);
+			}
+			if(id == DeckID.STOCK) {
+				deck.get(i).hide();
 			}
 		}
 		
 		if(deck.size()>0) {
 			deck.get(deck.size()-1).setTop(true);
-			if(stackable)
+			if(stackable) {
 				height = CARD_HEIGHT + ((deck.size()- 1) * STACK_SPACING);
+			}
 		}
 	}
 	
@@ -50,6 +59,11 @@ public class Deck implements Constants{
 		for(int i = 0; i < deck.size(); i ++) {
 			deck.get(i).render(g);
 		}
+		
+//		//bounds
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.blue);
+//		g2d.draw(getBounds());
 	}
 	
 	public void addCard(Card c) {
@@ -60,8 +74,8 @@ public class Deck implements Constants{
 		deck.addAll(d.deck);
 	}
 	
-	public void removeCard(Card c) {
-		deck.remove(c);
+	public Card getTopCard() {
+		return deck.remove(deck.size()-1);
 	}
 	
 	public void clear() {
@@ -90,6 +104,14 @@ public class Deck implements Constants{
 
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	public DeckID getID() {
+		return id;
+	}
+
+	public void setId(DeckID id) {
+		this.id = id;
 	}
 
 	public String toString() {
