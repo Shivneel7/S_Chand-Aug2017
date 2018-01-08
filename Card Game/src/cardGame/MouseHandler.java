@@ -61,14 +61,16 @@ public class MouseHandler extends MouseAdapter implements Constants {
 	public void mouseReleased(MouseEvent e) {
 		for(int i = 0; i < decks.length-1; i++) {
 			Deck tempDeck = decks[i];
-			if(tempDeck.getBounds().contains(e.getPoint()) && tempDeck.getID()!= DeckID.STOCK) {
+			if(tempDeck.getBounds().contains(e.getPoint()) && tempDeck.getID()!= DeckID.STOCK
+					&& tempDeck.getID()!= DeckID.WASTEPILE) {
 				if(!held.isEmpty()) {
 					checkRules(tempDeck);
 				}
 			}
 		}
-		if(!held.isEmpty())
-		lastDeck.moveAllCards(held);
+		if(!held.isEmpty()) {
+			lastDeck.moveAllCards(held);
+		}
 		held.setX(GAME_WIDTH);
 	}
 
@@ -79,8 +81,6 @@ public class MouseHandler extends MouseAdapter implements Constants {
 		}else if(tempDeck.getBottomCard().getNumber() == held.getTopCard().getNumber() + 1 && tempDeck.getBottomCard().getSuit().color() != held.getTopCard().getSuit().color()) {
 			tempDeck.moveAllCards(held);
 			Card.held = false;
-		}else {
-			lastDeck.moveAllCards(held);
 		}
 	}
 	
