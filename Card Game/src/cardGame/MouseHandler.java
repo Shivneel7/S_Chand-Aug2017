@@ -50,11 +50,11 @@ public class MouseHandler extends MouseAdapter implements Constants {
 					}
 				}
 			}
+		}
+		if(!held.isEmpty()) {
 			Card.held = true;
-			if(!held.isEmpty()) {
-				held.setX(e.getX()- CARD_WIDTH/2);
-				held.setY(e.getY());
-			}
+			held.setX(e.getX()- CARD_WIDTH/2);
+			held.setY(e.getY());
 		}
 	}
 
