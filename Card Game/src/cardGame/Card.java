@@ -52,9 +52,9 @@ public class Card implements Constants{
 		}
 		
 		//bounds
-		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.blue);
-		g2d.draw(getBounds());
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.blue);
+//		g2d.draw(getBounds());
 	}
 	
 	public Rectangle getBounds() {
