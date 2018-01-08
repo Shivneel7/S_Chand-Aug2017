@@ -38,7 +38,7 @@ public class Card implements Constants{
 			
 			//card text
 			g.setColor(suit.color());
-			g.drawString("" +suit+number, x + 17, y + 13);
+			g.drawString("" +suit+ " " +number, x + 15, y + 13);
 			
 			//card border
 			g.setColor(Color.black);
@@ -52,9 +52,9 @@ public class Card implements Constants{
 		}
 		
 		//bounds
-//		Graphics2D g2d = (Graphics2D) g;
-//		g.setColor(Color.blue);
-//		g2d.draw(getBounds());
+		Graphics2D g2d = (Graphics2D) g;
+		g.setColor(Color.blue);
+		g2d.draw(getBounds());
 	}
 	
 	public Rectangle getBounds() {
@@ -101,7 +101,15 @@ public class Card implements Constants{
 	public void reveal() {
 		revealed = true;
 	}
-
+	
+	public Suit getSuit() {
+		return suit;
+	}
+	
+	public int getNumber() {
+		return number;
+	}
+	
 	public boolean isWastepile() {
 		return wastepile;
 	}

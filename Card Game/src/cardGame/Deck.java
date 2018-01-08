@@ -70,12 +70,33 @@ public class Deck implements Constants{
 		deck.add(c);
 	}
 	
-	public void addCard(Deck d) {
+	public void moveAllCards(Deck d) {
+//		int temp =  d.deck.size();
+//		for(int i = 0; i < temp; i++) {
+//			addCard(d.takeBottomCard());
+//		}
 		deck.addAll(d.deck);
+		d.clear();
+	}
+	
+	public Card takeCard(int index) {
+		return deck.remove(index);
+	}
+	
+	public Card takeBottomCard() {
+		return takeCard(deck.size()-1);
+	}
+	
+	public Card takeTopCard() {
+		return takeCard(0);
+	}
+	
+	public Card getBottomCard() {
+		return deck.get(deck.size()-1);
 	}
 	
 	public Card getTopCard() {
-		return deck.remove(deck.size()-1);
+		return deck.get(0);
 	}
 	
 	public void clear() {
@@ -83,7 +104,10 @@ public class Deck implements Constants{
 	}
 	
 	public Rectangle getBounds() {
-		return new Rectangle(x ,y, width, height);
+		if(id == DeckID.WASTEPILE)
+			return new Rectangle(x ,y, WASTEPILE_SPACING * 3, height);
+		else
+			return new Rectangle(x ,y, width, height);
 	}
 	
 	public boolean isEmpty() {
