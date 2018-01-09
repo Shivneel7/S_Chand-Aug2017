@@ -32,7 +32,17 @@ public class Deck implements Constants{
 				deck.get(i).setY(y);
 			}
 			if(id == DeckID.WASTEPILE) {
-				deck.get(i).setX(x + WASTEPILE_SPACING * (i % 3));
+				if(!Card.held) {
+					if(i == deck.size()-1) {
+						deck.get(i).setX(x + WASTEPILE_SPACING * 2);
+					}else if(i == deck.size()-2) {
+						deck.get(i).setX(x + WASTEPILE_SPACING);
+					}else {
+						deck.get(i).setX(x);
+					}
+
+				}
+				//deck.get(i).setX(x + WASTEPILE_SPACING * (i % 3));
 				deck.get(i).reveal();
 				deck.get(i).setWastepile(true);
 			}else {
@@ -60,7 +70,7 @@ public class Deck implements Constants{
 			deck.get(i).render(g);
 		}
 		
-//		//bounds
+		//bounds
 //		Graphics2D g2d = (Graphics2D) g;
 //		g.setColor(Color.blue);
 //		g2d.draw(getBounds());
@@ -71,10 +81,6 @@ public class Deck implements Constants{
 	}
 	
 	public void moveAllCards(Deck d) {
-//		int temp =  d.deck.size();
-//		for(int i = 0; i < temp; i++) {
-//			addCard(d.takeBottomCard());
-//		}
 		deck.addAll(d.deck);
 		d.clear();
 	}
@@ -105,7 +111,7 @@ public class Deck implements Constants{
 	
 	public Rectangle getBounds() {
 		if(id == DeckID.WASTEPILE)
-			return new Rectangle(x ,y, WASTEPILE_SPACING * 3, height);
+			return new Rectangle(x ,y, WASTEPILE_SPACING * 2 + CARD_WIDTH, height);
 		else
 			return new Rectangle(x ,y, width, height);
 	}
