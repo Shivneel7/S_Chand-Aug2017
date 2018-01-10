@@ -13,6 +13,8 @@ public class Card implements Constants{
 	private boolean revealed;
 	private boolean isTop;
 	private boolean wastepile;
+	
+	//true if any card is held
 	public static boolean held;
 	
 	public Card(int x, int y, Suit suit, int number) {
