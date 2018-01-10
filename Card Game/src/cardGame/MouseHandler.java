@@ -31,6 +31,7 @@ public class MouseHandler extends MouseAdapter implements Constants {
 		}else if(wastePile.getBounds().contains(e.getPoint()) && !wastePile.isEmpty()){
 			held.addCard(wastePile.takeBottomCard());
 			lastDeck = wastePile;
+			Deck.canWastePileReset = false;
 		}else {
 			for(int i = 6; i <= 12; i++) {
 				Deck tableau = decks[i];
@@ -72,15 +73,20 @@ public class MouseHandler extends MouseAdapter implements Constants {
 			lastDeck.moveAllCards(held);
 		}
 		held.setX(GAME_WIDTH);
+		Deck.canWastePileReset = true;
 	}
 
 	public void checkRules(Deck tempDeck){
-		if(tempDeck.isEmpty()) {
-			tempDeck.moveAllCards(held);
-			Card.held = false;
-		}else if(tempDeck.getBottomCard().getNumber() == held.getTopCard().getNumber() + 1 && tempDeck.getBottomCard().getSuit().color() != held.getTopCard().getSuit().color()) {
-			tempDeck.moveAllCards(held);
-			Card.held = false;
+		if(tempDeck.getID() == DeckID.TABLEAU) {
+			if(tempDeck.isEmpty()) {
+				tempDeck.moveAllCards(held);
+				Card.held = false;
+			}else if(tempDeck.getBottomCard().getNumber() == held.getTopCard().getNumber() + 1 
+					&& tempDeck.getBottomCard().getSuit().color() != held.getTopCard().getSuit().color()) {
+				//tableaus
+				tempDeck.moveAllCards(held);
+				Card.held = false;
+			}
 		}
 	}
 	

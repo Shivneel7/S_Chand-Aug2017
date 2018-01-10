@@ -17,6 +17,7 @@ public class Handler implements Constants {
 	public Handler() {
 		r = new Random();
 		makeBoard();
+		Card.held = false;
 	}
 	
 	public void makeBoard() {

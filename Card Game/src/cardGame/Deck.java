@@ -9,6 +9,7 @@ public class Deck implements Constants{
 
 	private int x,y, width = CARD_WIDTH, height = CARD_HEIGHT;
 	private boolean stackable;
+	public static boolean canWastePileReset;
 	private DeckID id;
 	
 	public ArrayList<Card> deck;
@@ -32,7 +33,7 @@ public class Deck implements Constants{
 				deck.get(i).setY(y);
 			}
 			if(id == DeckID.WASTEPILE) {
-				if(!Card.held) {
+				if(canWastePileReset) {
 					if(i == deck.size()-1) {
 						deck.get(i).setX(x + WASTEPILE_SPACING * 2);
 					}else if(i == deck.size()-2) {
@@ -40,9 +41,7 @@ public class Deck implements Constants{
 					}else {
 						deck.get(i).setX(x);
 					}
-
 				}
-				//deck.get(i).setX(x + WASTEPILE_SPACING * (i % 3));
 				deck.get(i).reveal();
 				deck.get(i).setWastepile(true);
 			}else {
@@ -56,7 +55,7 @@ public class Deck implements Constants{
 		}
 		
 		if(deck.size()>0) {
-			deck.get(deck.size()-1).setTop(true);
+			getBottomCard().setTop(true);
 			if(stackable) {
 				height = CARD_HEIGHT + ((deck.size()- 1) * STACK_SPACING);
 			}

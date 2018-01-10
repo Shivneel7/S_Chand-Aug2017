@@ -25,7 +25,7 @@ public class Card implements Constants{
 	}
 
 	public void tick() {
-		if(isTop&&!held) {
+		if(isTop && !held) {
 			revealed=true;
 		}
 	}
