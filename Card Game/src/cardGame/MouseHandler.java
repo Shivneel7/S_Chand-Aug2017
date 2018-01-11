@@ -87,6 +87,14 @@ public class MouseHandler extends MouseAdapter implements Constants {
 				tempDeck.moveAllCards(held);
 				Card.held = false;
 			}
+		}else if(tempDeck.getID() == DeckID.FOUNDATION){
+			System.out.println(held);
+			if(tempDeck.isEmpty() && held.getTopCard().getNumber() == 1) {
+				tempDeck.addCard(held.takeTopCard());
+			}else if(tempDeck.getBottomCard().getSuit() == held.getTopCard().getSuit() 
+					&& tempDeck.getBottomCard().getNumber() == held.getTopCard().getNumber() + 1){
+				tempDeck.addCard(held.takeTopCard());
+			}
 		}
 	}
 	
