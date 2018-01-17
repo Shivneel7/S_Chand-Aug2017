@@ -8,10 +8,10 @@ import java.awt.event.MouseEvent;
 
 import framework.Constants;
 import framework.Game;
+import framework.Handler;
 import framework.Game.STATE;
 import gameObjects.Bullet;
 import gameObjects.GameObject;
-import gameObjects.Handler;
 import gameObjects.ID;
 import gameObjects.Knife;
 /**

@@ -1,4 +1,4 @@
-package gameObjects;
+package framework;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -17,9 +17,13 @@ import enemies.Jumper;
 import enemies.Shooter;
 import enemies.SmartEnemy;
 import enemies.SmartJumper;
-import framework.BufferedImageLoader;
-import framework.Game;
 import framework.Game.STATE;
+import gameObjects.Coin;
+import gameObjects.GameObject;
+import gameObjects.Goal;
+import gameObjects.ID;
+import gameObjects.Knife;
+import gameObjects.Player;
 import userInterface.HUD;
 /**
  * Handles all GameObjects and creates and keeps track of levels.

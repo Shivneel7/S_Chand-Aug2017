@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 import blocks.Checkpoint;
 import framework.Game;
+import framework.Handler;
 import framework.Game.STATE;
 import userInterface.HUD;
 

@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
-import gameObjects.Handler;
 import userInterface.HUD;
 import userInterface.Menu;
 

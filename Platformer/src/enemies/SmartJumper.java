@@ -161,12 +161,12 @@ public class SmartJumper extends GameObject{
 		g.fillRect((int)x, (int)y - 10 , width * health / SMART_JUMPER_HEALTH, 5);
 		
 		//Bounding Boxes
-		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.red);
-		g2d.draw(getBoundsBottom());
-		g2d.draw(getBoundsTop());
-		g2d.draw(getBoundsLeft());
-		g2d.draw(getBoundsRight());
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.red);
+//		g2d.draw(getBoundsBottom());
+//		g2d.draw(getBoundsTop());
+//		g2d.draw(getBoundsLeft());
+//		g2d.draw(getBoundsRight());
 
 	}
 

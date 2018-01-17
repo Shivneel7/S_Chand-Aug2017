@@ -3,7 +3,6 @@ package framework;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import gameObjects.Handler;
 import gameObjects.Player;
 
 public class KeyInput implements KeyListener, Constants {
