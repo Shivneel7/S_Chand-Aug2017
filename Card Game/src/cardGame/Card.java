@@ -2,8 +2,8 @@ package cardGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public class Card implements Constants{
 
@@ -14,14 +14,17 @@ public class Card implements Constants{
 	private boolean isTop;
 	private boolean wastepile;
 	
+	private BufferedImage img;
+	
 	//true if any card is held
 	public static boolean held;
 	
-	public Card(int x, int y, Suit suit, int number) {
+	public Card(int x, int y, Suit suit, int number, BufferedImage i) {
 		this.x = x;
 		this.y = y;
 		this.suit = suit;
 		this.number = number;
+		this.img = i;
 	}
 
 	public void tick() {
@@ -39,6 +42,7 @@ public class Card implements Constants{
 			g.fillRect(x, y, CARD_WIDTH, CARD_HEIGHT);
 			
 			//card text
+			g.drawImage(img, x, y, CARD_WIDTH, CARD_HEIGHT, null);
 			g.setColor(suit.color());
 			g.drawString("" +suit+ " " +number, x + 15, y + 13);
 			

@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class Handler implements Constants {
 	private Random r;
+	private SpriteSheet ss;
 	/**
 	 * 14 decks
 	 * @indices
@@ -16,6 +17,7 @@ public class Handler implements Constants {
 	
 	public Handler() {
 		r = new Random();
+		ss = new SpriteSheet();
 		makeBoard();
 		Card.held = false;
 	}
@@ -61,16 +63,16 @@ public class Handler implements Constants {
 		ArrayList<Card> allCards = new ArrayList<>();
 		
 		for(int i = 1; i <= 13; i ++) {
-			allCards.add(new Card(0, 0, Suit.SPADE, i));
+			allCards.add(new Card(0, 0, Suit.SPADE, i, ss.grabCardGraphic(i, 1, 64, 90)));
 		}
 		for(int i = 1; i <= 13; i ++) {
-			allCards.add(new Card(0, 0, Suit.CLUB, i));
+			allCards.add(new Card(0, 0, Suit.CLUB, i, ss.grabCardGraphic(i, 3, 64, 90)));
 		}
 		for(int i = 1; i <= 13; i ++) {
-			allCards.add(new Card(0, 0, Suit.HEART, i));
+			allCards.add(new Card(0, 0, Suit.HEART, i, ss.grabCardGraphic(i, 2, 64, 90)));
 		}
 		for(int i = 1; i <= 13; i ++) {
-			allCards.add(new Card(0, 0, Suit.DIAMOND, i));
+			allCards.add(new Card(0, 0, Suit.DIAMOND, i, ss.grabCardGraphic(i, 4, 64, 90)));
 		}
 		
 		return allCards;
