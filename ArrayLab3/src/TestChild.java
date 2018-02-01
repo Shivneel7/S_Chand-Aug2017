@@ -1,8 +1,12 @@
 
 public class TestChild extends TestSuper {
 	public TestChild() {
-		this.a = 9;
-		this.b = 10;
-		this.c = 12;
+		super();
+	}
+	
+	public void test() {
+		a = 7;
+		b = 7;
+		c = 7;
 	}
 }

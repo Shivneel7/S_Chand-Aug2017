@@ -5,8 +5,8 @@ public class TestSuper {
 	protected int c;
 	
 	public TestSuper(){
-		a = 0;
-		b = 1;
-		c = 7;
+		a = 1;
+		b = 2;
+		c = 3;
 	}
 }
