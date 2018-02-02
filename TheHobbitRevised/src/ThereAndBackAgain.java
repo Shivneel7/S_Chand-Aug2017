@@ -10,11 +10,20 @@ public class ThereAndBackAgain {
 
 		// Create a traveling party called party1 by creating an array of Travelers
 		// and filling it with frodo, sam, and gimli
+		Traveler[] party1 = {frodo, sam, gimli};
+		
 		// Then, use a loop to make all travelers go a distance of 50 miles
+		for(Traveler t: party1) {
+			t.travel(50);
+		}
+		
 		// Then, for each Traveler in the travelingParty, print their name and how far
-		// they've
-		// traveled in miles. (In the next piece, you'll do this in methods, but
+		// they've traveled in miles. (In the next piece, you'll do this in methods, but
 		// for a first pass, just do it in main and print to the console.)
+		for(Traveler t: party1) {
+			System.out.println(t.getName() + " has traveled " + t.getDistanceTraveled() + " miles.");
+		}
+		
 		// Expected output: Frodo has traveled 50 miles.
 		// Sam has traveled 50 miles.
 		// Gimli has traveled 50 miles.
@@ -26,11 +35,14 @@ public class ThereAndBackAgain {
 				"Bofur", "Bombur", "Thorin" };
 
 		// Make a new ArrayList to hold a 2nd party of Travelers called party2:
-
+		ArrayList<Traveler> party2 = new ArrayList<Traveler>();
+		
 		// Call the createParty method and pass it party2 and the dwarfNames array.
+		createParty(party2, dwarfNames);
 
 		// Finally, call the allTravel method passing it party2 and 100 (representing
 		// the 100 miles that party2 has traveled together.
+		
 
 	}
 
@@ -40,19 +52,27 @@ public class ThereAndBackAgain {
 	// Then it uses a loop to add all the dwarves from the String array to the
 	// party.
 	public static void createParty(ArrayList<Traveler> party, String[] dwarfNames) {
-
+		party.add(new Hobbit("Bilbo"));
+		party.add(new Wizard("Gandalf", "Grey"));
+		for(String n: dwarfNames) {
+			party.add(new Dwarf(n));
+		}
 	}
 
 	// The allTravel method accepts an ArrayList of Travelers and an integer number
 	// of miles to travel, then builds and returns a String reporting how far each
-	// member of party has gone. builds a String that says how far each member of
-	// the
-	// party has traveled.
+	// member of party has gone.
+	//builds a String that says how far each member of the party has traveled.
+	
 	// Ex. Bilbo has traveled 100 miles
 	// Gandalf the grey has traveled 300 miles
 	// fili has traveled 100 miles
 	// kili has traveled 100 miles
 	public static String allTravel(ArrayList<Traveler> party, int miles) {
+		for(Traveler t: ) {
+			
+		}
+		
 		return "";
 	}
 }
