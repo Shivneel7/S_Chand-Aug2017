@@ -42,7 +42,7 @@ public class ThereAndBackAgain {
 
 		// Finally, call the allTravel method passing it party2 and 100 (representing
 		// the 100 miles that party2 has traveled together.
-		
+		System.out.println(allTravel(party2, 100));
 
 	}
 
@@ -69,10 +69,12 @@ public class ThereAndBackAgain {
 	// fili has traveled 100 miles
 	// kili has traveled 100 miles
 	public static String allTravel(ArrayList<Traveler> party, int miles) {
-		for(Traveler t: ) {
-			
+		String result = "";
+		for(Traveler t: party) {
+			t.travel(miles);
+			result += t.getName() + " has traveled " + t.getDistanceTraveled() + " miles \n";
 		}
 		
-		return "";
+		return result;
 	}
 }
