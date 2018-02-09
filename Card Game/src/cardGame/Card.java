@@ -36,19 +36,20 @@ public class Card implements Constants{
 	public void render(Graphics g) {
 		
 		if(revealed) {
-			//placeholder for graphics.
+			//cardImage
+			g.drawImage(img, x, y, CARD_WIDTH, CARD_HEIGHT, null);
+			
 			//card back
-			g.setColor(Color.white);
-			g.fillRect(x, y, CARD_WIDTH, CARD_HEIGHT);
+//			g.setColor(Color.white);
+//			g.fillRect(x, y, CARD_WIDTH, CARD_HEIGHT);
 			
 			//card text
-			g.drawImage(img, x, y, CARD_WIDTH, CARD_HEIGHT, null);
-			g.setColor(suit.color());
-			g.drawString("" +suit+ " " +number, x + 15, y + 13);
+//			g.setColor(suit.color());
+//			g.drawString("" +suit+ " " +number, x + 15, y + 13);
 			
 			//card border
-			g.setColor(Color.black);
-			g.drawRect(x, y, CARD_WIDTH, CARD_HEIGHT);
+//			g.setColor(Color.black);
+//			g.drawRect(x, y, CARD_WIDTH, CARD_HEIGHT);
 
 		}else {
 			g.setColor(Color.black);

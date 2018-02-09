@@ -9,7 +9,7 @@ public class SpriteSheet implements Constants {
 	
 	public SpriteSheet() {
 		try {
-			ss = ImageIO.read(getClass().getResource("/cards.png"));
+			ss = ImageIO.read(getClass().getResource("/Playing Cards.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
