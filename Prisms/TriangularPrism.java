@@ -15,8 +15,11 @@ public class TriangularPrism extends Prism{
 	private double sideB;
 	private double sideC;
 	
-	public TriangularPrism(double height) {
+	public TriangularPrism(double height, double s1, double s2, double s3) {
 		super(height);
+		double sideA = s1;
+		double sideB = s2;
+		double sideC = s3;
 	}
 
 	public double calcAreaOfBase() {
