@@ -7,7 +7,7 @@
 public class Cylinder extends Prism{
 	private double radius;
 	
-	public Cylinder(double height, double rad) {
+	public Cylinder(double rad, double height) {
 		super(height);
 		this.radius = rad;
 		
