@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class Handler implements Constants {
+public class Handler implements Constants{
 	private Random r;
 	private SpriteSheet ss;
 	/**
@@ -59,6 +59,13 @@ public class Handler implements Constants {
 		decks[13] = new Deck(GAME_WIDTH, GAME_HEIGHT, DeckID.HELD);
 	}
 	
+	public void resetBoard() {
+		for(int i = 0; i < decks.length; i ++) {
+			decks[i] = null;
+		}
+		makeBoard();
+	}
+	
 	public ArrayList<Card> getFreshDeck(){
 		ArrayList<Card> allCards = new ArrayList<>();
 		
@@ -80,13 +87,13 @@ public class Handler implements Constants {
 	
 	public void tick() {
 		for(Deck d: decks) {
-			d.tick();
+			if(d != null) d.tick();
 		}
 	}
 	
 	public void render(Graphics g) {
 		for(Deck d: decks) {
-			d.render(g);
+			if(d != null) d.render(g);
 		}
 	}
 	

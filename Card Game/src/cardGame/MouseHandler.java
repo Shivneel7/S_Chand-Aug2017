@@ -12,10 +12,7 @@ public class MouseHandler extends MouseAdapter implements Constants {
 	private Deck lastDeck;
 	
 	public MouseHandler(Handler handler) {
-		decks = handler.getDecks();
-		held = decks[13];
-		stock = decks[0];
-		wastePile = decks[1];
+		resetDecks(handler);
 	}
 
 	public void mousePressed(MouseEvent e) {
@@ -108,15 +105,10 @@ public class MouseHandler extends MouseAdapter implements Constants {
 		}
 	}
 	
-	public void mouseMoved(MouseEvent e) {
-		
+	public void resetDecks(Handler handler) {
+		decks = handler.getDecks();
+		held = decks[13];
+		stock = decks[0];
+		wastePile = decks[1];
 	}
-	
-	//Checks if mouse was in a rectangle
-	public boolean getClick(int mx, int my, int x, int y, int width, int height) {
-		if(mx < width + x && mx > x && my < height+y && my > y) {
-			return true;
-		}else return false;
-	}
-	
 }

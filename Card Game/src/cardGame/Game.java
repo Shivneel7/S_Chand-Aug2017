@@ -2,9 +2,11 @@ package cardGame;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 
-public class Game extends Canvas implements Runnable, Constants {
+public class Game extends Canvas implements Runnable, Constants, ActionListener {
 
 	private static final long serialVersionUID = -8921419424614180143L;
 	
@@ -16,7 +18,7 @@ public class Game extends Canvas implements Runnable, Constants {
 	
 	public Game() {
 		handler = new Handler();
-		new Window("Cards", GAME_WIDTH, GAME_HEIGHT, this);
+		new Window("Cards", GAME_WIDTH, GAME_HEIGHT, this).getMenuBar().getMenu(0).getItem(0).addActionListener(this);
 		mouse = new MouseHandler(handler);
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);
@@ -94,5 +96,9 @@ public class Game extends Canvas implements Runnable, Constants {
 			e.printStackTrace();
 		}
 	}
-
+	public void actionPerformed(ActionEvent e) {
+		handler.resetBoard();
+		mouse.resetDecks(handler);
+		Card.held = false;
+	}
 }
