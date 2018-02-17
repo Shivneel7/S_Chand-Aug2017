@@ -76,8 +76,10 @@ public class MouseHandler extends MouseAdapter implements Constants {
 	public void checkRules(Deck tempDeck){
 		if(tempDeck.getID() == DeckID.TABLEAU) {
 			if(tempDeck.isEmpty()) {
-				tempDeck.moveAllCards(held);
-				Card.held = false;
+				if(held.getTopCard().getNumber() == 13) {
+					tempDeck.moveAllCards(held);
+					Card.held = false;
+				}
 			}else if(tempDeck.getBottomCard().getNumber() == held.getTopCard().getNumber() + 1 
 					&& tempDeck.getBottomCard().getSuit().color() != held.getTopCard().getSuit().color()) {
 				//tableaus

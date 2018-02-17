@@ -30,7 +30,7 @@ public class Window extends Canvas{
 	public JMenuBar addMenu() {
 		menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Game");
-		JMenuItem restart = new JMenuItem("Restart");
+		JMenuItem restart = new JMenuItem("New Game");
 		
 		restart.setActionCommand("restart");
 
