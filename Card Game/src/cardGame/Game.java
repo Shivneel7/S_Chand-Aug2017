@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 
+import javax.swing.JMenuBar;
+
 public class Game extends Canvas implements Runnable, Constants, ActionListener {
 
 	private static final long serialVersionUID = -8921419424614180143L;
@@ -13,12 +15,17 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 	private Thread thread;
 	private boolean running = false;
 	
+	private JMenuBar menuBar;
 	private Handler handler;
 	private MouseHandler mouse;
 	
 	public Game() {
 		handler = new Handler();
-		new Window("Cards", GAME_WIDTH, GAME_HEIGHT, this).getMenuBar().getMenu(0).getItem(0).addActionListener(this);
+		menuBar = new Window("Cards", GAME_WIDTH, GAME_HEIGHT, this).getMenuBar();
+		
+		menuBar.getMenu(0).getItem(0).addActionListener(this);
+		menuBar.getMenu(0).getItem(2).addActionListener(this);
+		
 		mouse = new MouseHandler(handler);
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);
@@ -96,9 +103,24 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 			e.printStackTrace();
 		}
 	}
+	
 	public void actionPerformed(ActionEvent e) {
-		handler.resetBoard();
-		mouse.resetDecks(handler);
-		Card.held = false;
+		if(e.getActionCommand().equals("restart")) {
+			handler.resetBoard();
+			mouse.resetDecks(handler);
+			Card.held = false;
+		}else if(e.getActionCommand().equals("hint")) {
+			System.out.println("hint");
+			autoComplete();
+		}
+	}
+	
+	//AUTO COMPLETE CODE
+	public void autoComplete() {
+		//for loop checks if any tableau can be placed in the foundations
+		//check if top of tableau can move to other tableau
+		//click stock and see if the stock can move to the foundations, then the tableau
+		//repeat or go to stock depending on outcome of last step
+		
 	}
 }

@@ -1,11 +1,15 @@
 package cardGame;
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
+import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 public class Window extends Canvas{
 
@@ -31,10 +35,15 @@ public class Window extends Canvas{
 		menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Game");
 		JMenuItem restart = new JMenuItem("New Game");
+		JMenuItem hint = new JMenuItem("Hint");
+		hint.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, KeyEvent.SHIFT_MASK));
 		
 		restart.setActionCommand("restart");
-
+		hint.setActionCommand("hint");
+		
 		menu.add(restart);
+		menu.addSeparator();
+		menu.add(hint);
 		
 		menuBar.add(menu);
 		return menuBar;
