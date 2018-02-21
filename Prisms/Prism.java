@@ -1,3 +1,6 @@
+//Shivneel Chand
+//2-21-18
+
 /* Write this abstract class called Prism.  It has one private field (height) and a constructor.  
  * It contains the methods calcAreaOfBase, calcPerimeter, calcVolume, and calcSA.
  * None of these methods require parameters.   
@@ -9,7 +12,7 @@
  *   and then adding on the areas of the 2 bases.
  */
 
-public abstract class Prism {
+public abstract class Prism extends ThreeDShape{
 	
 	private double height;
 	

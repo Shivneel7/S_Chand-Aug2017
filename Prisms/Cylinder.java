@@ -1,3 +1,6 @@
+//Shivneel Chand
+//2-21-18
+
 /* Write this concrete (non-abstract) class called Cylinder that extends Prism.  
  * It has a private field (radius) and inherits its height from its superclass, Prism 
  *    (because all prisms have a height).
@@ -10,7 +13,6 @@ public class Cylinder extends Prism{
 	public Cylinder(double rad, double height) {
 		super(height);
 		this.radius = rad;
-		
 	}
 
 	public double calcAreaOfBase() {

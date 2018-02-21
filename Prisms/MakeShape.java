@@ -1,3 +1,5 @@
+//Shivneel Chand
+//2-21-18
 
 public class MakeShape {
 
@@ -11,7 +13,7 @@ public class MakeShape {
 		Prism p5 = new Cylinder(5, 10); // V = 785.4, SA = 471.2
 		Prism p6 = new Cylinder(10, 20); // V = 6283.2, SA = 1885.0
 
-		Prism[] prisms = { p1, p2, p3, p4, p5, p6 };
+		Prism[] prisms = {p1, p2, p3, p4, p5, p6};
 
 		for (int i = 0; i < prisms.length; i++) {
 			System.out.println("The volume of p" + (i + 1) + ": " + prisms[i].calcVolume());
