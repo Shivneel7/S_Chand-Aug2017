@@ -6,13 +6,17 @@ import java.util.Iterator;
 public class Main {
 	
 	public static void main(String[] args) {
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("one");
-		list.add("two");
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		list.add(null);
 		list.get(0);
 		
-		Iterator<String> i = list.iterator();
+		Iterator<Integer> i = list.iterator();
 		System.out.println(i.next());
 		System.out.println(i.next());
+		
+		Pig p = new Pig();
+		((Animal) p).method1();
+		
 	}
 }
