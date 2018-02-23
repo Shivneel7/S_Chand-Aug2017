@@ -12,9 +12,13 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private boolean running;
 	
+	private Board board;
 	
 	public Game() {
 		new Window("MineSweeper", GAME_WIDTH, GAME_HEIGHT, this);
+		board = new Board();
+		
+		
 		addMouseListener(new MouseHandler());
 		//addMouseMotionListener(new MouseHandler());
 	}
@@ -34,9 +38,16 @@ public class Game extends Canvas implements Runnable{
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 		
+		board.render(g);
+		
 		/////////////////////////////////////////////////////
 		g.dispose();
 		bs.show();
+	}
+	
+	private void tick() {
+		board.tick();
+		
 	}
 
 	public void run() {
@@ -68,9 +79,6 @@ public class Game extends Canvas implements Runnable{
         stop();
 	}
 
-	private void tick() {
-		
-	}
 	public synchronized void start() {
 		if(!running) {
 			thread = new Thread(this);
