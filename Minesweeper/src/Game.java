@@ -5,20 +5,20 @@ import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 150789955774302817L;
 
-	private static final int GAME_HEIGHT = 600, GAME_WIDTH = 600;
+	private static final int GAME_WIDTH = 600, GAME_HEIGHT = 600;
 	
 	private Thread thread;
 	private boolean running;
 	
 	
 	public Game() {
-		
+		new Window("MineSweeper", GAME_WIDTH, GAME_HEIGHT, this);
+		addMouseListener(new MouseHandler());
+		//addMouseMotionListener(new MouseHandler());
 	}
+	
 	public static void main(String[] args) {
 		new Game();
 	}
@@ -61,7 +61,7 @@ public class Game extends Canvas implements Runnable{
         	frames++;
         	if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
-				// System.out.println("FPS: "+ frames);
+				System.out.println("FPS: "+ frames);
 				frames = 0;
         	}
         }

@@ -21,14 +21,14 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 	
 	public Game() {
 		handler = new Handler();
-		menuBar = new Window("Cards", GAME_WIDTH, GAME_HEIGHT, this).getMenuBar();
+		menuBar = new Window("Shiv's Salty Solitaire", GAME_WIDTH, GAME_HEIGHT, this).getMenuBar();
 		
 		menuBar.getMenu(0).getItem(0).addActionListener(this);
 		menuBar.getMenu(0).getItem(2).addActionListener(this);
 		
 		mouse = new MouseHandler(handler);
-		this.addMouseListener(mouse);
-		this.addMouseMotionListener(mouse);
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
 	}
 	
 	public static void main(String[] args) {

@@ -16,8 +16,8 @@ public class Window extends Canvas{
 	private static final long serialVersionUID = -8255319694373975038L;
 	private JMenuBar menuBar;	
 	
-	public Window(String t, int w, int h, Game game) {
-		JFrame frame = new JFrame(t);
+	public Window(String name, int w, int h, Game game) {
+		JFrame frame = new JFrame(name);
 		frame.setResizable(false);
 		game.setPreferredSize(new Dimension(w,h));
 		frame.add(game);
@@ -25,8 +25,8 @@ public class Window extends Canvas{
 		frame.setLocationRelativeTo(null);
 		//frame.setLocation(1450, 100); //for my second monitor at home.
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		frame.setJMenuBar(addMenu());
+		
 		frame.setVisible(true);
 		game.start();
 	}
