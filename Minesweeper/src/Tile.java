@@ -1,12 +1,12 @@
 
-public class Tiles {
+public class Tile {
 	
 	public final static int WIDTH = Game.WIDTH / 20, HEIGHT = Game.HEIGHT/20;
 	
 	private int x, y; 
 	private boolean mine;
 	
-	public Tiles(int x, int y, boolean mine) {
+	public Tile(int x, int y, boolean mine) {
 		super();
 		this.x = x;
 		this.y = y;
