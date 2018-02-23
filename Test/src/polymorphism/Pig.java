@@ -1,4 +1,4 @@
-package list;
+package polymorphism;
 
 public class Pig extends Animal{
 	

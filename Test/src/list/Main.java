@@ -3,6 +3,9 @@ package list;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import polymorphism.Animal;
+import polymorphism.Pig;
+
 public class Main {
 	
 	public static void main(String[] args) {
