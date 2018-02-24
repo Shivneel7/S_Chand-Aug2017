@@ -1,14 +1,15 @@
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class MouseHandler extends MouseAdapter {
+public class MouseHandler extends MouseAdapter implements Constants{
 
-	public MouseHandler() {
-		
+	public Window window;
+	public MouseHandler(Window window) {
+		this.window = window;
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		System.err.println(e.getPoint());
+		//window.changeSize(GAME_WIDTH, GAME_HEIGHT);
 	}
 	
 	public void mouseMoved(MouseEvent e) {

@@ -1,16 +1,29 @@
+import java.awt.Color;
+import java.awt.Graphics;
 
-public class Tile {
+public class Tile implements Constants{
 	
-	public final static int WIDTH = Game.WIDTH / 20, HEIGHT = Game.HEIGHT/20;
+	
 	
 	private int x, y; 
 	private boolean mine;
-	
-	public Tile(int x, int y, boolean mine) {
+	private Tile[][] board;
+
+	public Tile(int x, int y, boolean mine, Tile[][] board) {
 		super();
-		this.x = x;
-		this.y = y;
+		this.x = x * TILE_LENGTH;
+		this.y = y * TILE_LENGTH;
 		this.mine = mine;
+		this.board = board;
+	}
+
+	public void tick() {
+
+	}
+
+	public void render(Graphics g) {
+		g.setColor(Color.GRAY);
+		g.drawRect(x, y, TILE_LENGTH, TILE_LENGTH);
 	}
 
 	public int getX() {

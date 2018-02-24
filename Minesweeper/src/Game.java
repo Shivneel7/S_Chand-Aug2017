@@ -3,23 +3,21 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-public class Game extends Canvas implements Runnable{
+public class Game extends Canvas implements Runnable, Constants{
 
 	private static final long serialVersionUID = 150789955774302817L;
-
-	private static final int GAME_WIDTH = 600, GAME_HEIGHT = 600;
 	
 	private Thread thread;
 	private boolean running;
 	
 	private Board board;
+	private Window window;
 	
 	public Game() {
-		new Window("MineSweeper", GAME_WIDTH, GAME_HEIGHT, this);
 		board = new Board();
+		window = new Window("MineSweeper", GAME_WIDTH, GAME_HEIGHT, this);
 		
-		
-		addMouseListener(new MouseHandler());
+		addMouseListener(new MouseHandler(window));
 		//addMouseMotionListener(new MouseHandler());
 	}
 	
@@ -35,7 +33,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		Graphics g = bs.getDrawGraphics();
 		/////////////////////////////////////////////////////
-		g.setColor(Color.GRAY);
+		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 		
 		board.render(g);
