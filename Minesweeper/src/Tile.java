@@ -5,16 +5,17 @@ public class Tile implements Constants{
 	
 	
 	
-	private int x, y; 
+	private int x, y, temp; 
 	private boolean mine;
 	private Tile[][] board;
 
-	public Tile(int x, int y, boolean mine, Tile[][] board) {
+	public Tile(int row, int col, boolean mine, Tile[][] board, int temp) {
 		super();
-		this.x = x * TILE_LENGTH;
-		this.y = y * TILE_LENGTH;
+		this.x = col * TILE_LENGTH;
+		this.y = row * TILE_LENGTH;
 		this.mine = mine;
 		this.board = board;
+		this.temp = temp;
 	}
 
 	public void tick() {
@@ -22,8 +23,8 @@ public class Tile implements Constants{
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.GRAY);
-		g.drawRect(x, y, TILE_LENGTH, TILE_LENGTH);
+		g.setColor(new Color(temp*2, temp*2, temp*2));
+		g.fillRect(x, y, TILE_LENGTH, TILE_LENGTH);
 	}
 
 	public int getX() {

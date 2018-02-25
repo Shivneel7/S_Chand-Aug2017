@@ -6,15 +6,17 @@ public class Board implements Constants{
 	Tile[][] board;
 	ArrayList<Boolean> random = new ArrayList<>();
 	public Board() {
-		board = new Tile[NUM_COL][NUM_ROW];
+		board = new Tile[NUM_ROW][NUM_COL];
 		addTiles();
 		//Save tiles in a 2d array
 	}
 	
 	public void addTiles() {
-		for(int col = 0; col < board.length; col ++) {
-			for(int row = 0; row < board[col].length; row++) {
-				board[col][row] = new Tile(col, row, false,board);
+		int temp = 0;
+		for(int row = 0; row < board.length; row ++) {
+			for(int col = 0; col < board[row].length; col++) {
+				board[row][col] = new Tile(row, col, false,board, temp);
+				temp++;
 			}
 		}
 	}
