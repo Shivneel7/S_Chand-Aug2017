@@ -1,6 +1,7 @@
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.stream.*;
 
 public class Board implements Constants{
 
@@ -35,15 +36,29 @@ public class Board implements Constants{
 	}
 	
 	private void checkProximity() {
-		for(Tile[] row: board) {
-			for(Tile t: row) {
-				if(!t.hasMine()) {
-					
+		for(int row = 0; row < board.length; row++){
+			for(int col = 0; col < board[row].length; col++) {
+				if(!board[row][col].hasMine()) {
+					getSurrounding(row, col);
 				}
 			}
 		}
+		
+//		for(Tile[] row: board) {
+//			for(Tile t: row) {
+//				if(!t.hasMine()) {
+//					
+//				}
+//			}
+//		}
 	}
-	
+
+	private void getSurrounding(int row, int col) {
+		ArrayList<Tile> sur = new ArrayList<>();
+		
+		
+	}
+
 	public void render(Graphics g) {
 		for(Tile[] row: board) {
 			for(Tile t: row) {
