@@ -17,7 +17,7 @@ public class Game extends Canvas implements Runnable, Constants{
 		board = new Board();
 		window = new Window("MineSweeper", GAME_WIDTH, GAME_HEIGHT, this);
 		
-		addMouseListener(new MouseHandler(window));
+		addMouseListener(new MouseHandler(window, board));
 		//addMouseMotionListener(new MouseHandler());
 	}
 	
@@ -70,7 +70,7 @@ public class Game extends Canvas implements Runnable, Constants{
         	frames++;
         	if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
-				System.out.println("FPS: "+ frames);
+				//System.out.println("FPS: "+ frames);
 				frames = 0;
         	}
         }
