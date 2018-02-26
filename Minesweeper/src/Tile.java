@@ -23,7 +23,7 @@ public class Tile implements Constants{
 	}
 
 	public void render(Graphics g) {
-		g.setColor(new Color(temp*2, temp*2, temp*2));
+		g.setColor(new Color(temp * 1, temp * 2, temp * 4));
 		g.fillRect(x, y, TILE_LENGTH, TILE_LENGTH);
 	}
 
