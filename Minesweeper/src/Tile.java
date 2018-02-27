@@ -5,7 +5,7 @@ import java.awt.Graphics;
 public class Tile implements Constants{
 	
 	private int x, y, proximity = 0,temp; 
-	private boolean mined, clicked;
+	private boolean mined, revealed, flag;
 
 	public Tile(int row, int col, boolean mined, int temp) {
 		this.x = col * TILE_LENGTH;
@@ -19,7 +19,7 @@ public class Tile implements Constants{
 	}
 
 	public void render(Graphics g) {
-		if(clicked) {
+		if(revealed) {
 			g.setColor(Color.WHITE);
 			g.drawRect(x, y, TILE_LENGTH, TILE_LENGTH);
 			g.setColor(Color.BLACK);
@@ -30,8 +30,15 @@ public class Tile implements Constants{
 				g.drawString(""+proximity, x + 5, y + TILE_LENGTH-2);
 			}
 		}else {
-			g.setColor(new Color(temp * 1, temp * 2, temp * 4));
+			g.setColor(new Color(temp * 1, temp, temp * 2));
 			g.fillRect(x, y, TILE_LENGTH, TILE_LENGTH);
+			g.setColor(Color.white);
+			g.drawRect(x, y, TILE_LENGTH, TILE_LENGTH);
+			if(flag) {
+				g.setColor(Color.orange);
+				g.setFont(new Font(null, 0, 48));
+				g.drawString("F", x + 2, y + TILE_LENGTH);
+			}
 		}
 	}
 
@@ -60,22 +67,30 @@ public class Tile implements Constants{
 	}
 
 	public boolean isClicked() {
-		return clicked;
+		return revealed;
 	}
 
 	public void setClicked(boolean clicked) {
-		this.clicked = clicked;
+		this.revealed = clicked;
 	}
 
-	public void click() {
-		clicked = true;
+	public void reveal() {
+		revealed = true;
 	}
 
 	public int getProximity() {
 		return proximity;
 	}
-
+	
+	public void flag() {
+		flag = !flag;
+	}
+	
 	public void setProximity(int proximity) {
 		this.proximity = proximity;
+	}
+	
+	public void incProx() {
+		this.proximity++;
 	}
 }

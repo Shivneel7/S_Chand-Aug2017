@@ -4,21 +4,27 @@ import java.awt.event.MouseEvent;
 public class MouseHandler extends MouseAdapter implements Constants{
 
 	public Window window;
-	public Board board;
+	public Board b;
+	public Tile[][] board;
 	
 	public MouseHandler(Window window, Board b) {
 		this.window = window;
-		this.board = b;
+		this.b = b;
+		this.board = b.getBoard();
 	}
 	
 	public void mousePressed(MouseEvent e) {
 		int row = e.getY() / TILE_LENGTH;
 		int col = e.getX() / TILE_LENGTH;
-		System.out.println(row + " " + col);
-		board.board[row][col].click();
-		
+
+		if(e.getButton() == MouseEvent.BUTTON1) {
+			b.click(row, col);
+		}else if(e.getButton() == MouseEvent.BUTTON3) {
+			board[row][col].flag();
+		}
+
 	}
-	
+
 	public void mouseMoved(MouseEvent e) {
 		//System.out.println(e.getPoint());
 	}

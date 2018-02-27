@@ -1,17 +1,17 @@
+import java.awt.Font;
 import java.awt.Graphics;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.stream.*;
 
 public class Board implements Constants{
 
-	Tile[][] board;
-	ArrayList<Boolean> random = new ArrayList<>();
+	private Tile[][] board;
+	private boolean loss;
+
 	public Board() {
 		board = new Tile[NUM_ROW][NUM_COL];
 		addTiles();
 		plantMines();
-		checkProximity();
+		setTileValues();
 	}
 
 	private void addTiles() {
@@ -23,7 +23,7 @@ public class Board implements Constants{
 			}
 		}
 	}
-	
+
 	private void plantMines(){
 		Random r = new Random();
 		for(int i = 0; i < NUM_MINES;) {
@@ -34,30 +34,48 @@ public class Board implements Constants{
 			}
 		}
 	}
-	
-	private void checkProximity() {
+
+	private void setTileValues() {
 		for(int row = 0; row < board.length; row++){
 			for(int col = 0; col < board[row].length; col++) {
-				if(!board[row][col].hasMine()) {
-					getSurrounding(row, col);
+				Tile temp = board[row][col];
+				if(!temp.hasMine()) {
+					temp.setProximity(checkProximity(row, col));
 				}
 			}
 		}
-		
-//		for(Tile[] row: board) {
-//			for(Tile t: row) {
-//				if(!t.hasMine()) {
-//					
-//				}
-//			}
-//		}
 	}
 
-	private void getSurrounding(int row, int col) {
-		ArrayList<Tile> sur = new ArrayList<>();
-		
-		
+	private int checkProximity(int row, int col) {
+		int numMines = 0;
+		for(int i = row-1; i <= row + 1; i ++) {
+			for(int j = col-1; j <= col + 1; j ++) {
+				if(i >= 0 && i < NUM_COL && j >= 0 && j < NUM_ROW) {
+					if(board[i][j].hasMine()) {
+						numMines++;
+					}
+				}
+			}
+		}
+		return numMines;
 	}
+
+	public void click(int row, int col) {
+		Tile temp = board[row][col];
+		temp.reveal();
+		if(temp.hasMine()) {
+			loss = true;
+		}else if(temp.getProximity() == 0) {
+			if(row > 0 && col > 0) {
+				click(row-1, col-1);
+				click(row-1, col);
+				click(row, col-1);
+			}
+		}
+	}
+
+
+
 
 	public void render(Graphics g) {
 		for(Tile[] row: board) {
@@ -65,9 +83,18 @@ public class Board implements Constants{
 				t.render(g);
 			}
 		}
+		if(loss) {
+			//g.setColor(Color.black);
+			g.setFont(new Font(null, 0, 40));
+			g.drawString("you lost.", 0, GAME_HEIGHT/2);
+		}
 	}
-	
+
 	public void tick() {
-		
+
+	}
+
+	public Tile[][] getBoard() {
+		return board;
 	}
 }
