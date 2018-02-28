@@ -66,10 +66,14 @@ public class Board implements Constants{
 		if(temp.hasMine()) {
 			loss = true;
 		}else if(temp.getProximity() == 0) {
-			if(row > 0 && col > 0) {
-				click(row-1, col-1);
-				click(row-1, col);
-				click(row, col-1);
+			for(int i = row-1; i <= row + 1; i ++) {
+				for(int j = col-1; j <= col + 1; j ++) {
+					if(i >= 0 && i < NUM_COL && j >= 0 && j < NUM_ROW) {
+						if(!board[i][j].isClicked()) {
+							click(i,j);
+						}
+					}
+				}
 			}
 		}
 	}
