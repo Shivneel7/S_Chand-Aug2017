@@ -43,7 +43,6 @@ public class Bird {
 	}
 	
 	public void tick() {
-		System.out.println(p.getX());
 		this.y += dy;
 		if(dy != 0 ) {
 			jumpCounter ++;
@@ -66,7 +65,6 @@ public class Bird {
 			if(Menu.soundsOn)
 				pass.play();
 			lCounter = 0;
-			System.out.println("wad ");
 			score++;
 		}
 	}

@@ -199,14 +199,14 @@ public class Player extends GameObject{
 		}
 
 		//Bounding Boxes
-//		Graphics2D g2d = (Graphics2D) g;
-//		g.setColor(Color.red);
-//		g2d.draw(getBoundsBottom());
-//		g2d.draw(getBoundsTop());
-//		g2d.draw(getBoundsLeft());
-//		g2d.draw(getBoundsRight());
-//		if(punching)
-//			g2d.draw(getBoundsFist());
+		Graphics2D g2d = (Graphics2D) g;
+		g.setColor(Color.red);
+		g2d.draw(getBoundsBottom());
+		g2d.draw(getBoundsTop());
+		g2d.draw(getBoundsLeft());
+		g2d.draw(getBoundsRight());
+		if(punching)
+			g2d.draw(getBoundsFist());
 	}
 
 	public void punch() {

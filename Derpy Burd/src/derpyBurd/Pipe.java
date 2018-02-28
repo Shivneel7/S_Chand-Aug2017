@@ -17,7 +17,7 @@ public class Pipe {
 	public Pipe(Background b) {
 		this.b = b;
 		this.x = b.getX() - 60;
-		this.y = r.nextInt(Game.HEIGHT/2 - 5) + Game.HEIGHT/2;
+		getRandomY();
 	}
 	
 	public int getX() {
@@ -47,14 +47,17 @@ public class Pipe {
 	}
 	
 	public void getRandomY() {
-		y = r.nextInt(195) + 200;
+		y = r.nextInt(Game.HEIGHT/2 - 5) + Game.HEIGHT/2;
 	}
 	
 	public void tick() {
 		this.x = b.getX() - pipeWidth;
-		if(x == (Game.WIDTH % Game.SPEED) - pipeWidth) {
-			y = r.nextInt(Game.HEIGHT/2 - 5) + Game.HEIGHT/2;
+//		if(x == (Game.WIDTH % Game.SPEED) - pipeWidth) {
+//			getRandomY();
+//		}
+		System.out.println(x);
+		if(x==Game.WIDTH - ) {
+			getRandomY();
 		}
 	}
-	
 }

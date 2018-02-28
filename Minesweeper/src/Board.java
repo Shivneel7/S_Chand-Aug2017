@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.Random;
@@ -78,9 +79,6 @@ public class Board implements Constants{
 		}
 	}
 
-
-
-
 	public void render(Graphics g) {
 		for(Tile[] row: board) {
 			for(Tile t: row) {
@@ -88,7 +86,7 @@ public class Board implements Constants{
 			}
 		}
 		if(loss) {
-			//g.setColor(Color.black);
+			g.setColor(Color.black);
 			g.setFont(new Font(null, 0, 40));
 			g.drawString("you lost.", 0, GAME_HEIGHT/2);
 		}

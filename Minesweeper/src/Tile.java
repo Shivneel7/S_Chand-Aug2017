@@ -30,12 +30,14 @@ public class Tile implements Constants{
 				g.drawString(""+proximity, x + 5, y + TILE_LENGTH-2);
 			}
 		}else {
-			g.setColor(new Color(temp * 1, temp, temp * 2));
+			//cool gradient
+			//g.setColor(new Color(temp * 1, temp, temp * 2));
+			g.setColor(Color.GRAY);
 			g.fillRect(x, y, TILE_LENGTH, TILE_LENGTH);
 			g.setColor(Color.white);
 			g.drawRect(x, y, TILE_LENGTH, TILE_LENGTH);
 			if(flag) {
-				g.setColor(Color.orange);
+				g.setColor(Color.black);
 				g.setFont(new Font(null, 0, 48));
 				g.drawString("F", x + 2, y + TILE_LENGTH);
 			}
