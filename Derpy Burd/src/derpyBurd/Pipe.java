@@ -52,11 +52,7 @@ public class Pipe {
 	
 	public void tick() {
 		this.x = b.getX() - pipeWidth;
-//		if(x == (Game.WIDTH % Game.SPEED) - pipeWidth) {
-//			getRandomY();
-//		}
-		System.out.println(x);
-		if(x==Game.WIDTH - ) {
+		if(x == (Game.WIDTH - pipeWidth)) {
 			getRandomY();
 		}
 	}
