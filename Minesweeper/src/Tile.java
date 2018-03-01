@@ -4,14 +4,13 @@ import java.awt.Graphics;
 
 public class Tile implements Constants{
 	
-	private int x, y, proximity = 0,temp; 
+	private int x, y, proximity = 0; 
 	private boolean mined, revealed, flag;
 
-	public Tile(int row, int col, boolean mined, int temp) {
+	public Tile(int row, int col, boolean mined) {
 		this.x = col * TILE_LENGTH;
 		this.y = row * TILE_LENGTH;
 		this.mined = mined;
-		this.temp = temp;
 	}
 
 	public void tick() {
@@ -26,19 +25,17 @@ public class Tile implements Constants{
 			if(mined) {
 				g.fillOval(x, y, TILE_LENGTH, TILE_LENGTH);
 			}else if(proximity>0){
-				g.setFont(new Font(null, 0, 64));
+				g.setFont(new Font(null, 0, TILE_LENGTH));
 				g.drawString(""+proximity, x + 5, y + TILE_LENGTH-2);
 			}
 		}else {
-			//cool gradient
-			//g.setColor(new Color(temp * 1, temp, temp * 2));
 			g.setColor(Color.GRAY);
 			g.fillRect(x, y, TILE_LENGTH, TILE_LENGTH);
 			g.setColor(Color.white);
 			g.drawRect(x, y, TILE_LENGTH, TILE_LENGTH);
 			if(flag) {
 				g.setColor(Color.black);
-				g.setFont(new Font(null, 0, 48));
+				g.setFont(new Font(null, 0, TILE_LENGTH));
 				g.drawString("F", x + 2, y + TILE_LENGTH);
 			}
 		}
@@ -68,11 +65,11 @@ public class Tile implements Constants{
 		this.mined = mine;
 	}
 
-	public boolean isClicked() {
+	public boolean isRevealed() {
 		return revealed;
 	}
 
-	public void setClicked(boolean clicked) {
+	public void setRevealed(boolean clicked) {
 		this.revealed = clicked;
 	}
 

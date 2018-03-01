@@ -16,11 +16,9 @@ public class Board implements Constants{
 	}
 
 	private void addTiles() {
-		int temp = 0;
 		for(int row = 0; row < board.length; row ++) {
 			for(int col = 0; col < board[row].length; col++) {
-				board[row][col] = new Tile(row, col, false, temp);
-				temp++;
+				board[row][col] = new Tile(row, col, false);
 			}
 		}
 	}
@@ -51,7 +49,7 @@ public class Board implements Constants{
 		int numMines = 0;
 		for(int i = row-1; i <= row + 1; i ++) {
 			for(int j = col-1; j <= col + 1; j ++) {
-				if(i >= 0 && i < NUM_COL && j >= 0 && j < NUM_ROW) {
+				if(i >= 0 && i < NUM_ROW && j >= 0 && j < NUM_COL) {
 					if(board[i][j].hasMine()) {
 						numMines++;
 					}
@@ -70,7 +68,7 @@ public class Board implements Constants{
 			for(int i = row-1; i <= row + 1; i ++) {
 				for(int j = col-1; j <= col + 1; j ++) {
 					if(i >= 0 && i < NUM_COL && j >= 0 && j < NUM_ROW) {
-						if(!board[i][j].isClicked()) {
+						if(!board[i][j].isRevealed()) {
 							click(i,j);
 						}
 					}
