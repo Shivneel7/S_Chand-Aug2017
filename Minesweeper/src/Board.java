@@ -63,7 +63,7 @@ public class Board implements Constants{
 		Tile temp = board[row][col];
 		temp.reveal();
 		if(temp.hasMine()) {
-			loss = true;
+			lose();
 		}else if(temp.getProximity() == 0) {
 			for(int i = row-1; i <= row + 1; i ++) {
 				for(int j = col-1; j <= col + 1; j ++) {
@@ -77,6 +77,17 @@ public class Board implements Constants{
 		}
 	}
 
+	private void lose() {
+		for(int row = 0; row < board.length; row++){
+			for(int col = 0; col < board[row].length; col++) {
+				if(board[row][col].hasMine()) {
+					board[row][col].reveal();
+				}
+			}
+		}
+		loss = true;
+	}
+
 	public void render(Graphics g) {
 		for(Tile[] row: board) {
 			for(Tile t: row) {
@@ -86,12 +97,12 @@ public class Board implements Constants{
 		if(loss) {
 			g.setColor(Color.black);
 			g.setFont(new Font(null, 0, 40));
-			g.drawString("you lost.", 0, GAME_HEIGHT/2);
+			g.drawString("you lost.", 0, GAME_HEIGHT- UI_DIS);
 		}
 	}
 
 	public void tick() {
-
+		
 	}
 
 	public Tile[][] getBoard() {

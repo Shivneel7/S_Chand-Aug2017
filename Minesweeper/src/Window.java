@@ -2,9 +2,6 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 
 public class Window extends Canvas {
 
@@ -21,10 +18,7 @@ public class Window extends Canvas {
 		frame.setLocationRelativeTo(null);
 		//frame.setLocation(1450, 100); //for my second monitor at home.
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.setJMenuBar(addMenu());
-		JMenuBar j = new JMenuBar();
-		j.add(new JMenu("test").add(new JMenuItem("test")));
-		frame.setJMenuBar(j);
+		
 		frame.setVisible(true);
 		game.start();
 	}
@@ -33,5 +27,7 @@ public class Window extends Canvas {
 		frame.setSize(width, height);
 	}
 	
-	//add Menu;
+	public void makeMenus() {
+
+	}
 }

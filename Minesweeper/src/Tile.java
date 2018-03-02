@@ -21,7 +21,7 @@ public class Tile implements Constants{
 		if(revealed) {
 			g.setColor(Color.WHITE);
 			g.drawRect(x, y, TILE_LENGTH, TILE_LENGTH);
-			g.setColor(Color.BLACK);
+			g.setColor(Color.RED);
 			if(mined) {
 				g.fillOval(x, y, TILE_LENGTH, TILE_LENGTH);
 			}else if(proximity>0){
