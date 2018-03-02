@@ -67,7 +67,7 @@ public class Board implements Constants{
 		}else if(temp.getProximity() == 0) {
 			for(int i = row-1; i <= row + 1; i ++) {
 				for(int j = col-1; j <= col + 1; j ++) {
-					if(i >= 0 && i < NUM_COL && j >= 0 && j < NUM_ROW) {
+					if(i >= 0 && i < NUM_ROW && j >= 0 && j < NUM_COL) {
 						if(!board[i][j].isRevealed()) {
 							click(i,j);
 						}
