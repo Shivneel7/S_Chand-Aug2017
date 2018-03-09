@@ -1,26 +1,20 @@
+//Shivneel Chand 
+//3-9-18
+
 package textExcel;
 
-//Update this file with your own code.
+public class SpreadsheetLocation implements Location{
 
-public class SpreadsheetLocation implements Location
-{
-    @Override
-    public int getRow()
-    {
-        // TODO Auto-generated method stub
+	public SpreadsheetLocation(String cellName){
+    	
+    }
+    
+    public int getRow(){
         return 0;
     }
 
-    @Override
-    public int getCol()
-    {
-        // TODO Auto-generated method stub
+    public int getCol(){
         return 0;
     }
     
-    public SpreadsheetLocation(String cellName)
-    {
-        // TODO: Fill this out with your own code
-    }
-
 }
