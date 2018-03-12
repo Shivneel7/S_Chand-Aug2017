@@ -4,17 +4,23 @@
 package textExcel;
 
 public class Spreadsheet implements Grid {
-
+	
+	Cell[][] cells;
+	
+	public Spreadsheet() {
+		cells = new Cell[getRows()][getCols()];
+	}
+	
 	public String processCommand(String command) {
-		return null;
+		return "";
 	}
 
 	public int getRows() {
-		return 0;
+		return 20;
 	}
 
 	public int getCols(){
-		return 0;
+		return 12;
 	}
 
 	public Cell getCell(Location loc){

@@ -11,6 +11,9 @@ import java.util.Scanner;
 public class TextExcel {
 
 	public static void main(String[] args) {
-
+		Scanner ui = new Scanner(System.in);
+		do{
+			
+		}while();
 	}
 }
