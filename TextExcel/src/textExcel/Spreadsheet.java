@@ -9,6 +9,11 @@ public class Spreadsheet implements Grid {
 	
 	public Spreadsheet() {
 		cells = new Cell[getRows()][getCols()];
+		for(Cell[] row : cells) {
+			for(Cell cell : row) {
+				cell = new EmptyCell();
+			}
+		}
 	}
 	
 	public String processCommand(String command) {

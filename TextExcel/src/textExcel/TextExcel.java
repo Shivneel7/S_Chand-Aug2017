@@ -11,9 +11,17 @@ import java.util.Scanner;
 public class TextExcel {
 
 	public static void main(String[] args) {
-		Scanner ui = new Scanner(System.in);
-		do{
-			
-		}while();
+		
+		Spreadsheet ss = new Spreadsheet();
+		
+		Scanner userInput = new Scanner(System.in);
+		while (true) {// Accepts strings from the user until the user types "quit"
+			System.out.print("enter command: ");
+			String input = userInput.nextLine();
+			if (input.equals("quit")) {
+				break;
+			}
+			ss.processCommand(input);
+		}
 	}
 }
