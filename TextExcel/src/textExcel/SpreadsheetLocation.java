@@ -8,6 +8,7 @@ public class SpreadsheetLocation implements Location{
 	private String cellName;
 	
 	public SpreadsheetLocation(String cellName){
+		cellName = cellName.toUpperCase();
     	this.cellName = cellName;
     }
     
@@ -16,7 +17,7 @@ public class SpreadsheetLocation implements Location{
     }
 
     public int getCol(){
-        return cellName.charAt(0)-65;
+        return cellName.charAt(0)-'A';
         		
     }
     
