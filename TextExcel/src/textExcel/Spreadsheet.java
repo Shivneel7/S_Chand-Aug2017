@@ -20,7 +20,7 @@ public class Spreadsheet implements Grid {
 
 	public String processCommand(String command) {
 		if (command.indexOf('=') > 0) {
-			String[] arr = command.split(" = ");
+			String[] arr = command.split(" = ", 2);
 			SpreadsheetLocation l = new SpreadsheetLocation(arr[0]);
 			cells[l.getRow()][l.getCol()] = new TextCell(arr[1].replace("\"", ""));
 			return getGridText();
@@ -41,6 +41,7 @@ public class Spreadsheet implements Grid {
 		} else if (command.startsWith("CLEAR ")) {
 			SpreadsheetLocation l = new SpreadsheetLocation(command.substring(6));
 			cells[l.getRow()][l.getCol()] = new EmptyCell();
+			return getGridText();
 		}
 		return "";
 	}
