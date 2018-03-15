@@ -3,11 +3,9 @@
 
 package textExcel;
 
-import java.util.Arrays;
-
 public class Spreadsheet implements Grid {
 
-	Cell[][] cells;
+	private Cell[][] cells;
 
 	public Spreadsheet() {
 		cells = new Cell[getRows()][getCols()];
@@ -19,6 +17,7 @@ public class Spreadsheet implements Grid {
 	}
 
 	public String processCommand(String command) {
+
 		if (command.indexOf('=') > 0) {
 			String[] arr = command.split(" = ", 2);
 			SpreadsheetLocation l = new SpreadsheetLocation(arr[0]);
@@ -28,9 +27,8 @@ public class Spreadsheet implements Grid {
 		} else if (command.length() == 2 || command.length() == 3) {
 			return getCell(new SpreadsheetLocation(command)).fullCellText();
 		}
-		
+
 		command = command.toUpperCase();
-		
 		if (command.equals("CLEAR")) {
 			for (int i = 0; i < getRows(); i++) {
 				for (int j = 0; j < getCols(); j++) {
@@ -67,13 +65,13 @@ public class Spreadsheet implements Grid {
 
 		for (int i = 1; i <= getRows(); i++) {
 			if (i < 10) {
-				fullSheet += i + "  ";//for two digit numbers
+				fullSheet += i + "  ";// for two digit numbers
 			} else {
-				fullSheet += i + " ";//for one digit numbers
+				fullSheet += i + " ";// for one digit numbers
 			}
-			
+
 			for (int j = 0; j < getCols(); j++) {
-				fullSheet += "|" + cells[i-1][j].abbreviatedCellText();
+				fullSheet += "|" + cells[i - 1][j].abbreviatedCellText();
 			}
 			fullSheet += "|\n";
 		}

@@ -22,8 +22,4 @@ public class TextCell implements Cell {
 	public String fullCellText() {
 		return "\"" + text + "\"";
 	}
-	
-	public void setText(String text) {
-		this.text = text;
-	}
 }

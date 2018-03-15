@@ -21,8 +21,6 @@ public class TextExcel {
 			if (input.equals("quit")) {
 				break;
 			}
-			//TestsALL.Helper th = new TestsALL.Helper();
-			//System.out.println(th.getText());
 			System.out.println(ss.processCommand(input));
 		}
 	}
