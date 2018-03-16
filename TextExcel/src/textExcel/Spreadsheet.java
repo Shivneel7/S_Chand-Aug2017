@@ -21,7 +21,18 @@ public class Spreadsheet implements Grid {
 		if (command.indexOf('=') > 0) {
 			String[] arr = command.split(" = ", 2);
 			SpreadsheetLocation l = new SpreadsheetLocation(arr[0]);
-			cells[l.getRow()][l.getCol()] = new TextCell(arr[1].replace("\"", ""));
+			if(arr[1].startsWith("\"")) {
+				cells[l.getRow()][l.getCol()] = new TextCell(arr[1].replace("\"", ""));
+				
+			}else if(arr[1].startsWith("(")) {
+				cells[l.getRow()][l.getCol()] = new FormulaCell(arr[1].replace("(", ""));
+				
+			}else if(arr[1].endsWith("%")) {
+				cells[l.getRow()][l.getCol()] = new PercentCell(arr[1]);
+			}else {
+				cells[l.getRow()][l.getCol()] = new ValueCell(arr[1]);
+			}
+			
 			return getGridText();
 
 		} else if (command.length() == 2 || command.length() == 3) {
