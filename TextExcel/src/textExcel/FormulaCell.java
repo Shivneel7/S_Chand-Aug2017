@@ -7,7 +7,7 @@ public class FormulaCell extends RealCell{
 	}
 	
 	public String abbreviatedCellText() {
-		return "TODO";
+		return "TODO      ";
 	}
 
 	public String fullCellText() {
