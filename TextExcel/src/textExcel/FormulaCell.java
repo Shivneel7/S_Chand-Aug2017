@@ -42,5 +42,4 @@ public class FormulaCell extends RealCell{
 		}
 		return answer;
 	}
-
 }
