@@ -1,3 +1,5 @@
+//Shivneel Chand 
+//3-9-18
 package textExcel;
 
 public class FormulaCell extends RealCell{
@@ -11,7 +13,7 @@ public class FormulaCell extends RealCell{
 	}
 
 	public String fullCellText() {
-		return null;
+		return "TODO";
 	}
 
 	public double getDoubleValue() {

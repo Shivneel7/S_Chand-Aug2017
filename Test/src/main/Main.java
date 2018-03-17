@@ -20,6 +20,8 @@ public class Main {
 		streamTest();
 		//iteratorTest();
 		//polymorphismTest();
+		double d = Double.parseDouble("3.000");
+		System.out.println(d);
 	}
 	
 	public static void consumerTest() {

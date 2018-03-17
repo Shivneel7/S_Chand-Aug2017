@@ -1,3 +1,5 @@
+//Shivneel Chand 
+//3-9-18
 package textExcel;
 
 public abstract class RealCell implements Cell {
@@ -8,19 +10,5 @@ public abstract class RealCell implements Cell {
 		this.value = value;
 	}
 	
-	public String abbreviatedCellText() {
-		if(value.length() > 10) {
-			return value.substring(0, 10);
-		}
-		String temp = value;
-		for(int i = value.length(); i < 10; i++) {
-			temp += " ";
-		}
-		return temp;
-	}
-
-	public abstract String fullCellText();
-	
 	public abstract double getDoubleValue();
-
 }

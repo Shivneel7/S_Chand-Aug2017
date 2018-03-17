@@ -1,3 +1,5 @@
+//Shivneel Chand 
+//3-9-18
 package textExcel;
 
 public class TextCell implements Cell {
@@ -9,14 +11,11 @@ public class TextCell implements Cell {
 	}
 	
 	public String abbreviatedCellText() {
-		if(text.length() > 10) {
-			return text.substring(0, 10);
-		}
 		String temp = text;
 		for(int i = text.length(); i < 10; i++) {
 			temp += " ";
 		}
-		return temp;
+		return temp.substring(0,10);
 	}
 
 	public String fullCellText() {
