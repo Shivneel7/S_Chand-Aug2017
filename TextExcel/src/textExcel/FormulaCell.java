@@ -2,6 +2,8 @@
 //3-9-18
 package textExcel;
 
+import java.util.Arrays;
+
 public class FormulaCell extends RealCell{
 
 	public FormulaCell(String value) {
@@ -9,15 +11,36 @@ public class FormulaCell extends RealCell{
 	}
 	
 	public String abbreviatedCellText() {
-		return "TODO      ";
+		String temp = "" + getDoubleValue();
+		for(int i = temp.length(); i < 10; i++) {
+			temp += " ";
+		}
+		return temp.substring(0, 10);
 	}
 
 	public String fullCellText() {
-		return "TODO";
+		return value;
 	}
 
 	public double getDoubleValue() {
-		return 0;
+		String temp = value.replace("( ", "");
+		String[] parsedValues = temp.split(" ");
+		double answer = Double.parseDouble(parsedValues[0]);
+		
+		for(int i = 2; i < parsedValues.length; i +=2) {
+			String operator = parsedValues[i-1];
+			double operand = Double.parseDouble(parsedValues[i]);
+			if(operator.equals("+")) {
+				answer += operand;
+			}else if(operator.equals("-")) {
+				answer -= operand;
+			}else if(operator.equals("*")) {
+				answer *= operand;
+			}else if(operator.equals("/")) {
+				answer /= operand;
+			}
+		}
+		return answer;
 	}
 
 }

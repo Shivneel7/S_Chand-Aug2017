@@ -9,7 +9,10 @@ public class PercentCell extends RealCell {
 	}
 
 	public String abbreviatedCellText() {
-		String temp = value.substring(0, value.indexOf(".")) + "%";
+		String temp = value;
+		if(temp.contains(".")) {
+			temp = value.split("\\.")[0] + "%";
+		}
 		for(int i = temp.length(); i < 10; i++) {
 			temp += " ";
 		}

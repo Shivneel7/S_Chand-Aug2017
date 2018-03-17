@@ -25,7 +25,7 @@ public class Spreadsheet implements Grid {
 				cells[l.getRow()][l.getCol()] = new TextCell(arr[1].replace("\"", ""));
 				
 			}else if(arr[1].startsWith("(")) {
-				cells[l.getRow()][l.getCol()] = new FormulaCell(arr[1].replace("(", ""));
+				cells[l.getRow()][l.getCol()] = new FormulaCell(arr[1]);
 				
 			}else if(arr[1].endsWith("%")) {
 				cells[l.getRow()][l.getCol()] = new PercentCell(arr[1]);
