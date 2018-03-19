@@ -52,7 +52,7 @@ public class Spreadsheet implements Grid {
 			cells[l.getRow()][l.getCol()] = new EmptyCell();
 			return getGridText();
 		}
-		return "";
+		return "ERROR";
 	}
 
 	public int getRows() {
