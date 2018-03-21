@@ -16,12 +16,20 @@ import polymorphism.Pig;
 public class Main {
 	
 	public static void main(String[] args) {
+//		int a = 2, b = 3, c = 4, x = -5, y = 2;
+//		
+//		if((a*x) + (b*y) + c == 0) {
+//			System.out.println("True");
+//		}else {
+//			System.out.println("False");
+//		}
+		
 		//consumerTest();
-		streamTest();
+		//streamTest();
 		//iteratorTest();
 		//polymorphismTest();
-		double d = Double.parseDouble("3.000");
-		System.out.println(d);
+		//double d = Double.parseDouble("3.000");
+		//System.out.println(d);
 	}
 	
 	public static void consumerTest() {

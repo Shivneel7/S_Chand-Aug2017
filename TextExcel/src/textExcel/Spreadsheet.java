@@ -19,12 +19,14 @@ public class Spreadsheet implements Grid {
 	public String processCommand(String command) {
 
 		if (command.indexOf('=') > 0) {
+			
 			String[] arr = command.split(" = ", 2);
 			SpreadsheetLocation l = new SpreadsheetLocation(arr[0]);
-			if(arr[1].startsWith("\"")) {
+			
+			if(arr[1].startsWith("\"")) {//Makes TextCell by checking for quotes
 				cells[l.getRow()][l.getCol()] = new TextCell(arr[1].replace("\"", ""));
 				
-			}else if(arr[1].startsWith("(")) {
+			}else if(arr[1].startsWith("(")) {//Makes FormulaCell by looking for parentheses
 				cells[l.getRow()][l.getCol()] = new FormulaCell(arr[1], this);
 				
 			}else if(arr[1].endsWith("%")) {
@@ -65,6 +67,10 @@ public class Spreadsheet implements Grid {
 
 	public Cell getCell(Location loc) {
 		return cells[loc.getRow()][loc.getCol()];
+	}
+	
+	public Cell getCell(int row, int col) {
+		return cells[row][col];
 	}
 
 	public String getGridText() {

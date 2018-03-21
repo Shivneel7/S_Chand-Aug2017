@@ -16,7 +16,7 @@ public class PercentCell extends RealCell {
 		for(int i = temp.length(); i < 10; i++) {
 			temp += " ";
 		}
-		return temp;
+		return temp.substring(0, 10);
 	}
 
 	public String fullCellText() {
