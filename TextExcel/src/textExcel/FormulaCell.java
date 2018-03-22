@@ -30,15 +30,15 @@ public class FormulaCell extends RealCell {
 		double answer = 0;
 
 		if (parsedValues[0].equals("AVG")) {// Average
+			answer = avg(parsedValues[1]);
 
-			
 		} else if (parsedValues[0].equals("SUM")) {// Addition
-			answer = sum(parsedValues[1], parsedValues[3]);
-			
+			answer = sum(parsedValues[1]);
+
 		} else {
 			// Normal Formula Cell with doubles and cells
 			answer = stringToDouble(parsedValues[0]);
-			
+
 			for (int i = 2; i < parsedValues.length; i += 2) {
 				String operator = parsedValues[i - 1];
 				double operand = 0;
@@ -58,9 +58,11 @@ public class FormulaCell extends RealCell {
 		}
 		return answer;
 	}
+
 	/**
 	 * 
-	 * @param s - String that will turn into a double
+	 * @param s
+	 *            - String that will turn into a double
 	 * @return The double value either from a Cell, or from parsing the String
 	 */
 	public double stringToDouble(String s) {
@@ -72,19 +74,38 @@ public class FormulaCell extends RealCell {
 		}
 		return result;
 	}
-	
-	public double sum(String cell1, String cell2) {
-		SpreadsheetLocation firstCell = new SpreadsheetLocation(cell1);
-		SpreadsheetLocation secondCell = new SpreadsheetLocation(cell2);
-		
+
+	public double sum(String cellRange) {
+		int index = cellRange.indexOf('-');
+
+		SpreadsheetLocation firstCell = new SpreadsheetLocation(cellRange.substring(0, index));
+		SpreadsheetLocation secondCell = new SpreadsheetLocation(cellRange.substring(index + 1, cellRange.length()));
+
 		double sum = 0;
-		
-		for(int row = firstCell.getRow(); row <= secondCell.getRow(); row ++) {
-			for(int col = firstCell.getCol(); col <= secondCell.getCol(); col++) {
+
+		for (int row = firstCell.getRow(); row <= secondCell.getRow(); row++) {
+			for (int col = firstCell.getCol(); col <= secondCell.getCol(); col++) {
 				sum += ((RealCell) ss.getCell(row, col)).getDoubleValue();
 			}
 		}
-		
+
 		return sum;
+	}
+
+	public double avg(String cellRange) {
+		double sum = sum(cellRange);
+		
+		int index = cellRange.indexOf('-');
+		SpreadsheetLocation firstCell = new SpreadsheetLocation(cellRange.substring(0, index));
+		SpreadsheetLocation secondCell = new SpreadsheetLocation(cellRange.substring(index + 1, cellRange.length()));
+		
+		int numCells = 0;
+		for (int row = firstCell.getRow(); row <= secondCell.getRow(); row++) {
+			for (int col = firstCell.getCol(); col <= secondCell.getCol(); col++) {
+				numCells++;
+			}
+		}
+
+		return sum/numCells;
 	}
 }
