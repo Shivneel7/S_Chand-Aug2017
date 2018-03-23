@@ -98,7 +98,7 @@ public class FormulaCell extends RealCell {
 		int index = cellRange.indexOf('-');
 		SpreadsheetLocation firstCell = new SpreadsheetLocation(cellRange.substring(0, index));
 		SpreadsheetLocation secondCell = new SpreadsheetLocation(cellRange.substring(index + 1, cellRange.length()));
-		
+
 		int numCells = 0;
 		for (int row = firstCell.getRow(); row <= secondCell.getRow(); row++) {
 			for (int col = firstCell.getCol(); col <= secondCell.getCol(); col++) {
@@ -108,4 +108,5 @@ public class FormulaCell extends RealCell {
 
 		return sum/numCells;
 	}
+
 }

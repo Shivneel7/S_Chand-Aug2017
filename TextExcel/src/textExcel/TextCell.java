@@ -2,7 +2,7 @@
 //3-9-18
 package textExcel;
 
-public class TextCell implements Cell {
+public class TextCell implements Cell, Comparable<TextCell> {
 	
 	private String text;
 	
@@ -20,5 +20,15 @@ public class TextCell implements Cell {
 
 	public String fullCellText() {
 		return "\"" + text + "\"";
+	}
+
+	public int compareTo(TextCell tc) {
+		if(fullCellText().charAt(1) > tc.fullCellText().charAt(1)) {
+			return 1;
+		}else if(tc.fullCellText().charAt(1) == fullCellText().charAt(1)) {
+			return 0;
+		}else {
+			return -1;
+		}
 	}
 }

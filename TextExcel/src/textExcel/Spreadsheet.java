@@ -18,7 +18,7 @@ public class Spreadsheet implements Grid {
 
 	public String processCommand(String command) {
 
-		if (command.indexOf('=') > 0) {
+		if (command.contains("=")) {
 			
 			String[] arr = command.split(" = ", 2);
 			SpreadsheetLocation l = new SpreadsheetLocation(arr[0]);
@@ -29,7 +29,7 @@ public class Spreadsheet implements Grid {
 			}else if(arr[1].startsWith("(")) {//Makes FormulaCell by looking for parentheses
 				cells[l.getRow()][l.getCol()] = new FormulaCell(arr[1], this);
 				
-			}else if(arr[1].endsWith("%")) {
+			}else if(arr[1].endsWith("%")) {//Makes percent cell by looking for percent
 				cells[l.getRow()][l.getCol()] = new PercentCell(arr[1]);
 			}else {
 				cells[l.getRow()][l.getCol()] = new ValueCell(arr[1]);
@@ -49,10 +49,18 @@ public class Spreadsheet implements Grid {
 				}
 			}
 			return getGridText();
+			
 		} else if (command.startsWith("CLEAR ")) {
 			SpreadsheetLocation l = new SpreadsheetLocation(command.substring(6));
 			cells[l.getRow()][l.getCol()] = new EmptyCell();
 			return getGridText();
+			
+		}else if(command.startsWith("SORTA")) {
+			
+			
+		}else if(command.startsWith("SORTD")) {
+			
+			
 		}
 		return "ERROR";
 	}
