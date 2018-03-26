@@ -3,6 +3,8 @@
 
 package textExcel;
 
+import java.util.ArrayList;
+
 public class Spreadsheet implements Grid {
 
 	private Cell[][] cells;
@@ -103,4 +105,22 @@ public class Spreadsheet implements Grid {
 		return fullSheet;
 	}
 
+	/** 
+	 * @param cellRange - String that represents the cell Range ex) a1-c3
+	 * @return an ArrayList of RealCells that contains all cells in the Range
+	 */
+	public ArrayList<RealCell> getSubGrid(String cellRange) {
+		ArrayList<RealCell> cells = new ArrayList<RealCell>(); 
+		
+		int index = cellRange.indexOf('-');
+		SpreadsheetLocation firstCell = new SpreadsheetLocation(cellRange.substring(0, index));
+		SpreadsheetLocation secondCell = new SpreadsheetLocation(cellRange.substring(index + 1, cellRange.length()));
+		
+		for (int row = firstCell.getRow(); row <= secondCell.getRow(); row++) {
+			for (int col = firstCell.getCol(); col <= secondCell.getCol(); col++) {
+				cells.add((RealCell) getCell(row, col));
+			}
+		}
+		return cells;
+	}
 }

@@ -2,6 +2,8 @@
 //3-9-18
 package textExcel;
 
+import java.util.ArrayList;
+
 public class FormulaCell extends RealCell {
 
 	private Spreadsheet ss;
@@ -30,7 +32,7 @@ public class FormulaCell extends RealCell {
 		double answer = 0;
 
 		if (parsedValues[0].equals("AVG")) {// Average
-			answer = avg(parsedValues[1]);
+			answer = sum(parsedValues[1]) / ss.getSubGrid(parsedValues[1]).size();
 
 		} else if (parsedValues[0].equals("SUM")) {// Addition
 			answer = sum(parsedValues[1]);
@@ -60,9 +62,7 @@ public class FormulaCell extends RealCell {
 	}
 
 	/**
-	 * 
-	 * @param s
-	 *            - String that will turn into a double
+	 * @param s - String that will turn into a double
 	 * @return The double value either from a Cell, or from parsing the String
 	 */
 	public double stringToDouble(String s) {
@@ -76,37 +76,12 @@ public class FormulaCell extends RealCell {
 	}
 
 	public double sum(String cellRange) {
-		int index = cellRange.indexOf('-');
-
-		SpreadsheetLocation firstCell = new SpreadsheetLocation(cellRange.substring(0, index));
-		SpreadsheetLocation secondCell = new SpreadsheetLocation(cellRange.substring(index + 1, cellRange.length()));
-
+		ArrayList<RealCell> cells = ss.getSubGrid(cellRange);
 		double sum = 0;
-
-		for (int row = firstCell.getRow(); row <= secondCell.getRow(); row++) {
-			for (int col = firstCell.getCol(); col <= secondCell.getCol(); col++) {
-				sum += ((RealCell) ss.getCell(row, col)).getDoubleValue();
-			}
+		for(RealCell rc : cells) {
+			sum += rc.getDoubleValue();
 		}
-
 		return sum;
-	}
-
-	public double avg(String cellRange) {
-		double sum = sum(cellRange);
-		
-		int index = cellRange.indexOf('-');
-		SpreadsheetLocation firstCell = new SpreadsheetLocation(cellRange.substring(0, index));
-		SpreadsheetLocation secondCell = new SpreadsheetLocation(cellRange.substring(index + 1, cellRange.length()));
-
-		int numCells = 0;
-		for (int row = firstCell.getRow(); row <= secondCell.getRow(); row++) {
-			for (int col = firstCell.getCol(); col <= secondCell.getCol(); col++) {
-				numCells++;
-			}
-		}
-
-		return sum/numCells;
 	}
 
 }
