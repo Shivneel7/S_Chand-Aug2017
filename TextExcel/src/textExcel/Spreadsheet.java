@@ -21,22 +21,22 @@ public class Spreadsheet implements Grid {
 	public String processCommand(String command) {
 
 		if (command.contains("=")) {
-			
+
 			String[] arr = command.split(" = ", 2);
 			SpreadsheetLocation l = new SpreadsheetLocation(arr[0]);
-			
-			if(arr[1].startsWith("\"")) {//Makes TextCell by checking for quotes
+
+			if (arr[1].startsWith("\"")) {// Makes TextCell by checking for quotes
 				cells[l.getRow()][l.getCol()] = new TextCell(arr[1].replace("\"", ""));
-				
-			}else if(arr[1].startsWith("(")) {//Makes FormulaCell by looking for parentheses
+
+			} else if (arr[1].startsWith("(")) {// Makes FormulaCell by looking for parentheses
 				cells[l.getRow()][l.getCol()] = new FormulaCell(arr[1], this);
-				
-			}else if(arr[1].endsWith("%")) {//Makes percent cell by looking for percent
+
+			} else if (arr[1].endsWith("%")) {// Makes percent cell by looking for percent
 				cells[l.getRow()][l.getCol()] = new PercentCell(arr[1]);
-			}else {
+			} else {
 				cells[l.getRow()][l.getCol()] = new ValueCell(arr[1]);
 			}
-			
+
 			return getGridText();
 
 		} else if (command.length() == 2 || command.length() == 3) {
@@ -51,20 +51,32 @@ public class Spreadsheet implements Grid {
 				}
 			}
 			return getGridText();
-			
+
 		} else if (command.startsWith("CLEAR ")) {
 			SpreadsheetLocation l = new SpreadsheetLocation(command.substring(6));
 			cells[l.getRow()][l.getCol()] = new EmptyCell();
 			return getGridText();
-			
-		}else if(command.startsWith("SORTA")) {
-			
-			
-		}else if(command.startsWith("SORTD")) {
-			
+
+		} else if (command.startsWith("SORTA")) {
+			String cellRange = command.split(" ")[1];
+			ArrayList<Cell> subGrid = getCells(cellRange);
+			if (subGrid.get(0) instanceof RealCell) {
+				
+				ArrayList<RealCell> sortedCells = new ArrayList<>(subGrid.size());
+				sortedCells.add((RealCell) subGrid.get(0));
+				
+				for (Cell c : subGrid) {
+					int index = 0;
+					for(RealCell sortedCell : sortedCells) {
+						if(((RealCell)c).compareTo(sortedCell) == -1);
+					}
+				}
+			}
+		} else if (command.startsWith("SORTD")) {
 			
 		}
 		return "ERROR";
+
 	}
 
 	public int getRows() {
@@ -78,7 +90,7 @@ public class Spreadsheet implements Grid {
 	public Cell getCell(Location loc) {
 		return cells[loc.getRow()][loc.getCol()];
 	}
-	
+
 	public Cell getCell(int row, int col) {
 		return cells[row][col];
 	}
@@ -105,17 +117,18 @@ public class Spreadsheet implements Grid {
 		return fullSheet;
 	}
 
-	/** 
-	 * @param cellRange - String that represents the cell Range ex) a1-c3
+	/**
+	 * @param cellRange
+	 *            - String that represents the cell Range ex) a1-c3
 	 * @return an ArrayList of RealCells that contains all cells in the Range
 	 */
 	public ArrayList<Cell> getCells(String cellRange) {
-		ArrayList<Cell> cells = new ArrayList<Cell>(); 
-		
+		ArrayList<Cell> cells = new ArrayList<Cell>();
+
 		int index = cellRange.indexOf('-');
 		SpreadsheetLocation firstCell = new SpreadsheetLocation(cellRange.substring(0, index));
 		SpreadsheetLocation secondCell = new SpreadsheetLocation(cellRange.substring(index + 1, cellRange.length()));
-		
+
 		for (int row = firstCell.getRow(); row <= secondCell.getRow(); row++) {
 			for (int col = firstCell.getCol(); col <= secondCell.getCol(); col++) {
 				cells.add(getCell(row, col));
