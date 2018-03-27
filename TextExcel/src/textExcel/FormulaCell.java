@@ -32,7 +32,7 @@ public class FormulaCell extends RealCell {
 		double answer = 0;
 
 		if (parsedValues[0].equals("AVG")) {// Average
-			answer = sum(parsedValues[1]) / ss.getSubGrid(parsedValues[1]).size();
+			answer = sum(parsedValues[1]) / ss.getCells(parsedValues[1]).size();
 
 		} else if (parsedValues[0].equals("SUM")) {// Addition
 			answer = sum(parsedValues[1]);
@@ -76,10 +76,10 @@ public class FormulaCell extends RealCell {
 	}
 
 	public double sum(String cellRange) {
-		ArrayList<RealCell> cells = ss.getSubGrid(cellRange);
+		ArrayList<Cell> cells = ss.getCells(cellRange);
 		double sum = 0;
-		for(RealCell rc : cells) {
-			sum += rc.getDoubleValue();
+		for(Cell c : cells) {
+			sum += ((RealCell)c).getDoubleValue();
 		}
 		return sum;
 	}
