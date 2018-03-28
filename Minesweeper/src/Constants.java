@@ -1,8 +1,8 @@
 
 public interface Constants {
 
-	public static int	NUM_ROW = 7;
-	public static int	NUM_COL = 11;
+	public static int NUM_ROW = 10;
+	public static int NUM_COL = 10;
 	
 	public final static int TILE_LENGTH = 20;
 	

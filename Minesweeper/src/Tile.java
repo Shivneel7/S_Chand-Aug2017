@@ -25,6 +25,7 @@ public class Tile implements Constants{
 			if(mined) {
 				g.fillOval(x, y, TILE_LENGTH, TILE_LENGTH);
 			}else if(proximity>0){
+				g.setColor(new Color(Game.clamp(0, 255, proximity * 50) , proximity , 10));
 				g.setFont(new Font(null, 0, TILE_LENGTH));
 				g.drawString(""+proximity, x + 5, y + TILE_LENGTH-2);
 			}
@@ -83,6 +84,10 @@ public class Tile implements Constants{
 	
 	public void flag() {
 		flag = !flag;
+	}
+	
+	public boolean hasFlag() {
+		return flag;
 	}
 	
 	public void setProximity(int proximity) {

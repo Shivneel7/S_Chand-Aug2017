@@ -7,9 +7,13 @@ public class Board implements Constants{
 
 	private Tile[][] board;
 	private boolean loss;
+	private int numFlags = 0, numRow, numCol, numMines;
 
-	public Board() {
-		board = new Tile[NUM_ROW][NUM_COL];
+	public Board(int numRow, int numCol, int numMines) {
+		this.numRow = numRow;
+		this.numCol = numCol;
+		this.numMines = numMines;
+		board = new Tile[numRow][numCol];
 		addTiles();
 		plantMines();
 		setTileValues();
@@ -25,8 +29,8 @@ public class Board implements Constants{
 
 	private void plantMines(){
 		Random r = new Random();
-		for(int i = 0; i < NUM_MINES;) {
-			Tile temp = board[r.nextInt(NUM_ROW)][r.nextInt(NUM_COL)];
+		for(int i = 0; i < numMines;) {
+			Tile temp = board[r.nextInt(numRow)][r.nextInt(numCol)];
 			if(!temp.hasMine()) {
 				temp.setMine(true);
 				i++;
@@ -49,7 +53,7 @@ public class Board implements Constants{
 		int numMines = 0;
 		for(int i = row-1; i <= row + 1; i ++) {
 			for(int j = col-1; j <= col + 1; j ++) {
-				if(i >= 0 && i < NUM_ROW && j >= 0 && j < NUM_COL) {
+				if(i >= 0 && i < numRow && j >= 0 && j < numCol) {
 					if(board[i][j].hasMine()) {
 						numMines++;
 					}
@@ -67,7 +71,7 @@ public class Board implements Constants{
 		}else if(temp.getProximity() == 0) {
 			for(int i = row-1; i <= row + 1; i ++) {
 				for(int j = col-1; j <= col + 1; j ++) {
-					if(i >= 0 && i < NUM_ROW && j >= 0 && j < NUM_COL) {
+					if(i >= 0 && i < numRow && j >= 0 && j < numCol) {
 						if(!board[i][j].isRevealed()) {
 							click(i,j);
 						}
@@ -108,4 +112,17 @@ public class Board implements Constants{
 	public Tile[][] getBoard() {
 		return board;
 	}
+
+	public int getNumFlags() {
+		return numFlags;
+	}
+
+	public void incFlags() {
+		this.numFlags++;
+	}
+	
+	public void decFlags() {
+		this.numFlags--;
+	}
+
 }

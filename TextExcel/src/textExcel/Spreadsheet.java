@@ -62,18 +62,13 @@ public class Spreadsheet implements Grid {
 			ArrayList<Cell> subGrid = getCells(cellRange);
 			if (subGrid.get(0) instanceof RealCell) {
 				
-				ArrayList<RealCell> sortedCells = new ArrayList<>(subGrid.size());
-				sortedCells.add((RealCell) subGrid.get(0));
+			}else if (subGrid.get(0) instanceof TextCell){
 				
-				for (Cell c : subGrid) {
-					int index = 0;
-					for(RealCell sortedCell : sortedCells) {
-						if(((RealCell)c).compareTo(sortedCell) == -1);
-					}
-				}
+			}else {
+				return "Sorting of these types of cells is not suported";
 			}
 		} else if (command.startsWith("SORTD")) {
-			
+			return "Sorting of these types of cells is not suported.";
 		}
 		return "ERROR";
 

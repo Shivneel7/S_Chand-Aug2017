@@ -20,6 +20,12 @@ public class MouseHandler extends MouseAdapter implements Constants{
 		if(e.getButton() == MouseEvent.BUTTON1) {
 			b.click(row, col);
 		}else if(e.getButton() == MouseEvent.BUTTON3) {
+			Tile temp = board[row][col];
+			if(temp.hasFlag()) {
+				b.decFlags();
+			}else {
+				b.incFlags();
+			}
 			board[row][col].flag();
 		}
 
