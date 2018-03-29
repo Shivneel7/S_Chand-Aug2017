@@ -13,9 +13,10 @@ public class Window extends Canvas {
 
 	private JFrame frame;
 	private JMenuBar menuBar;
+	
 	public Window(String name, int width, int height, Game game) {
 		frame = new JFrame(name);
-		frame.setResizable(true);
+		frame.setResizable(false);
 		game.setPreferredSize(new Dimension(width, height + 20));
 		frame.add(game);
 		frame.pack();
@@ -23,8 +24,6 @@ public class Window extends Canvas {
 		// frame.setLocation(1450, 100); //for my second monitor at home.
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setJMenuBar(addMenu());
-		
-		JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");
 		
 		frame.setVisible(true);
 		game.start();
@@ -45,5 +44,13 @@ public class Window extends Canvas {
 
 		menuBar.add(menu);
 		return menuBar;
+	}
+	
+	public JMenuBar getMenuBar() {
+		return menuBar;
+	}
+	
+	public JFrame getFrame() {
+		return frame;
 	}
 }

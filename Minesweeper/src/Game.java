@@ -2,15 +2,17 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JOptionPane;
 
-public class Game extends Canvas implements Runnable, Constants{
+public class Game extends Canvas implements Runnable, Constants, ActionListener{
 
 	private static final long serialVersionUID = 150789955774302817L;
 	
-	private int numRow = NUM_ROW, numCol = NUM_COL, numMines = NUM_MINES;
+	public static int numRow = NUM_ROW, numCol = NUM_COL, numMines = NUM_MINES;
 	
 	private Thread thread;
 	private boolean running;
@@ -19,12 +21,19 @@ public class Game extends Canvas implements Runnable, Constants{
 	private Window window;
 	
 	public Game() {
-		
-		board = new Board(numRow, numCol, numMines);
 		window = new Window("MineSweeper", GAME_WIDTH, GAME_HEIGHT, this);
+//		String s = (String)JOptionPane.showInputDialog(
+//                window.getFrame(),
+//                "numROws",
+//                "rows",
+//                JOptionPane.PLAIN_MESSAGE,
+//                null,
+//                null,"10");
+		board = new Board(numRow, numCol, numMines);
+		window.getMenuBar().getMenu(0).getItem(0).addActionListener(this);
 		
 		addMouseListener(new MouseHandler(window, board));
-		//addMouseMotionListener(new MouseHandler());
+		
 	}
 	
 	public static void main(String[] args) {
@@ -118,6 +127,11 @@ public class Game extends Canvas implements Runnable, Constants{
 		}
 		return x;
 	}
-	
 
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("NewGame");
+		board = new Board(numRow, numCol, numMines);
+		addMouseListener(new MouseHandler(window, board));
+	}
+	
 }
