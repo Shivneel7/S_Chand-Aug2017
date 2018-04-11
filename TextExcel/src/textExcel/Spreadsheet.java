@@ -58,19 +58,15 @@ public class Spreadsheet implements Grid {
 			return getGridText();
 
 		} else if (command.startsWith("SORTA")) {
-			String cellRange = command.split(" ")[1];
-			ArrayList<Cell> subGrid = getCells(cellRange);
-			if (subGrid.get(0) instanceof RealCell) {
-				
-			}else if (subGrid.get(0) instanceof TextCell){
-				
-			}else {
-				return "Sorting of these types of cells is not suported";
-			}
+			// I did not do checkpoint 6
+			return "Sorting of these types of cells is not suported";
+			
 		} else if (command.startsWith("SORTD")) {
+			// I did not do checkpoint 6
 			return "Sorting of these types of cells is not suported.";
+			
 		}
-		return "ERROR";
+		return "";
 
 	}
 
@@ -118,6 +114,8 @@ public class Spreadsheet implements Grid {
 	 * @return an ArrayList of RealCells that contains all cells in the Range
 	 */
 	public ArrayList<Cell> getCells(String cellRange) {
+		//Was going to use this for the sorting but did not do checkpoint 6,
+		//So, I used this method for the formula cell math
 		ArrayList<Cell> cells = new ArrayList<Cell>();
 
 		int index = cellRange.indexOf('-');
