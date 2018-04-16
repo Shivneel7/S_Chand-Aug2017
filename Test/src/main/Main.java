@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.function.Consumer;
@@ -16,20 +17,32 @@ import polymorphism.Pig;
 public class Main {
 	
 	public static void main(String[] args) {
-//		int a = 2, b = 3, c = 4, x = -5, y = 2;
-//		
-//		if((a*x) + (b*y) + c == 0) {
-//			System.out.println("True");
-//		}else {
-//			System.out.println("False");
-//		}
-		
 		//consumerTest();
 		//streamTest();
 		//iteratorTest();
 		//polymorphismTest();
 		//double d = Double.parseDouble("3.000");
 		//System.out.println(d);
+		
+		ArrayList<Integer> test = new ArrayList<>();
+		test.add(6);
+		test.add(4);
+		test.add(7);
+		test.add(2);
+		test.add(3);
+		test.add(100);
+		test.add(-11);
+		System.out.println(test);
+		keepEvens(test);
+		System.out.println(test);
+	}
+	
+	public static void keepEvens(ArrayList<Integer> list) {
+		for(int i = list.size() - 1; i>=0; i--) {
+			if(list.get(i) % 2 != 0) {
+				list.remove(i);
+			}
+		}
 	}
 	
 	public static void consumerTest() {
