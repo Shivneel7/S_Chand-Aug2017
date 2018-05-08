@@ -43,9 +43,7 @@ public class FormulaCell extends RealCell {
 
 			for (int i = 2; i < parsedValues.length; i += 2) {
 				String operator = parsedValues[i - 1];
-				double operand = 0;
-
-				operand = stringToDouble(parsedValues[i]);
+				double operand = stringToDouble(parsedValues[i]);
 
 				if (operator.equals("+")) {
 					answer += operand;
@@ -66,20 +64,17 @@ public class FormulaCell extends RealCell {
 	 * @return The double value either from a Cell, or from parsing the String
 	 */
 	public double stringToDouble(String s) {
-		double result;
 		if (Character.isDigit(s.charAt(0)) || s.charAt(0) == '-') {
-			result = Double.parseDouble(s);
-		} else {
-			result = ((RealCell) ss.getCell(new SpreadsheetLocation(s))).getDoubleValue();
+			return Double.parseDouble(s);
 		}
-		return result;
+		return ((RealCell) ss.getCell(new SpreadsheetLocation(s))).getDoubleValue();
 	}
 
 	public double sum(String cellRange) {
 		ArrayList<Cell> cells = ss.getCells(cellRange);
 		double sum = 0;
-		for(Cell c : cells) {
-			sum += ((RealCell)c).getDoubleValue();
+		for (Cell c : cells) {
+			sum += ((RealCell) c).getDoubleValue();
 		}
 		return sum;
 	}
