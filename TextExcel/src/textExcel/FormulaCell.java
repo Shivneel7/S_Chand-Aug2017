@@ -43,9 +43,7 @@ public class FormulaCell extends RealCell {
 
 			for (int i = 2; i < parsedValues.length; i += 2) {
 				String operator = parsedValues[i - 1];
-				double operand = 0;
-
-				operand = stringToDouble(parsedValues[i]);
+				double operand = stringToDouble(parsedValues[i]);
 
 				if (operator.equals("+")) {
 					answer += operand;

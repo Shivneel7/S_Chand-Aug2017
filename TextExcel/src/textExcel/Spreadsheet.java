@@ -107,7 +107,6 @@ public class Spreadsheet implements Grid {
 		}
 		return fullSheet;
 	}
-
 	/**
 	 * @param cellRange
 	 *            - String that represents the cell Range ex) a1-c3
