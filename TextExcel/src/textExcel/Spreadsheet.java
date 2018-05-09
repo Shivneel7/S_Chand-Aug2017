@@ -11,6 +11,10 @@ public class Spreadsheet implements Grid {
 
 	public Spreadsheet() {
 		cells = new Cell[getRows()][getCols()];
+		clear();
+	}
+
+	public void clear() {
 		for (int i = 0; i < getRows(); i++) {
 			for (int j = 0; j < getCols(); j++) {
 				cells[i][j] = new EmptyCell();
@@ -45,11 +49,7 @@ public class Spreadsheet implements Grid {
 
 		command = command.toUpperCase();
 		if (command.equals("CLEAR")) {
-			for (int i = 0; i < getRows(); i++) {
-				for (int j = 0; j < getCols(); j++) {
-					cells[i][j] = new EmptyCell();
-				}
-			}
+			clear();
 			return getGridText();
 
 		} else if (command.startsWith("CLEAR ")) {
@@ -59,15 +59,35 @@ public class Spreadsheet implements Grid {
 
 		} else if (command.startsWith("SORTA")) {
 			// I did not do checkpoint 6
-			return "Sorting of these types of cells is not suported";
-			
+			sort(command.substring(5, command.length()));
+			return getGridText();
+
 		} else if (command.startsWith("SORTD")) {
 			// I did not do checkpoint 6
 			return "Sorting of these types of cells is not suported.";
-			
+
 		}
 		return "";
 
+	}
+
+	public void sort(String cellRange) {
+		ArrayList<Cell> list = getCells(cellRange);
+		list.sort(null);
+		returnCells(cellRange, list);
+	}
+
+	private void returnCells(String cellRange, ArrayList<Cell> list) {
+		int index = cellRange.indexOf('-');
+		SpreadsheetLocation firstCell = new SpreadsheetLocation(cellRange.substring(0, index));
+		SpreadsheetLocation secondCell = new SpreadsheetLocation(cellRange.substring(index + 1, cellRange.length()));
+		int i = 0;
+		for (int row = firstCell.getRow(); row <= secondCell.getRow(); row++) {
+			for (int col = firstCell.getCol(); col <= secondCell.getCol(); col++) {
+				cells[row][col] = list.get(i);
+				i++;
+			}
+		}
 	}
 
 	public int getRows() {
@@ -107,14 +127,15 @@ public class Spreadsheet implements Grid {
 		}
 		return fullSheet;
 	}
+
 	/**
 	 * @param cellRange
 	 *            - String that represents the cell Range ex) a1-c3
 	 * @return an ArrayList of RealCells that contains all cells in the Range
 	 */
 	public ArrayList<Cell> getCells(String cellRange) {
-		//Was going to use this for the sorting but did not do checkpoint 6,
-		//So, I used this method for the formula cell math
+		// Was going to use this for the sorting but did not do checkpoint 6,
+		// So, I used this method for the formula cell math
 		ArrayList<Cell> cells = new ArrayList<Cell>();
 
 		int index = cellRange.indexOf('-');
