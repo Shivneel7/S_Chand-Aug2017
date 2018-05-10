@@ -59,7 +59,7 @@ public class Spreadsheet implements Grid {
 
 		} else if (command.startsWith("SORTA")) {
 			// I did not do checkpoint 6
-			sort(command.substring(5, command.length()));
+			sort(command.substring(6, command.length()));
 			return getGridText();
 
 		} else if (command.startsWith("SORTD")) {
