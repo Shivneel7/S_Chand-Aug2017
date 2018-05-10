@@ -6,13 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 
-import javax.swing.JOptionPane;
+import javax.swing.JDialog;
+import javax.swing.JTextField;
 
 public class Game extends Canvas implements Runnable, Constants, ActionListener{
 
 	private static final long serialVersionUID = 150789955774302817L;
 	
-	public static int numRow = NUM_ROW, numCol = NUM_COL, numMines = NUM_MINES;
+	public static int numRow = NUM_ROW, numCol = NUM_COL, numMines = NUM_MINES, 
+			gameHeight = GAME_HEIGHT, gameWidth = GAME_WIDTH;
 	
 	private Thread thread;
 	private boolean running;
@@ -21,15 +23,23 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener{
 	private Window window;
 	
 	public Game() {
-		window = new Window("MineSweeper", GAME_WIDTH, GAME_HEIGHT, this);
-//		String s = (String)JOptionPane.showInputDialog(
-//                window.getFrame(),
-//                "numROws",
-//                "rows",
-//                JOptionPane.PLAIN_MESSAGE,
-//                null,
-//                null,"10");
+		window = new Window("MineSweeper", gameWidth, gameHeight, this);
 		board = new Board(numRow, numCol, numMines);
+//		String s = (String)JOptionPane.showInputDialog(
+//				window.getFrame(),
+//				"numROws",
+//				"rows",
+//				JOptionPane.PLAIN_MESSAGE,
+//				null,
+//				null,"10");
+		
+		JDialog jd = new JDialog(window.getFrame(),"Set board size.");
+		jd.setSize(300,300);
+		jd.setLocationRelativeTo(null);
+//		JTextField jtf = new JTextField("thei");
+//		jtf.
+//		jd.add();
+		jd.setVisible(true);
 		window.getMenuBar().getMenu(0).getItem(0).addActionListener(this);
 		
 		addMouseListener(new MouseHandler(window, board));
@@ -49,19 +59,19 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener{
 		Graphics g = bs.getDrawGraphics();
 		/////////////////////////////////////////////////////
 		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+		g.fillRect(0, 0, gameWidth, gameHeight);
 		
 		board.render(g);
 		
 		//Mines Counter
 		g.setColor(Color.BLACK);
-		g.fillRect(0, GAME_HEIGHT - UI_DIS, 135, UI_DIS);
+		g.fillRect(0, gameHeight - UI_DIS, 135, UI_DIS);
 		
 		g.setColor(Color.WHITE);
 		g.setFont(new Font(null, 0, 20));
-		g.drawString("Mines Left:  ", 0,GAME_HEIGHT - 10);
+		g.drawString("Mines Left:  ", 0,gameHeight - 10);
 		g.setColor(Color.RED);;
-		g.drawString(" "+ (numMines - board.getNumFlags()), 100, GAME_HEIGHT - 10);
+		g.drawString(" "+ (numMines - board.getNumFlags()), 100, gameHeight - 10);
 		/////////////////////////////////////////////////////
 		g.dispose();
 		bs.show();
