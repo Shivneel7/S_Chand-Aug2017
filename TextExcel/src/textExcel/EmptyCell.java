@@ -19,4 +19,10 @@ public class EmptyCell implements Cell {
 		return "";
 	}
 
+	public int compareTo(Object o) {
+		if(o instanceof EmptyCell) {
+			return 0;
+		}
+		return -1;
+	}
 }

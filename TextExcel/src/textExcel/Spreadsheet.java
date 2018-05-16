@@ -59,28 +59,52 @@ public class Spreadsheet implements Grid {
 
 		} else if (command.startsWith("SORTA")) {
 			// I did not do checkpoint 6
-			sort(command.substring(6, command.length()));
+			putBack(command.substring(6), sort(command.substring(6)), false);
 			return getGridText();
 
 		} else if (command.startsWith("SORTD")) {
-			// I did not do checkpoint 6
-			return "Sorting of these types of cells is not suported.";
+			putBack(command.substring(6), sort(command.substring(6)), true);
+			return getGridText();
 
 		}
 		return "";
 
 	}
 
-	public void sort(String cellRange) {
+	public ArrayList<Cell> sort(String cellRange) {
 		ArrayList<Cell> list = getCells(cellRange);
+
+//		for(int i = 1; i < list.size(); i ++) {
+//			Cell temp = list.get(i);
+//			int j = i-1;
+//			while(temp.compareTo(list.get(j)) > 0 && j >= 0) {
+//				list.add(j,temp);
+//				j--;
+//			}
+//		}
 		list.sort(null);
-		returnCells(cellRange, list);
+		// MAKE OWN SORT
+		return list;
 	}
 
-	private void returnCells(String cellRange, ArrayList<Cell> list) {
-		int index = cellRange.indexOf('-');
-		SpreadsheetLocation firstCell = new SpreadsheetLocation(cellRange.substring(0, index));
-		SpreadsheetLocation secondCell = new SpreadsheetLocation(cellRange.substring(index + 1, cellRange.length()));
+	/**
+	 * 
+	 * @param cellRange
+	 *            - String that represents the cell Range in the format<br>
+	 *            top left corner-bottom right corner. ex) a1-c3
+	 * @param list
+	 *            -List containing the Cells that will be put in the CellRange
+	 * @param reversed
+	 *            -Whether to put the list back in reversed order or not.
+	 */
+	private void putBack(String cellRange, ArrayList<Cell> list, boolean reversed) {
+		int indexOfDash = cellRange.indexOf('-');
+		SpreadsheetLocation firstCell = new SpreadsheetLocation(cellRange.substring(0, indexOfDash));
+		SpreadsheetLocation secondCell = new SpreadsheetLocation(cellRange.substring(indexOfDash + 1, cellRange.length()));
+		if (reversed) {
+			secondCell = new SpreadsheetLocation(cellRange.substring(0, indexOfDash));
+			firstCell = new SpreadsheetLocation(cellRange.substring(indexOfDash + 1, cellRange.length()));
+		}
 		int i = 0;
 		for (int row = firstCell.getRow(); row <= secondCell.getRow(); row++) {
 			for (int col = firstCell.getCol(); col <= secondCell.getCol(); col++) {
@@ -130,7 +154,9 @@ public class Spreadsheet implements Grid {
 
 	/**
 	 * @param cellRange
-	 *            - String that represents the cell Range ex) a1-c3
+	 *            - String that represents the cell Range in the format:<br>
+	 *            top left corner-bottom right corner. ex) a1-c3
+	 * 
 	 * @return an ArrayList of RealCells that contains all cells in the Range
 	 */
 	public ArrayList<Cell> getCells(String cellRange) {
