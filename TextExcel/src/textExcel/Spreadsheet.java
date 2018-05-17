@@ -59,31 +59,36 @@ public class Spreadsheet implements Grid {
 
 		} else if (command.startsWith("SORTA")) {
 			// I did not do checkpoint 6
-			putBack(command.substring(6), sort(command.substring(6)), false);
+			putBack(command.substring(6), getSortedArrayList(command.substring(6)), false);
 			return getGridText();
 
 		} else if (command.startsWith("SORTD")) {
-			putBack(command.substring(6), sort(command.substring(6)), true);
+			putBack(command.substring(6), getSortedArrayList(command.substring(6)), true);
 			return getGridText();
-
 		}
 		return "";
 
 	}
 
-	public ArrayList<Cell> sort(String cellRange) {
+	/**
+	 * 
+	 * @param cellRange
+	 *            - String that represents the cell Range in the format<br>
+	 *            top left corner-bottom right corner. ex) a1-c3
+	 * @return a sorted ArrayList<Cell> of the cells from the cellRange
+	 */
+	public ArrayList<Cell> getSortedArrayList(String cellRange) {
 		ArrayList<Cell> list = getCells(cellRange);
 
-//		for(int i = 1; i < list.size(); i ++) {
-//			Cell temp = list.get(i);
-//			int j = i-1;
-//			while(temp.compareTo(list.get(j)) > 0 && j >= 0) {
-//				list.add(j,temp);
-//				j--;
-//			}
-//		}
-		list.sort(null);
-		// MAKE OWN SORT
+		for (int i = 1; i < list.size(); i++) {
+			Cell temp = list.get(i);
+			int j = i - 1;
+			while (j >= 0 && temp.compareTo(list.get(j)) < 0) {
+				j--;
+			}
+			list.add(j + 1, list.remove(i));
+		}
+		
 		return list;
 	}
 
@@ -101,15 +106,18 @@ public class Spreadsheet implements Grid {
 		int indexOfDash = cellRange.indexOf('-');
 		SpreadsheetLocation firstCell = new SpreadsheetLocation(cellRange.substring(0, indexOfDash));
 		SpreadsheetLocation secondCell = new SpreadsheetLocation(cellRange.substring(indexOfDash + 1, cellRange.length()));
-		if (reversed) {
-			secondCell = new SpreadsheetLocation(cellRange.substring(0, indexOfDash));
-			firstCell = new SpreadsheetLocation(cellRange.substring(indexOfDash + 1, cellRange.length()));
-		}
+		
 		int i = 0;
+		if (reversed) {
+			i = list.size() - 1; //If sortd, this will put the cells in the list backwards.
+		}
 		for (int row = firstCell.getRow(); row <= secondCell.getRow(); row++) {
 			for (int col = firstCell.getCol(); col <= secondCell.getCol(); col++) {
 				cells[row][col] = list.get(i);
-				i++;
+				if (reversed) {
+					i--;//so that cells will be put back backwards if using sortd
+				} else
+					i++;
 			}
 		}
 	}
