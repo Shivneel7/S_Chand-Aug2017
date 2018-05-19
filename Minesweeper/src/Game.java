@@ -36,9 +36,8 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener{
 		JDialog jd = new JDialog(window.getFrame(),"Set board size.");
 		jd.setSize(300,300);
 		jd.setLocationRelativeTo(null);
-//		JTextField jtf = new JTextField("thei");
-//		jtf.
-//		jd.add();
+		JTextField jtf = new JTextField("thei");
+		jd.add(jtf);
 		jd.setVisible(true);
 		window.getMenuBar().getMenu(0).getItem(0).addActionListener(this);
 		
