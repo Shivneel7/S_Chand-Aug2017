@@ -81,8 +81,8 @@ public class Spreadsheet implements Grid {
 		ArrayList<Cell> list = getCells(cellRange);
 
 		for (int i = 1; i < list.size(); i++) {
-			Cell temp = list.get(i);
-			int j = i - 1;
+			Cell temp = list.get(i);//cell we are inserting
+			int j = i - 1;//index of the cell we are comparing to the cell we are inserting.
 			while (j >= 0 && temp.compareTo(list.get(j)) < 0) {
 				j--;
 			}
