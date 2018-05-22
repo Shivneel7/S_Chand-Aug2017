@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class Game extends Canvas implements Runnable, Constants, ActionListener{
@@ -25,20 +26,20 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener{
 	public Game() {
 		window = new Window("MineSweeper", gameWidth, gameHeight, this);
 		board = new Board(numRow, numCol, numMines);
-//		String s = (String)JOptionPane.showInputDialog(
-//				window.getFrame(),
-//				"numROws",
-//				"rows",
-//				JOptionPane.PLAIN_MESSAGE,
-//				null,
-//				null,"10");
-		
-		JDialog jd = new JDialog(window.getFrame(),"Set board size.");
-		jd.setSize(300,300);
-		jd.setLocationRelativeTo(null);
-		JTextField jtf = new JTextField("thei");
-		jd.add(jtf);
-		jd.setVisible(true);
+		numRow = Integer.parseInt((String)JOptionPane.showInputDialog(
+				window.getFrame(),
+				"numROws",
+				"rows",
+				JOptionPane.PLAIN_MESSAGE,
+				null,
+				null,"10"));
+
+//		JDialog jd = new JDialog(window.getFrame(),"Set board size.");
+//		jd.setSize(300,300);
+//		jd.setLocationRelativeTo(null);
+//		JTextField jtf = new JTextField("thei");
+//		jd.add(jtf);
+//		jd.setVisible(true);
 		window.getMenuBar().getMenu(0).getItem(0).addActionListener(this);
 		
 		addMouseListener(new MouseHandler(window, board));
@@ -139,6 +140,7 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("NewGame");
+		//window.setSize(arg0, arg1);
 		board = new Board(numRow, numCol, numMines);
 		addMouseListener(new MouseHandler(window, board));
 	}
