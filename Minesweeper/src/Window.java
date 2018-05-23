@@ -20,20 +20,28 @@ public class Window extends Canvas {
 		game.setPreferredSize(new Dimension(width, height + 20));
 		frame.add(game);
 		frame.pack();
-		frame.setLocationRelativeTo(null);
+		recenter();
 		// frame.setLocation(1450, 100); //for my second monitor at home.
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setJMenuBar(addMenu());
-		
-		frame.setVisible(true);
 		game.start();
 	}
-
-	public void changeSize(int width, int height) {
-		frame.setSize(width, height);
+	
+	public void setVisibility(boolean b) {
+		frame.setVisible(b);
+	}
+	
+	public void changeSize(Dimension dim, Game game) {
+		game.setPreferredSize(dim);
+		frame.pack();
+		recenter();
+	}
+	
+	public void recenter() {
+		frame.setLocationRelativeTo(null);
 	}
 
-	public JMenuBar addMenu() {
+	private JMenuBar addMenu() {
 		menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Game");
 		JMenuItem restart = new JMenuItem("New Game");

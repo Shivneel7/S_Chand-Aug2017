@@ -9,7 +9,7 @@ public interface Constants {
 	public final static int UI_DIS = 40;
 	
 	public static int GAME_WIDTH = NUM_COL * TILE_LENGTH;
-	public static int	GAME_HEIGHT = NUM_ROW * TILE_LENGTH + UI_DIS;
+	public static int GAME_HEIGHT = NUM_ROW * TILE_LENGTH + UI_DIS;
 	
 	public static int NUM_MINES = 10;
 }

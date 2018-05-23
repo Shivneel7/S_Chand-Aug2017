@@ -81,9 +81,9 @@ public class Tile implements Constants{
 	public int getProximity() {
 		return proximity;
 	}
-	
+
 	public void flag() {
-		flag = !flag;
+			flag = !flag;
 	}
 	
 	public boolean hasFlag() {
