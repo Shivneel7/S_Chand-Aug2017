@@ -5,11 +5,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 public class Game extends Canvas implements Runnable, Constants, ActionListener {
 
@@ -174,6 +173,9 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 		window.setVisibility(true);
 
 		board = new Board(numRow, numCol, numMines);
+		for(MouseListener m : getMouseListeners()) {
+			this.removeMouseListener(m);
+		}
 		addMouseListener(new MouseHandler(window, board));
 	}
 
