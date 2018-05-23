@@ -136,8 +136,8 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 	public void resetBoard() {
 		window.setVisibility(false);
 		String[] options = { "10x10", "15x15", "15x30", "Custom" };
-		int option = JOptionPane.showOptionDialog(window.getFrame(), "Select difficulty", "Options", JOptionPane.DEFAULT_OPTION,
-				JOptionPane.DEFAULT_OPTION, null, options, "10");
+		int option = JOptionPane.showOptionDialog(window.getFrame(), "Select difficulty", "Options",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, options, "10");
 		if (option == 0) {
 			numRow = 10;
 			numCol = 10;
@@ -151,38 +151,38 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 			numCol = 30;
 			numMines = 99;
 		} else if (option == 3) {
-			Object tempRow = JOptionPane.showInputDialog(window.getFrame(), "How many rows?\nPlease enter a digit.", "Options",
-				JOptionPane.DEFAULT_OPTION, null, null, "10");
-			if(tempRow != null) {
+			Object tempRow = JOptionPane.showInputDialog(window.getFrame(), "How many rows?\nPlease enter a digit.",
+					"Options", JOptionPane.DEFAULT_OPTION, null, null, "10");
+			if (tempRow != null) {
 				numRow = Integer.parseInt(tempRow.toString());
 			}
-			Object tempCol = JOptionPane.showInputDialog(window.getFrame(), "How many columns?\nPlease enter a digit.", "Options",
-					JOptionPane.DEFAULT_OPTION, null, null, "10");
-			if(tempCol != null) {
+			Object tempCol = JOptionPane.showInputDialog(window.getFrame(), "How many columns?\nPlease enter a digit.",
+					"Options", JOptionPane.DEFAULT_OPTION, null, null, "10");
+			if (tempCol != null) {
 				numCol = Integer.parseInt(tempCol.toString());
 			}
-			Object tempMines = JOptionPane.showInputDialog(window.getFrame(), "How many mines?\nPlease enter a digit.","Options",
-					JOptionPane.PLAIN_MESSAGE, null, null, "10");
-			if(tempMines != null) {
-				numMines = clamp(Integer.parseInt(tempMines.toString()),0,numRow*numCol);
+			Object tempMines = JOptionPane.showInputDialog(window.getFrame(), "How many mines?\nPlease enter a digit.",
+					"Options", JOptionPane.PLAIN_MESSAGE, null, null, "10");
+			if (tempMines != null) {
+				numMines = clamp(Integer.parseInt(tempMines.toString()), 0, numRow * numCol);
 			}
 		}
 		gameHeight = numRow * TILE_LENGTH + UI_DIS;
 		gameWidth = numCol * TILE_LENGTH;
-		
+
 		window.changeSize(new Dimension(gameWidth, gameHeight), this);
 		window.setVisibility(true);
-		
+
 		board = new Board(numRow, numCol, numMines);
 		addMouseListener(new MouseHandler(window, board));
 	}
-	
+
 	public static double clamp(double x, double min, double max) {
-		if(x < min) {
+		if (x < min) {
 			return min;
-		}else if(x>max) {
+		} else if (x > max) {
 			return max;
-		}else {
+		} else {
 			return x;
 		}
 	}

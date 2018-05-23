@@ -3,7 +3,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.Random;
 
-public class Board implements Constants{
+public class Board implements Constants {
 
 	private Tile[][] board;
 	private boolean loss;
@@ -20,18 +20,18 @@ public class Board implements Constants{
 	}
 
 	private void addTiles() {
-		for(int row = 0; row < board.length; row ++) {
-			for(int col = 0; col < board[row].length; col++) {
+		for (int row = 0; row < board.length; row++) {
+			for (int col = 0; col < board[row].length; col++) {
 				board[row][col] = new Tile(row, col, false);
 			}
 		}
 	}
 
-	private void plantMines(){
+	private void plantMines() {
 		Random r = new Random();
-		for(int i = 0; i < numMines;) {
+		for (int i = 0; i < numMines;) {
 			Tile temp = board[r.nextInt(numRow)][r.nextInt(numCol)];
-			if(!temp.hasMine()) {
+			if (!temp.hasMine()) {
 				temp.setMine(true);
 				i++;
 			}
@@ -39,10 +39,10 @@ public class Board implements Constants{
 	}
 
 	private void setTileValues() {
-		for(int row = 0; row < board.length; row++){
-			for(int col = 0; col < board[row].length; col++) {
+		for (int row = 0; row < board.length; row++) {
+			for (int col = 0; col < board[row].length; col++) {
 				Tile temp = board[row][col];
-				if(!temp.hasMine()) {
+				if (!temp.hasMine()) {
 					temp.setProximity(checkProximity(row, col));
 				}
 			}
@@ -51,10 +51,10 @@ public class Board implements Constants{
 
 	private int checkProximity(int row, int col) {
 		int numMines = 0;
-		for(int i = row-1; i <= row + 1; i ++) {
-			for(int j = col-1; j <= col + 1; j ++) {
-				if(i >= 0 && i < numRow && j >= 0 && j < numCol) {
-					if(board[i][j].hasMine()) {
+		for (int i = row - 1; i <= row + 1; i++) {
+			for (int j = col - 1; j <= col + 1; j++) {
+				if (i >= 0 && i < numRow && j >= 0 && j < numCol) {
+					if (board[i][j].hasMine()) {
 						numMines++;
 					}
 				}
@@ -66,14 +66,14 @@ public class Board implements Constants{
 	public void click(int row, int col) {
 		Tile temp = board[row][col];
 		temp.reveal();
-		if(temp.hasMine()) {
+		if (temp.hasMine()) {
 			lose();
-		}else if(temp.getProximity() == 0) {
-			for(int i = row-1; i <= row + 1; i ++) {
-				for(int j = col-1; j <= col + 1; j ++) {
-					if(i >= 0 && i < numRow && j >= 0 && j < numCol) {
-						if(!board[i][j].isRevealed()) {
-							click(i,j);
+		} else if (temp.getProximity() == 0) {
+			for (int i = row - 1; i <= row + 1; i++) {
+				for (int j = col - 1; j <= col + 1; j++) {
+					if (i >= 0 && i < numRow && j >= 0 && j < numCol) {
+						if (!board[i][j].isRevealed()) {
+							click(i, j);
 						}
 					}
 				}
@@ -82,9 +82,9 @@ public class Board implements Constants{
 	}
 
 	private void lose() {
-		for(int row = 0; row < board.length; row++){
-			for(int col = 0; col < board[row].length; col++) {
-				if(board[row][col].hasMine()) {
+		for (int row = 0; row < board.length; row++) {
+			for (int col = 0; col < board[row].length; col++) {
+				if (board[row][col].hasMine()) {
 					board[row][col].reveal();
 				}
 			}
@@ -93,20 +93,20 @@ public class Board implements Constants{
 	}
 
 	public void render(Graphics g) {
-		for(Tile[] row: board) {
-			for(Tile t: row) {
+		for (Tile[] row : board) {
+			for (Tile t : row) {
 				t.render(g);
 			}
 		}
-		if(loss) {
+		if (loss) {
 			g.setColor(Color.black);
 			g.setFont(new Font(null, 0, 40));
-			g.drawString("you lost.", 0, GAME_HEIGHT- UI_DIS);
+			g.drawString("you lost.", 0, GAME_HEIGHT - UI_DIS);
 		}
 	}
 
 	public void tick() {
-		
+
 	}
 
 	public Tile[][] getBoard() {
@@ -120,7 +120,7 @@ public class Board implements Constants{
 	public void incFlags() {
 		this.numFlags++;
 	}
-	
+
 	public void decFlags() {
 		this.numFlags--;
 	}

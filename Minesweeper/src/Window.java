@@ -57,7 +57,7 @@ public class Window extends Canvas {
 	public JMenuBar getMenuBar() {
 		return menuBar;
 	}
-	
+
 	public JFrame getFrame() {
 		return frame;
 	}

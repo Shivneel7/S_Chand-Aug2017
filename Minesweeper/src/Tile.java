@@ -2,9 +2,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-public class Tile implements Constants{
-	
-	private int x, y, proximity = 0; 
+public class Tile implements Constants {
+
+	private int x, y, proximity = 0;
 	private boolean mined, revealed, flag;
 
 	public Tile(int row, int col, boolean mined) {
@@ -18,23 +18,23 @@ public class Tile implements Constants{
 	}
 
 	public void render(Graphics g) {
-		if(revealed) {
+		if (revealed) {
 			g.setColor(Color.WHITE);
 			g.drawRect(x, y, TILE_LENGTH, TILE_LENGTH);
 			g.setColor(Color.RED);
-			if(mined) {
+			if (mined) {
 				g.fillOval(x, y, TILE_LENGTH, TILE_LENGTH);
-			}else if(proximity>0){
-				g.setColor(new Color(Game.clamp(0, 255, proximity * 50) , proximity , 10));
+			} else if (proximity > 0) {
+				g.setColor(new Color(Game.clamp(0, 255, proximity * 50), proximity, 10));
 				g.setFont(new Font(null, 0, TILE_LENGTH));
-				g.drawString(""+proximity, x + 5, y + TILE_LENGTH-2);
+				g.drawString("" + proximity, x + 5, y + TILE_LENGTH - 2);
 			}
-		}else {
+		} else {
 			g.setColor(Color.GRAY);
 			g.fillRect(x, y, TILE_LENGTH, TILE_LENGTH);
 			g.setColor(Color.white);
 			g.drawRect(x, y, TILE_LENGTH, TILE_LENGTH);
-			if(flag) {
+			if (flag) {
 				g.setColor(Color.black);
 				g.setFont(new Font(null, 0, TILE_LENGTH));
 				g.drawString("F", x + 2, y + TILE_LENGTH);
@@ -83,17 +83,17 @@ public class Tile implements Constants{
 	}
 
 	public void flag() {
-			flag = !flag;
+		flag = !flag;
 	}
-	
+
 	public boolean hasFlag() {
 		return flag;
 	}
-	
+
 	public void setProximity(int proximity) {
 		this.proximity = proximity;
 	}
-	
+
 	public void incProx() {
 		this.proximity++;
 	}
