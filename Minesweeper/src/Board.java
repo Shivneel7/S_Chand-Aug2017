@@ -6,17 +6,19 @@ import java.util.Random;
 public class Board implements Constants {
 
 	private Tile[][] board;
-	private boolean loss;
 	private int numFlags = 0, numRow, numCol, numMines;
+	private Game game;
 
-	public Board(int numRow, int numCol, int numMines) {
+	public Board(int numRow, int numCol, int numMines, Game game) {
 		this.numRow = numRow;
 		this.numCol = numCol;
 		this.numMines = numMines;
+		this.game = game;
 		board = new Tile[numRow][numCol];
 		addTiles();
 		plantMines();
 		setTileValues();
+		
 	}
 
 	private void addTiles() {
@@ -89,7 +91,7 @@ public class Board implements Constants {
 				}
 			}
 		}
-		loss = true;
+		game.lose();
 	}
 
 	public void render(Graphics g) {
@@ -97,11 +99,6 @@ public class Board implements Constants {
 			for (Tile t : row) {
 				t.render(g);
 			}
-		}
-		if (loss) {
-			g.setColor(Color.black);
-			g.setFont(new Font(null, 0, 40));
-			g.drawString("you lost.", 0, GAME_HEIGHT - UI_DIS);
 		}
 	}
 

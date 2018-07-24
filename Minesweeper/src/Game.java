@@ -17,11 +17,15 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 	public static int numRow = NUM_ROW, numCol = NUM_COL, numMines = NUM_MINES, gameHeight = GAME_HEIGHT,
 			gameWidth = GAME_WIDTH;
 
+	public boolean loss = false;
+
 	private Thread thread;
 	private boolean running;
 
 	private Board board;
 	private Window window;
+
+	private long startTime, lossTime;
 
 	public Game() {
 		window = new Window("MineSweeper", 0, 0, this);
@@ -53,9 +57,26 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 
 			g.setColor(Color.WHITE);
 			g.setFont(new Font(null, 0, 20));
-			g.drawString("Mines Left:  ", 0, gameHeight - 10);
+			g.drawString("Mines Left:", 10, gameHeight - 40);
 			g.setColor(Color.RED);
-			g.drawString(" " + (numMines - board.getNumFlags()), 100, gameHeight - 10);
+			g.drawString(" " + (numMines - board.getNumFlags()), 110, gameHeight - 40);
+
+			// Timer
+
+			long seconds = (System.currentTimeMillis() - startTime) / 1000;
+
+			g.setColor(Color.WHITE);
+			g.drawString("Timer: ", 10, gameHeight - 10);
+			g.setColor(Color.RED);
+			if (loss) {
+				g.drawString("" + lossTime, 70, gameHeight - 10);
+				g.setColor(Color.black);
+				g.setFont(new Font(null, 0, 40));
+				g.drawString("you lost.", 0, GAME_HEIGHT - UI_DIS);
+			} else {
+				g.drawString("" + seconds, 70, gameHeight - 10);
+			}
+
 		} else {
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, gameWidth, gameHeight);
@@ -144,7 +165,7 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 		} else if (option == 1) {
 			numRow = 15;
 			numCol = 15;
-			numMines = 30;
+			numMines = 45;
 		} else if (option == 2) {
 			numRow = 15;
 			numCol = 30;
@@ -172,11 +193,23 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 		window.changeSize(new Dimension(gameWidth, gameHeight), this);
 		window.setVisibility(true);
 
-		board = new Board(numRow, numCol, numMines);
-		for(MouseListener m : getMouseListeners()) {
+		board = new Board(numRow, numCol, numMines, this);
+		for (MouseListener m : getMouseListeners()) {
 			this.removeMouseListener(m);
 		}
 		addMouseListener(new MouseHandler(window, board));
+		startTime = System.currentTimeMillis();
+	}
+
+	public void lose() {
+		loss = true;
+		lossTime = (System.currentTimeMillis() - startTime) / 1000;
+		int playAgain = JOptionPane.showConfirmDialog(window.getFrame(), "Would you like to play again?");
+		if (playAgain == 0) {
+			resetBoard();
+		}else if(playAgain == 1) {
+			System.exit(0);
+		}
 	}
 
 	public static double clamp(double x, double min, double max) {
@@ -184,6 +217,14 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 			return min;
 		} else if (x > max) {
 			return max;
+		} else {
+			return x;
+		}
+	}
+
+	public static double clamp(double x, double min) {
+		if (x < min) {
+			return min;
 		} else {
 			return x;
 		}
