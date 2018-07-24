@@ -204,10 +204,13 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 	public void lose() {
 		loss = true;
 		lossTime = (System.currentTimeMillis() - startTime) / 1000;
-		int playAgain = JOptionPane.showConfirmDialog(window.getFrame(), "Would you like to play again?");
+		String[] options = { "Yes", "No", "Back to board" };
+		int playAgain = JOptionPane.showOptionDialog(window.getFrame(), "Would you like to play again?", null,
+				JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, options, null);
 		if (playAgain == 0) {
 			resetBoard();
-		}else if(playAgain == 1) {
+			loss = false;
+		} else if (playAgain == 1) {
 			System.exit(0);
 		}
 	}
