@@ -224,8 +224,8 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 					JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION, null, options, null);
 		} else {
 			playAgain = JOptionPane.showOptionDialog(null,
-					"<html><span style='color:blue'>You Won!!!</span> <span style='color:red'>:)\n<html><span style='color:red'>Time: " + endTime + "\nWould you like to play again?", "You Won!",
-					JOptionPane.NO_OPTION, JOptionPane.DEFAULT_OPTION, null, options, null);
+					"<html><span style='color:blue'>You Won!!!</span> <span style='color:red'>:)\n<html><span style='color:red'>Time: " + endTime + " seconds.\nWould you like to play again?", "You Won!",
+					JOptionPane.NO_OPTION, JOptionPane.DEFAULT_OPTION, null, options, null); 
 		}
 
 		if (playAgain == 0) {
@@ -272,10 +272,12 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 
 	public void lose() {
 		loss = true;
+		end();
 	}
 
 	public void win() {
 		win = true;
+		end();
 	}
 
 }

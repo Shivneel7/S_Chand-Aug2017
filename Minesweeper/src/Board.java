@@ -90,7 +90,6 @@ public class Board implements Constants {
 			}
 		}
 		game.lose();
-		game.end();
 	}
 	
 	public void checkWin() {
@@ -104,7 +103,6 @@ public class Board implements Constants {
 		}
 		if(win) {
 			game.win();
-			game.end();
 		}else {
 			game.errorMessage();
 		}
