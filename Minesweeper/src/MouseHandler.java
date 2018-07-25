@@ -27,6 +27,9 @@ public class MouseHandler extends MouseAdapter implements Constants {
 					b.decFlags();
 				} else {
 					b.incFlags();
+					if(Game.numMines == b.getNumFlags()) {
+						b.checkWin();
+					}
 				}
 				temp.flag();
 			}

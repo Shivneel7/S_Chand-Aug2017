@@ -140,20 +140,12 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 		}
 	}
 
-	public static int clamp(int x, int min, int max) {
-		if (x < min) {
-			return min;
-		} else if (x > max) {
-			return max;
-		}
-		return x;
-	}
-
 	public void actionPerformed(ActionEvent e) {
 		resetBoard();
 	}
 
 	public void resetBoard() {
+		loss = false;
 		window.setVisibility(false);
 		String[] options = { "10x10", "15x15", "15x30", "Custom" };
 		int option = JOptionPane.showOptionDialog(window.getFrame(), "Select difficulty", "Options",
@@ -172,17 +164,17 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 			numMines = 99;
 		} else if (option == 3) {
 			Object tempRow = JOptionPane.showInputDialog(window.getFrame(), "How many rows?\nPlease enter a digit.",
-					"Options", JOptionPane.DEFAULT_OPTION, null, null, "10");
+					"Options", JOptionPane.DEFAULT_OPTION, null, null, ""+NUM_ROW);
 			if (tempRow != null) {
 				numRow = Integer.parseInt(tempRow.toString());
 			}
-			Object tempCol = JOptionPane.showInputDialog(window.getFrame(), "How many columns?\nPlease enter a digit.",
-					"Options", JOptionPane.DEFAULT_OPTION, null, null, "10");
+			Object tempCol = JOptionPane.showInputDialog(window.getFrame(), "How many columns?\nPlease enter a digit 7 or greater.",
+					"Options", JOptionPane.DEFAULT_OPTION, null, null, ""+NUM_COL);
 			if (tempCol != null) {
-				numCol = Integer.parseInt(tempCol.toString());
+				numCol = clampMin(Integer.parseInt(tempCol.toString()), 7);
 			}
 			Object tempMines = JOptionPane.showInputDialog(window.getFrame(), "How many mines?\nPlease enter a digit.",
-					"Options", JOptionPane.PLAIN_MESSAGE, null, null, "10");
+					"Options", JOptionPane.PLAIN_MESSAGE, null, null, ""+NUM_MINES);
 			if (tempMines != null) {
 				numMines = clamp(Integer.parseInt(tempMines.toString()), 0, numRow * numCol);
 			}
@@ -205,14 +197,17 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 		loss = true;
 		lossTime = (System.currentTimeMillis() - startTime) / 1000;
 		String[] options = { "Yes", "No", "Back to board" };
-		int playAgain = JOptionPane.showOptionDialog(window.getFrame(), "Would you like to play again?", null,
-				JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, options, null);
+		int playAgain = JOptionPane.showOptionDialog(window.getFrame(), "Would you like to play again?", "You Lost",
+				JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION, null, options, null);
 		if (playAgain == 0) {
 			resetBoard();
-			loss = false;
 		} else if (playAgain == 1) {
 			System.exit(0);
 		}
+	}
+	
+	public void win() {
+		
 	}
 
 	public static double clamp(double x, double min, double max) {
@@ -225,11 +220,21 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 		}
 	}
 
-	public static double clamp(double x, double min) {
+	public static int clamp(int x, int min, int max) {
 		if (x < min) {
 			return min;
-		} else {
-			return x;
+		} else if (x > max) {
+			return max;
 		}
+		return x;
 	}
+	
+	public static int clampMin(int x, int min) {
+		if(x<min) {
+			return min;
+		}
+		return x;
+	}
+
+
 }

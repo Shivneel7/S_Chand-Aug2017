@@ -64,7 +64,7 @@ public class Board implements Constants {
 		}
 		return numMines;
 	}
-
+	
 	public void click(int row, int col) {
 		Tile temp = board[row][col];
 		temp.reveal();
@@ -93,7 +93,11 @@ public class Board implements Constants {
 		}
 		game.lose();
 	}
-
+	
+	public void checkWin() {
+		game.win();
+	}
+	
 	public void render(Graphics g) {
 		for (Tile[] row : board) {
 			for (Tile t : row) {
