@@ -1,5 +1,3 @@
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.util.Random;
 
@@ -92,10 +90,25 @@ public class Board implements Constants {
 			}
 		}
 		game.lose();
+		game.end();
 	}
 	
 	public void checkWin() {
-		game.win();
+		boolean win = true;
+		for (Tile[] row : board) {
+			for (Tile t : row) {
+				if(t.hasFlag() && !t.hasMine()) {
+					win = false;
+				}
+			}
+		}
+		if(win) {
+			game.win();
+			game.end();
+		}else {
+			game.errorMessage();
+		}
+		
 	}
 	
 	public void render(Graphics g) {

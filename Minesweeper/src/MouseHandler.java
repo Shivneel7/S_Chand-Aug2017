@@ -16,22 +16,25 @@ public class MouseHandler extends MouseAdapter implements Constants {
 	public void mousePressed(MouseEvent e) {
 		int row = e.getY() / TILE_LENGTH;
 		int col = e.getX() / TILE_LENGTH;
-		Tile temp = board[row][col];
-		if (row < Game.numRow && col < Game.numCol && !temp.isRevealed()) {
-			if (e.getButton() == MouseEvent.BUTTON1) {
-				if (!temp.hasFlag()) {
-					b.click(row, col);
-				}
-			} else if (e.getButton() == MouseEvent.BUTTON3) {
-				if (temp.hasFlag()) {
-					b.decFlags();
-				} else {
-					b.incFlags();
-					if(Game.numMines == b.getNumFlags()) {
+
+		if (row < Game.numRow && col < Game.numCol) {
+			Tile temp = board[row][col];
+			if (!temp.isRevealed()) {
+				if (e.getButton() == MouseEvent.BUTTON1) {
+					if (!temp.hasFlag()) {
+						b.click(row, col);
+					}
+				} else if (e.getButton() == MouseEvent.BUTTON3) {
+					if (temp.hasFlag()) {
+						b.decFlags();
+					} else {
+						b.incFlags();
+					}
+					temp.flag();
+					if (Game.numMines == b.getNumFlags()) {
 						b.checkWin();
 					}
 				}
-				temp.flag();
 			}
 		}
 	}

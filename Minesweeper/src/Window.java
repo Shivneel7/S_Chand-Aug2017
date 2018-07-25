@@ -16,7 +16,7 @@ public class Window extends Canvas {
 	
 	public Window(String name, int width, int height, Game game) {
 		frame = new JFrame(name);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		game.setPreferredSize(new Dimension(width, height + 20));
 		frame.add(game);
 		frame.pack();
@@ -33,6 +33,8 @@ public class Window extends Canvas {
 	
 	public void changeSize(Dimension dim, Game game) {
 		game.setPreferredSize(dim);
+		frame.remove(game);
+		frame.add(game);
 		frame.pack();
 		recenter();
 	}
