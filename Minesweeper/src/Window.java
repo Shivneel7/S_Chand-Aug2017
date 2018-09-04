@@ -16,7 +16,7 @@ public class Window extends Canvas {
 	
 	public Window(String name, int width, int height, Game game) {
 		frame = new JFrame(name);
-		frame.setResizable(true);
+		frame.setResizable(false);
 		game.setPreferredSize(new Dimension(width, height + 20));
 		frame.add(game);
 		frame.pack();
