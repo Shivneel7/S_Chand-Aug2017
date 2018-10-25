@@ -3,6 +3,7 @@ package derpyBurd;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 import javax.imageio.ImageIO;
 
@@ -17,6 +18,7 @@ public class Background {
 	public Background(int x, int speed) {
 		try {
 			img = ImageIO.read(getClass().getResource("/original background.png"));
+			//img = ImageIO.read(getClass().getResource("/res/background.png"));
 		} catch (Exception e) {
 			imageNotFound = true;
 		}
