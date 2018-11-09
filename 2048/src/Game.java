@@ -2,16 +2,22 @@ import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-public class Game extends Canvas implements Runnable{
+
+public class Game extends Canvas implements Runnable, Constants{
 	
 	private static final long serialVersionUID = -5291294102131783181L;
 	
 	Thread thread;
 	private boolean running;
 	
+	
+	Board board;
 	public Game() {
-		new Window(800, 600, "2048", this);
+		new Window(GAME_WIDTH, GAME_HEIGHT, "2048", this);
 		
+		board = new Board();
+		
+		this.addKeyListener(new KeyInput());
 		
 	}
 	
@@ -28,6 +34,12 @@ public class Game extends Canvas implements Runnable{
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
+		/////////////////////////////////////
+		
+		board.render(g);
+		/////////////////////////////////////
+		g.dispose();
+		bs.show();
 	}
 	
 	public void tick() {
