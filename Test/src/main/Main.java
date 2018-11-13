@@ -24,17 +24,21 @@ public class Main {
 		//double d = Double.parseDouble("3.000");
 		//System.out.println(d);
 		
-		ArrayList<Integer> test = new ArrayList<>();
-		test.add(6);
-		test.add(4);
-		test.add(7);
-		test.add(2);
-		test.add(3);
-		test.add(100);
-		test.add(-11);
-		System.out.println(test);
-		keepEvens(test);
-		System.out.println(test);
+//		ArrayList<Integer> test = new ArrayList<>();
+//		test.add(6);
+//		test.add(4);
+//		test.add(7);
+//		test.add(2);
+//		test.add(3);
+//		test.add(100);
+//		test.add(-11);
+//		System.out.println(test);
+//		keepEvens(test);
+//		System.out.println(test);
+		int i = 7;
+		System.out.println(i++);
+		//i=8
+		System.out.println(++i);
 	}
 	
 	public static void keepEvens(ArrayList<Integer> list) {
