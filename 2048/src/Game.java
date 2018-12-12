@@ -1,32 +1,36 @@
 import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
+public class Game extends Canvas implements Runnable, Constants {
 
-public class Game extends Canvas implements Runnable, Constants{
-	
 	private static final long serialVersionUID = -5291294102131783181L;
-	
+
 	Thread thread;
 	private boolean running;
-	
-	
+
 	Board board;
+
+	Random r;
+
 	public Game() {
 		new Window(GAME_WIDTH, GAME_HEIGHT, "2048", this);
-		
+
 		board = new Board();
-		
+
 		this.addKeyListener(new KeyInput());
-		
+
+		r = new Random();
+
 	}
-	
-	
-	
+
 	public static void main(String[] args) {
 		new Game();
 	}
-	
+
 	public void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) {
@@ -35,17 +39,21 @@ public class Game extends Canvas implements Runnable, Constants{
 		}
 		Graphics g = bs.getDrawGraphics();
 		/////////////////////////////////////
+		g.setColor(Color.lightGray);
+		g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+		/////////////////////////////////////
 		
 		board.render(g);
+
 		/////////////////////////////////////
 		g.dispose();
 		bs.show();
 	}
-	
+
 	public void tick() {
-		
+
 	}
-	
+
 	public void run() {
 		requestFocus();
 		long lastTime = System.nanoTime();
@@ -93,4 +101,12 @@ public class Game extends Canvas implements Runnable, Constants{
 		}
 	}
 
+	public static int clamp(int x, int max, int min) {
+		if(x<min)
+			return min;
+		if(x> max) 
+			return max;
+		
+		return x;
+	}
 }

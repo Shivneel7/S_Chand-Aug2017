@@ -7,7 +7,7 @@ public class Board implements Constants{
 		board = new Tile[4][4];
 		for(int row = 0; row < board.length; row++) {
 			for(int col = 0; col < board[row].length; col++) {
-				board[row][col] = new Tile(row * TILE_LENGTH, col * TILE_LENGTH, true);
+				board[row][col] = new Tile(row * TILE_LENGTH, col * TILE_LENGTH);
 			}
 		}
 	}
