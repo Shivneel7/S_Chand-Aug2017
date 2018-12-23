@@ -21,7 +21,7 @@ public class Game extends Canvas implements Runnable, Constants {
 
 		board = new Board();
 
-		this.addKeyListener(new KeyInput());
+		this.addKeyListener(new KeyInput(board));
 
 		r = new Random();
 
