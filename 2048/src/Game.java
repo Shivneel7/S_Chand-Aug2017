@@ -39,8 +39,10 @@ public class Game extends Canvas implements Runnable, Constants {
 		}
 		Graphics g = bs.getDrawGraphics();
 		/////////////////////////////////////
+		
 		g.setColor(Color.lightGray);
 		g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+		
 		/////////////////////////////////////
 		
 		board.render(g);
