@@ -22,19 +22,22 @@ public class Tile implements Constants{
 	}
 
 	public void render(Graphics g) {
-		g.setColor(getColor());
-		g.fillRect(row * TILE_LENGTH, col * TILE_LENGTH, TILE_LENGTH, TILE_LENGTH);
 		if(number != 0) {
+		g.setColor(getColor());
+		g.fillRect(col * TILE_LENGTH, row * TILE_LENGTH, TILE_LENGTH, TILE_LENGTH);
 			if(number == 2 || number == 4) {
 				g.setColor(new Color(117,101,87));
 			}else {
 				g.setColor(Color.white);
 			}
 			g.setFont(new Font(null, 0, 40));
-			g.drawString("" + number, row * TILE_LENGTH + TILE_LENGTH/2 - 15, col * TILE_LENGTH + TILE_LENGTH/2 - 20);
+			g.drawString("" + number, col * TILE_LENGTH + TILE_LENGTH/2 - 15, row * TILE_LENGTH + TILE_LENGTH/2 - 20);
 		}
-		g.setColor(Color.LIGHT_GRAY);
-		g.drawRect(row * TILE_LENGTH, col * TILE_LENGTH, TILE_LENGTH, TILE_LENGTH);
+		g.setColor(Color.BLACK);
+		g.drawRect(col * TILE_LENGTH, row * TILE_LENGTH, TILE_LENGTH, TILE_LENGTH);
+//		g.setFont(new Font(null, 0, 40));
+//		g.drawString(toString(), col * TILE_LENGTH, row * TILE_LENGTH + TILE_LENGTH/2 - 20);
+		
 	}
 
 	private Color getColor() {
@@ -92,7 +95,8 @@ public class Tile implements Constants{
 		this.col = col;
 	}
 	
-	
-
+	public String toString(){
+		return "(" + row + "," + col + ") N: " + number;
+	}
 
 }
