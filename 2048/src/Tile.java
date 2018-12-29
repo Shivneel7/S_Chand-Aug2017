@@ -6,35 +6,48 @@ import java.util.Random;
 public class Tile implements Constants{
 
 	private int number;
-	private int row, col;
+	private int x,y;
+	
+	private int changeY, changeX;
+
 	private Color c;
 
 	private Random r = new Random();
 
 	public Tile(int row, int col, int number) {
-		this.row = row;
-		this.col = col;
+		this.x = col * TILE_LENGTH;
+		this.y = row * TILE_LENGTH;
 		this.number = number;
 	}
 
-	public Tile (int x, int y) {
-		this(x,y,0);
+	public Tile (int row, int col) {
+		this(row,col,0);
 	}
-
+	
+	public void tick() {
+		if(changeY>0) {
+			y--;
+			changeY--;
+		}
+	}
+	
 	public void render(Graphics g) {
 		if(number != 0) {
 		g.setColor(getColor());
-		g.fillRect(col * TILE_LENGTH, row * TILE_LENGTH, TILE_LENGTH, TILE_LENGTH);
+		//g.fillRect(col * TILE_LENGTH, row * TILE_LENGTH, TILE_LENGTH, TILE_LENGTH);
+		g.fillRect(x, y, TILE_LENGTH, TILE_LENGTH);
 			if(number == 2 || number == 4) {
 				g.setColor(new Color(117,101,87));
 			}else {
 				g.setColor(Color.white);
 			}
 			g.setFont(new Font(null, 0, 40));
-			g.drawString("" + number, col * TILE_LENGTH + TILE_LENGTH/2 - 15, row * TILE_LENGTH + TILE_LENGTH/2 - 20);
-		}
+			//g.drawString("" + number, col * TILE_LENGTH + TILE_LENGTH/2 - 15, row * TILE_LENGTH + TILE_LENGTH/2 - 20);
+			g.drawString("" + number, x + TILE_LENGTH/2 - 15, y + TILE_LENGTH/2 - 20);
+			}
 		g.setColor(Color.BLACK);
-		g.drawRect(col * TILE_LENGTH, row * TILE_LENGTH, TILE_LENGTH, TILE_LENGTH);
+		//g.drawRect(col * TILE_LENGTH, row * TILE_LENGTH, TILE_LENGTH, TILE_LENGTH);
+		g.drawRect(x, y, TILE_LENGTH, TILE_LENGTH);
 //		g.setFont(new Font(null, 0, 40));
 //		g.drawString(toString(), col * TILE_LENGTH, row * TILE_LENGTH + TILE_LENGTH/2 - 20);
 		
@@ -80,23 +93,42 @@ public class Tile implements Constants{
 	}
 
 	public int getRow() {
-		return row;
+		return y / TILE_LENGTH;
 	}
 
 	public void setRow(int row) {
-		this.row = row;
+		this.y = row * TILE_LENGTH;
 	}
 
 	public int getCol() {
-		return col;
+		return x / TILE_LENGTH;
 	}
 
 	public void setCol(int col) {
-		this.col = col;
+		this.x = col * TILE_LENGTH;
 	}
 	
 	public String toString(){
-		return "(" + row + "," + col + ") N: " + number;
+		return "(" + getRow() + "," + getCol() + ") N: " + number;
 	}
-
+	
+	public int getY() {
+		return y;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void changeY(int y) {
+		changeY = this.y-y;
+	}
 }

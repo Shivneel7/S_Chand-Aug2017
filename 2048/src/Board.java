@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Board implements Constants {
@@ -33,7 +34,6 @@ public class Board implements Constants {
 		}
 		return y;
 	}
-
 	public void move(String direction) {
 		if (empty.size() == 0) {
 			System.out.println("You Lost M8"); // LOSE
@@ -140,11 +140,6 @@ public class Board implements Constants {
 							}
 							right = board[row][right.getCol() + 1];
 						}
-//						if(right.getNumber() != 0 && right.getNumber()==line[j].getNumber()) {
-//							right.setNumber(right.getNumber()*2);
-//							line[j].setNumber(0);
-//							empty.add(line[j]);
-//						}
 					}
 				}
 			}
@@ -152,7 +147,7 @@ public class Board implements Constants {
 		//System.out.println(Arrays.toString(line));
 		return moved;
 	}
-
+	
 	/**
 	 * Make a tile either 2 or 4
 	 */
@@ -176,6 +171,14 @@ public class Board implements Constants {
 		for (Tile[] r : board) {
 			for (Tile tile : r) {
 				tile.render(g);
+			}
+		}
+	}
+	
+	public void tick() {
+		for (Tile[] r : board) {
+			for (Tile tile : r) {
+				tile.tick();
 			}
 		}
 	}

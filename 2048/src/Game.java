@@ -53,7 +53,7 @@ public class Game extends Canvas implements Runnable, Constants {
 	}
 
 	public void tick() {
-
+		board.tick();
 	}
 
 	public void run() {
