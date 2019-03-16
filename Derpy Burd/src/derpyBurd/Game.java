@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import ai.*;
 
 public class Game extends Canvas implements Runnable{
 
@@ -20,23 +21,27 @@ public class Game extends Canvas implements Runnable{
 	
 	private static Background background1 = new Background(0, SPEED);
 	private static Background background2 = new Background(WIDTH, SPEED);
-	
+	private static Population pop;
 	private static Pipe obstacle;// = new Pipe(background2);
 	
 	private static Bird bird; // = new Bird(40, 280, obstacle, this);
 	
-	public enum STATE{Menu, Game, Loss, Paused, Options};
-
+	public enum STATE{Menu, Game, Loss, Paused, Options, AI};
+	
+	public static boolean AI = false;
+	
 	public static STATE gameState = STATE.Menu;
 	
 	public Game() {
 		menu = new Menu(this);
 		obstacle = new Pipe(background2);
-		bird = new Bird(40, 280, obstacle);
+				
 
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
-		
+
+		bird = new Bird(40, 280, obstacle);
+
 		new Window(WIDTH, HEIGHT, "Derpy Burd" , this);
 		
 		this.addKeyListener(new KeyInput(bird, this));
@@ -102,7 +107,15 @@ public class Game extends Canvas implements Runnable{
 			menu.render(g);
 		}else{
 			obstacle.render(g);
-			bird.render(g);
+			
+			if(AI) {
+				if(pop == null)
+					pop = new Population(10,obstacle);
+				pop.render(g);
+			}
+			else
+				bird.render(g);
+			
 			g.setColor(Color.white);
 			//g.drawString("Score: " + score, 10, HEIGHT - 45);
 			if(gameState == STATE.Paused) {
@@ -127,7 +140,9 @@ public class Game extends Canvas implements Runnable{
 			menu.tick();
 		}else if(gameState == STATE.Game){
 			bird.tick();
-			obstacle.tick();
+			obstacle.tick();		
+			if(AI)
+				pop.tick();
 		}
 	}
 
@@ -146,4 +161,5 @@ public class Game extends Canvas implements Runnable{
 		background1.setSpeed(SPEED);
 		background2.setSpeed(SPEED);
 	}
+	
 }

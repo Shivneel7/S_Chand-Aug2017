@@ -12,7 +12,7 @@ public class Menu extends MouseAdapter{
 	
 	private Game game;
 	private Audio[] sounds = new Audio[4];
-	private boolean[] hovering = new boolean[7];
+	private boolean[] hovering = new boolean[8];
 	
 	public static boolean soundsOn = true;//default value of the sound.
 	
@@ -55,6 +55,9 @@ public class Menu extends MouseAdapter{
 				}
 				Game.SPEED = 7;
 				startGame();
+			}else if(getClick(mx,my, Game.WIDTH-50, 0, 40,40)) { //AI
+				Game.AI = true;
+				soundsOn = false;
 			}
 		}
 		else if(Game.gameState == STATE.Loss) {
@@ -65,10 +68,10 @@ public class Menu extends MouseAdapter{
 			if(getClick(mx, my, Game.WIDTH/2 - 45, Game.HEIGHT - 110, 100, 40)) {//Back
 				Game.gameState = STATE.Menu;
 			}
-			if(getClick(mx, my, 210 , 48, 60, 40)) {
+			if(getClick(mx, my, 210 , 48, 60, 40)) { // sound on
 				soundsOn = true;
 			}
-			if(getClick(mx, my, 312 , 48, 60, 40)) {
+			if(getClick(mx, my, 312 , 48, 60, 40)) { // sound off
 				soundsOn = false;
 			}
 		}
@@ -93,6 +96,9 @@ public class Menu extends MouseAdapter{
 			if(getClick(mx, my, Game.WIDTH - 102, Game.HEIGHT - 102, 80, 50)) //options
 				hovering[4] = true; else hovering[4] = false;
 			
+			if(getClick(mx,my, Game.WIDTH-50, 0, 40,40)) //AI
+				hovering[7] = true; else hovering[7] = false;
+				
 		}else if(Game.gameState == STATE.Loss) {
 			if(getClick(mx, my, Game.WIDTH/2 - 150, 195, 300, 100)) //Return to menu
 				hovering[5] = true; else hovering[5] = false;
@@ -174,6 +180,14 @@ public class Menu extends MouseAdapter{
 			g.setColor(Color.cyan);
 			if(hovering[4]) g.setColor(Color.orange);
 			g.drawString("options", Game.WIDTH- 97, Game.HEIGHT - 70);
+			
+			//AI
+			g.setFont(new Font("Arial", 1, 35));
+			g.setColor(Color.black);
+			g.fillRect(Game.WIDTH-50, 0, 40, 40);
+			g.setColor(Color.cyan);
+			if(hovering[7]) g.setColor(Color.orange);
+			g.drawString("AI", Game.WIDTH-45, 35);
 		
 		}else if(Game.gameState == STATE.Options) {//options
 			//Back
