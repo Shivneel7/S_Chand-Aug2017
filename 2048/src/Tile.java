@@ -35,6 +35,7 @@ public class Tile implements Constants{
 		if(number != 0) {
 		g.setColor(getColor());
 		//g.fillRect(col * TILE_LENGTH, row * TILE_LENGTH, TILE_LENGTH, TILE_LENGTH);
+		
 		g.fillRect(x, y, TILE_LENGTH, TILE_LENGTH);
 			if(number == 2 || number == 4) {
 				g.setColor(new Color(117,101,87));
