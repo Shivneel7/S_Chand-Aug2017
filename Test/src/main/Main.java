@@ -2,7 +2,10 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
@@ -35,10 +38,23 @@ public class Main {
 //		System.out.println(test);
 //		keepEvens(test);
 //		System.out.println(test);
-		int i = 7;
-		System.out.println(i++);
-		//i=8
-		System.out.println(++i);
+		
+		maps();
+		//System.out.println(null>0);
+	}
+	
+	public static void maps() {
+		
+		Map<List<Integer>, List<Integer>> lampMap = new HashMap();
+		
+		List<Integer> temp = new ArrayList<>();
+		temp.add(5);
+		temp.add(4);
+		lampMap.put(temp, temp);
+		List<Integer> test = new ArrayList<>();
+		test.add(5);
+		test.add(4);
+		System.out.println(lampMap.containsKey(test));
 	}
 	
 	public static void keepEvens(ArrayList<Integer> list) {
