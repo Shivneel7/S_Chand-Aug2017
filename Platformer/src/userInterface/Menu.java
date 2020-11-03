@@ -90,6 +90,8 @@ public class Menu extends MouseAdapter implements Constants{
 				handler.player.setInvincible(false);
 				handler.player.setFly(false);
 				handler.player.setNoClip(false);
+			}else if(getClick(mx, my, 700,300,50,50)) {
+				handler.player.yObama();
 			}
 		}else if(Game.gameState == STATE.Loss) {
 			if(getClick(mx, my, 200, 200, 200, 200)) {
@@ -117,6 +119,9 @@ public class Menu extends MouseAdapter implements Constants{
 			
 			g.drawRect(400,300,50,50);
 			g.drawString("No Cheats" , 400, 300);
+			
+			g.drawRect(700,300,50,50);
+			g.drawString("DLC" , 700, 300);
 			
 		}else if(Game.gameState == STATE.Loss) {
 			g.setColor(Color.white);

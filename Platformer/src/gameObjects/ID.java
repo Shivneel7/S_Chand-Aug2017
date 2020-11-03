@@ -6,6 +6,7 @@ public enum ID {
 	TransparentBlock,
 	DeathBlock,
 	Goal,
+	TextBlock,
 	Checkpoint,
 	Shooter,
 	SmartEnemy,
@@ -19,6 +20,6 @@ public enum ID {
 	PlayerBullet,
 	Coin, 
 	HealthUpgrade,
-	AmmoUpgrade,
+	AmmoUpgrade, 
 	;
 }

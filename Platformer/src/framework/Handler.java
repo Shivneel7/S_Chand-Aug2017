@@ -11,6 +11,8 @@ import java.util.Scanner;
 import blocks.Block;
 import blocks.Checkpoint;
 import blocks.DeathBlock;
+import blocks.Goal;
+import blocks.TextBlock;
 import blocks.TransparentBlock;
 import enemies.Enemy;
 import enemies.Jumper;
@@ -20,7 +22,6 @@ import enemies.SmartJumper;
 import framework.Game.STATE;
 import gameObjects.Coin;
 import gameObjects.GameObject;
-import gameObjects.Goal;
 import gameObjects.ID;
 import gameObjects.Knife;
 import gameObjects.Player;
@@ -134,6 +135,9 @@ public class Handler {
 				}
 				if(red == 128 && green == 128 & blue == 128) {
 					addObject(new TransparentBlock(xx*32, yy*32, ID.TransparentBlock));
+				}
+				if(red == 255 && green == 128 & blue == 255) {
+					addObject(new TextBlock(xx*32, yy*32, ID.TextBlock));
 				}
 				
 				//ENEMIES

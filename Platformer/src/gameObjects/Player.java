@@ -2,17 +2,19 @@ package gameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import blocks.Checkpoint;
+import framework.BufferedImageLoader;
 import framework.Game;
-import framework.Handler;
 import framework.Game.STATE;
+import framework.Handler;
 import userInterface.HUD;
 
 public class Player extends GameObject{
+	private BufferedImage yobama;
 
 	private int width = PLAYER_WIDTH, height = PLAYER_HEIGHT;
 	private float gravity = GRAVITY;
@@ -25,7 +27,7 @@ public class Player extends GameObject{
 
 	//Cheats for testing
 	private boolean permInvincible = false, fly = false, noClip = false;
-
+	private boolean yObama = false;
 	private Handler handler;
 	private HUD hud;
 	private Checkpoint cp;//for switching levels
@@ -36,6 +38,8 @@ public class Player extends GameObject{
 		super(x, y, id);
 		this.handler = handler;
 		this.hud = hud;
+		BufferedImageLoader loader = new BufferedImageLoader();
+		yobama = loader.loadImage("/yobama.png");
 
 	}
 
@@ -64,7 +68,7 @@ public class Player extends GameObject{
 		}
 
 		
-		if(y > 1400) { // for death by falling through map
+		if(y > 1400) { // y = 40 and above is death by falling through map
 			Game.gameState = STATE.Loss;
 		}
 		
@@ -197,16 +201,19 @@ public class Player extends GameObject{
 			g.drawLine((int) x + width, (int) y + 20, (int)x + width - 10, (int) y + 20);
 
 		}
-
+		
+		if(yObama)
+			g.drawImage(yobama, (int) (x), (int) y, 48, 48, null);
+		
 		//Bounding Boxes
-		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.red);
-		g2d.draw(getBoundsBottom());
-		g2d.draw(getBoundsTop());
-		g2d.draw(getBoundsLeft());
-		g2d.draw(getBoundsRight());
-		if(punching)
-			g2d.draw(getBoundsFist());
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.red);
+//		g2d.draw(getBoundsBottom());
+//		g2d.draw(getBoundsTop());
+//		g2d.draw(getBoundsLeft());
+//		g2d.draw(getBoundsRight());
+//		if(punching)
+//			g2d.draw(getBoundsFist());
 	}
 
 	public void punch() {
@@ -294,6 +301,10 @@ public class Player extends GameObject{
 
 	public void setPunching(boolean punching) {
 		this.punching = punching;
+	}
+
+	public void yObama() {
+		yObama = true;
 	}
 
 }

@@ -58,6 +58,7 @@ public interface Constants {
 	
 	public static final Color DEATH_BLOCK_COLOR = Color.red;
 	public static final Color GOAL_COLOR = Color.green;
+	public static final Color TEXT_BLOCK_COLOR = Color.pink;
 	
 	//Coin
 	public static final int COIN_SIZE = 8;
