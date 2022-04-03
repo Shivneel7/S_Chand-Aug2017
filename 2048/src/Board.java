@@ -79,7 +79,9 @@ public class Board implements Constants {
 							}
 							up = board[up.getRow() - 1][column];
 						}
-					}					
+						//if the tile moves up and hits the same number combine
+						combine(up, line[i]);
+					}
 				}
 			} else {
 				for (int i = line.length - 2; i >= 0; i--) {
@@ -98,6 +100,7 @@ public class Board implements Constants {
 							}
 							lower = board[lower.getRow() + 1][column];
 						}
+						combine(lower, line[i]);
 					}
 				}
 			}
@@ -121,6 +124,7 @@ public class Board implements Constants {
 							}
 							right = board[row][right.getCol() - 1];
 						}
+						combine(right, line[i]);
 					}
 				}
 			} else {
@@ -140,6 +144,7 @@ public class Board implements Constants {
 							}
 							right = board[row][right.getCol() + 1];
 						}
+						combine(right, line[i]);
 					}
 				}
 			}
@@ -148,6 +153,16 @@ public class Board implements Constants {
 		return moved;
 	}
 	
+	
+	public void combine(Tile one, Tile two) {
+		if(one.getNumber() == two.getNumber()) {
+			System.out.println("bruh");
+			//combine
+			one.setNumber(one.getNumber()*2);
+			two.setNumber(0);
+			empty.add(two);
+		}
+	}
 	/**
 	 * Make a tile either 2 or 4
 	 */
