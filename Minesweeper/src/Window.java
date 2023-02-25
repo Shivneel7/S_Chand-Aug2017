@@ -16,9 +16,11 @@ public class Window extends Canvas {
 	
 	public Window(String name, int width, int height, Game game) {
 		frame = new JFrame(name);
-		frame.setResizable(false);
-		game.setPreferredSize(new Dimension(width, height + 20));
 		frame.add(game);
+
+		frame.setResizable(false);
+		frame.setVisible(true);
+		game.setPreferredSize(new Dimension(width, height + 20));
 		frame.pack();
 		recenter();
 		// frame.setLocation(1450, 100); //for my second monitor at home.

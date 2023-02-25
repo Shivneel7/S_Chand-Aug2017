@@ -8,6 +8,9 @@ import java.util.Random;
 public class Handler implements Constants{
 	private Random r;
 	private SpriteSheet ss;
+	private static int o = 2;
+	private static int w = 58;
+	private static int h = 78;
 	/**
 	 * 14 decks
 	 * @indices
@@ -68,18 +71,17 @@ public class Handler implements Constants{
 	
 	public ArrayList<Card> getFreshDeck(){
 		ArrayList<Card> allCards = new ArrayList<>();
-		
 		for(int i = 1; i <= 13; i ++) {
-			allCards.add(new Card(0, 0, Suit.SPADE, i, ss.grabCardGraphic(i, 2, 60, 80)));
+			allCards.add(new Card(0, 0, Suit.SPADE, i, ss.grabCardGraphic(i, 2, w, h, o)));
 		}
 		for(int i = 1; i <= 13; i ++) {
-			allCards.add(new Card(0, 0, Suit.CLUB, i, ss.grabCardGraphic(i, 1, 60, 80)));
+			allCards.add(new Card(0, 0, Suit.CLUB, i, ss.grabCardGraphic(i, 1, w, h, o)));
 		}
 		for(int i = 1; i <= 13; i ++) {
-			allCards.add(new Card(0, 0, Suit.HEART, i, ss.grabCardGraphic(i, 3, 60, 80)));
+			allCards.add(new Card(0, 0, Suit.HEART, i, ss.grabCardGraphic(i, 3, w, h, o)));
 		}
 		for(int i = 1; i <= 13; i ++) {
-			allCards.add(new Card(0, 0, Suit.DIAMOND, i, ss.grabCardGraphic(i, 4, 60, 80)));
+			allCards.add(new Card(0, 0, Suit.DIAMOND, i, ss.grabCardGraphic(i, 4, w, h, o)));
 		}
 		
 		return allCards;

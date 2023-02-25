@@ -84,7 +84,7 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 		}
 		/////////////////////////////////////////////////////
 		g.dispose();
-		bs.show();
+		
 	}
 
 	private void tick() {
@@ -147,61 +147,68 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 	public void resetBoard() {
 		loss = false;
 		win = false;
-		window.setVisibility(false);
-		String[] options = { "10x10", "15x15", "15x30", "Custom" };
-		int option = JOptionPane.showOptionDialog(null, "Select difficulty", "Options", JOptionPane.DEFAULT_OPTION,
-				JOptionPane.DEFAULT_OPTION, null, options, "10");
-		if (option == 0) {
-			numRow = 10;
+		window.setVisibility(true);
+
+		// String[] options = { "10x10", "15x15", "15x30", "Custom" };
+		// int option = JOptionPane.showOptionDialog(null, "Select difficulty", "Options", JOptionPane.DEFAULT_OPTION,
+		// 		JOptionPane.DEFAULT_OPTION, null, options, "10");
+		// if (option == 0) {
+		// 	numRow = 10;
+		// 	numCol = 10;
+		// 	numMines = 15;
+		// } else if (option == 1) {
+		// 	numRow = 15;
+		// 	numCol = 15;
+		// 	numMines = 45;
+		// } else if (option == 2) {
+		// 	numRow = 15;
+		// 	numCol = 30;
+		// 	numMines = 99;
+		// } else if (option == 3) {
+		// 	Object tempRow = JOptionPane.showInputDialog(null, "How many rows would you like?", "Options",
+		// 			JOptionPane.DEFAULT_OPTION, null, null, "" + numRow);
+		// 	if (tempRow != null) {
+		// 		try {
+		// 			numRow = Integer.parseInt(tempRow.toString());
+		// 		} catch (NumberFormatException e) {
+		// 			JOptionPane.showMessageDialog(null, "Did not enter a number, default value used instead.", "Error",
+		// 					JOptionPane.ERROR_MESSAGE);
+		// 			numRow = NUM_ROW;
+		// 		}
+		// 	}
+		// 	Object tempCol = JOptionPane.showInputDialog(null,
+		// 			"How many columns would you like?\nPlease enter a digit 7 or greater.", "Options",
+		// 			JOptionPane.DEFAULT_OPTION, null, null, "" + numCol);
+		// 	if (tempCol != null) {
+		// 		try {
+		// 			numCol = clampMin(Integer.parseInt(tempCol.toString()), 7);
+		// 		} catch (NumberFormatException e) {
+		// 			JOptionPane.showMessageDialog(null, "Did not enter a number, default value used instead.", "Error",
+		// 					JOptionPane.ERROR_MESSAGE);
+		// 			numCol = NUM_COL;
+		// 		}
+		// 	}
+		// 	Object tempMines = JOptionPane.showInputDialog(null, "How many mines would you like?", "Options",
+		// 			JOptionPane.DEFAULT_OPTION, null, null, "" + numMines);
+		// 	if (tempMines != null) {
+		// 		try {
+		// 			numMines = clamp(Integer.parseInt(tempMines.toString()), 0, numRow * numCol);
+		// 		} catch (NumberFormatException e) {
+		// 			JOptionPane.showMessageDialog(null, "Did not enter a number, default value used instead.", "Error",
+		// 					JOptionPane.ERROR_MESSAGE);
+		// 			numMines = NUM_MINES;
+		// 		}
+		// 	}
+		// }
+
+					numRow = 10;
 			numCol = 10;
 			numMines = 15;
-		} else if (option == 1) {
-			numRow = 15;
-			numCol = 15;
-			numMines = 45;
-		} else if (option == 2) {
-			numRow = 15;
-			numCol = 30;
-			numMines = 99;
-		} else if (option == 3) {
-			Object tempRow = JOptionPane.showInputDialog(null, "How many rows would you like?", "Options",
-					JOptionPane.DEFAULT_OPTION, null, null, "" + numRow);
-			if (tempRow != null) {
-				try {
-					numRow = Integer.parseInt(tempRow.toString());
-				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(null, "Did not enter a number, default value used instead.", "Error",
-							JOptionPane.ERROR_MESSAGE);
-					numRow = NUM_ROW;
-				}
-			}
-			Object tempCol = JOptionPane.showInputDialog(null,
-					"How many columns would you like?\nPlease enter a digit 7 or greater.", "Options",
-					JOptionPane.DEFAULT_OPTION, null, null, "" + numCol);
-			if (tempCol != null) {
-				try {
-					numCol = clampMin(Integer.parseInt(tempCol.toString()), 7);
-				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(null, "Did not enter a number, default value used instead.", "Error",
-							JOptionPane.ERROR_MESSAGE);
-					numCol = NUM_COL;
-				}
-			}
-			Object tempMines = JOptionPane.showInputDialog(null, "How many mines would you like?", "Options",
-					JOptionPane.DEFAULT_OPTION, null, null, "" + numMines);
-			if (tempMines != null) {
-				try {
-					numMines = clamp(Integer.parseInt(tempMines.toString()), 0, numRow * numCol);
-				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(null, "Did not enter a number, default value used instead.", "Error",
-							JOptionPane.ERROR_MESSAGE);
-					numMines = NUM_MINES;
-				}
-			}
-		}
 		gameHeight = numRow * TILE_LENGTH + UI_DIS;
 		gameWidth = numCol * TILE_LENGTH;
 
+		window.changeSize(new Dimension(gameWidth, gameHeight), this);
+		window.setVisibility(true);
 		board = new Board(numRow, numCol, numMines, this);
 		for (MouseListener m : getMouseListeners()) {
 			this.removeMouseListener(m);
@@ -209,8 +216,6 @@ public class Game extends Canvas implements Runnable, Constants, ActionListener 
 		addMouseListener(new MouseHandler(window, board));
 		startTime = System.currentTimeMillis();
 
-		window.changeSize(new Dimension(gameWidth, gameHeight), this);
-		window.setVisibility(true);
 	}
 
 	public void end() {

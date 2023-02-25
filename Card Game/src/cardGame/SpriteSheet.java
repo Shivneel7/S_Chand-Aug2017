@@ -15,7 +15,7 @@ public class SpriteSheet implements Constants {
 		}
 	}
 	
-	public BufferedImage grabCardGraphic(int col, int row, int width, int height) {
-		return ss.getSubimage(col * width - width, row * height - height, width, height);
+	public BufferedImage grabCardGraphic(int col, int row, int width, int height, int offset) {
+		return ss.getSubimage(col * width - width + offset * (col - 1), row * height - height + offset * (row - 1), width, height);
 	}
 }
