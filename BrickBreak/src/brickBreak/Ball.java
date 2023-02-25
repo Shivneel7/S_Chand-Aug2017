@@ -56,8 +56,6 @@ public class Ball {
 	public void render(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.fillOval(x, y, ball_thicc, ball_thicc);
-		g.setColor(Color.BLUE);
-		g.drawRect(x, y, ball_thicc, ball_thicc);
 	}
 
 }

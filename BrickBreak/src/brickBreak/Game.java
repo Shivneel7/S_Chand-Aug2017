@@ -27,7 +27,9 @@ public class Game extends Canvas implements Runnable {
 		new Window(WIDTH, HEIGHT, "Shiv's Shitty Shirtless Shindig", this);
 		paddle = new Paddle(WIDTH, HEIGHT, PADDLE_THICC, PADDLE_WIDTH);
 		this.addKeyListener(paddle);
+		
 		ball = new Ball(WIDTH, BALL_RAD, HEIGHT, paddle);
+
 	}
 
 	public static void main(String[] args) {

@@ -11,7 +11,6 @@ public class Window extends Canvas{
 	public Window(int width, int height, String title, Game game) {
 		JFrame frame = new JFrame(title);
 		frame.add(game);
-		game.requestFocus();
 		frame.setSize(width, height);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -19,5 +18,7 @@ public class Window extends Canvas{
 		frame.setVisible(true);
 		
 		game.start();
+		game.requestFocus();
+
 	}
 }
