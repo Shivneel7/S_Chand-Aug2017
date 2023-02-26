@@ -6,22 +6,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 
-public class Paddle implements KeyListener {
+public class Paddle extends Rect implements KeyListener {
 
-	private int x;
-	private int y;
-	private int paddle_W;
-	private int paddle_THICC;
 	private int window_width;
 	private int  dx;
 	private boolean keyDown[];
 	private int speed = 10;
 	
 	public Paddle(int window_width, int window_height, int paddle_thicc, int paddle_width) {
-		this.x = window_width/2-paddle_width/2;
-		this.y = window_height - 100;
-		this.paddle_THICC = paddle_thicc;
-		this.paddle_W = paddle_width;
+		super(window_width/2 - paddle_width/2, window_height - 100, paddle_width, paddle_thicc);
 		this.window_width = window_width;
 		keyDown = new boolean[2];
 	}
@@ -35,19 +28,18 @@ public class Paddle implements KeyListener {
 		if(x < 0){
 			x = 0;
 		}
-		if(x > window_width - paddle_W){
-			x = window_width - paddle_W;
+		if(x > window_width - width){
+			x = window_width - width;
 		}
 	}
 
 	public void render(Graphics g) {
 		g.setColor(Color.blue);
-		g.fillRect(x, y, paddle_W, paddle_THICC);
+		g.fillRect(x, y, width, height);
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -83,35 +75,4 @@ public class Paddle implements KeyListener {
 		return (KeyEvent.getKeyText(e.getKeyCode())).equals(""+key);
 	}
 
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public int getPaddle_W() {
-		return paddle_W;
-	}
-
-	public void setPaddle_W(int paddle_W) {
-		this.paddle_W = paddle_W;
-	}
-
-	public int getPaddle_THICC() {
-		return paddle_THICC;
-	}
-
-	public void setPaddle_THICC(int paddle_THICC) {
-		this.paddle_THICC = paddle_THICC;
-	}
 }

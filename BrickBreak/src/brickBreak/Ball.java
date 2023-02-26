@@ -12,7 +12,6 @@ public class Ball {
 	private int window_width, window_height;
 	private float dx = 10, dy = 10;
 	private Paddle paddle;
-	private int changing;
 
 	public Ball(int window_width, int ball_thicc, int window_height, Paddle p) {
 		this.ball_thicc = ball_thicc;
@@ -39,18 +38,9 @@ public class Ball {
 		if (y < 0) {
 			dy *= -1;
 		}
-		if (x + 2 * ball_thicc > paddle.getX() && x - ball_thicc < paddle.getX() + paddle.getPaddle_W()) {
-			if (y + ball_thicc > paddle.getY() && y + ball_thicc < paddle.getY() + paddle.getPaddle_THICC()) {
-				if (changing <= 0) {
-					dy *= -1;
-					changing = (int) (paddle.getPaddle_W() / dx);
-				}
-			}
+		if (checkCollision(paddle)) {
+			dy *= -1;
 		}
-		if (changing > 0) {
-			changing--;
-		}
-
 	}
 
 	public void render(Graphics g) {
@@ -58,4 +48,8 @@ public class Ball {
 		g.fillOval(x, y, ball_thicc, ball_thicc);
 	}
 
+	public boolean checkCollision(Rect r) {
+		return (x + 2 * ball_thicc > r.getX() && x - ball_thicc < r.getX() + r.getWidth()) &&
+				(y + ball_thicc > r.getY() && y + ball_thicc < r.getY() + r.getHeight());
+	}
 }

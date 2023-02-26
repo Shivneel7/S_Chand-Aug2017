@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
+import brickBreak.bricks.BrickHandler;
+
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = -3060582566322707434L;
@@ -16,7 +18,7 @@ public class Game extends Canvas implements Runnable {
 
 	private Paddle paddle; // = new Bird(40, 280, obstacle, this);
 	private Ball ball;
-
+	private BrickHandler bh;
 
 	public Game() {
 		// menu = new Menu(this);
@@ -27,8 +29,10 @@ public class Game extends Canvas implements Runnable {
 		new Window(WIDTH, HEIGHT, "Shiv's Shitty Shirtless Shindig", this);
 		paddle = new Paddle(WIDTH, HEIGHT, PADDLE_THICC, PADDLE_WIDTH);
 		this.addKeyListener(paddle);
-		
+	
 		ball = new Ball(WIDTH, BALL_RAD, HEIGHT, paddle);
+
+		bh = new BrickHandler(WIDTH, HEIGHT, ball);
 
 	}
 
@@ -90,6 +94,7 @@ public class Game extends Canvas implements Runnable {
 		//////////////////////////////
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		bh.render(g);
 		paddle.render(g);
 		ball.render(g);
 
@@ -101,6 +106,7 @@ public class Game extends Canvas implements Runnable {
 	public void tick() {
 		paddle.tick();
 		ball.tick();
+		bh.tick();
 	}
 
 }
