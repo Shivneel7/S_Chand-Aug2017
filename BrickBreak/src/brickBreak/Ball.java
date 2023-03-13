@@ -22,10 +22,6 @@ public class Ball {
 		this.x = rand.nextInt(window_width);
 	}
 
-	public void setdx(int dy) {
-		this.dx = dy;
-	}
-
 	public void tick() {
 
 		if (true) {
@@ -51,5 +47,21 @@ public class Ball {
 	public boolean checkCollision(Rect r) {
 		return (x + 2 * ball_thicc > r.getX() && x - ball_thicc < r.getX() + r.getWidth()) &&
 				(y + ball_thicc > r.getY() && y + ball_thicc < r.getY() + r.getHeight());
+	}
+
+	public float getDx() {
+		return dx;
+	}
+
+	public void setDx(float dx) {
+		this.dx = dx;
+	}
+
+	public float getDy() {
+		return dy;
+	}
+
+	public void setDy(float dy) {
+		this.dy = dy;
 	}
 }

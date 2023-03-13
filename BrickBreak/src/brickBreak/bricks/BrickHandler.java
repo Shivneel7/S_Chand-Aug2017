@@ -53,6 +53,7 @@ public class BrickHandler {
         for (Iterator<Brick> i = bricks.iterator(); i.hasNext();) {
             Brick b = i.next();
             if (ball.checkCollision(b)) {
+                ball.setDy(ball.getDy()*-1);
                 i.remove();
             }
         }
